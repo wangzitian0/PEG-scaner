@@ -25,9 +25,9 @@
 - **[重构说明](docs/REFACTORING.md)** - 项目重构记录
 - **[重构总结](docs/REFACTORING_SUMMARY.md)** - 重构成果汇总
 - **[合规性总结](docs/COMPLIANCE_SUMMARY.md)** - agent.md合规检查
-- **[Phase管理](docs/phases/)** - 分阶段计划和总结
-  - [Phase 1: Data Collection](docs/phases/phase_1_data_collection/) - ✅ 完成
-  - [Phase 2: Backtest](docs/phases/phase_2_backtest/) - 📝 计划中
+- **[Phase管理](docs/phrases/)** - 分阶段计划和总结
+  - [Phase 1: Data Collection](docs/phrases/phase_1_data_collection/) - ✅ 完成
+  - [Phase 2: Backtest](docs/phrases/phase_2_backtest/) - 📝 计划中
 
 ---
 

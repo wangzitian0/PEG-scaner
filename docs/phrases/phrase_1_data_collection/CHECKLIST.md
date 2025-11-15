@@ -69,9 +69,9 @@
 ### 迭代文档
 - [x] docs/ITERATION_SUMMARY.md
 - [x] docs/FINAL_REPORT.md
-- [x] docs/phases/phase_1_data_collection/PLAN.md
-- [x] docs/phases/phase_1_data_collection/CHECKLIST.md
-- [x] docs/phases/phase_1_data_collection/SUMMARY.md
+- [x] docs/phrases/phase_1_data_collection/PLAN.md
+- [x] docs/phrases/phase_1_data_collection/CHECKLIST.md
+- [x] docs/phrases/phase_1_data_collection/SUMMARY.md
 
 ---
 

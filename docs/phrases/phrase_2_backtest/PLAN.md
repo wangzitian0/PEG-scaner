@@ -132,8 +132,8 @@ class BacktestResult:
 
 ### 文档
 - [ ] `backtest/README.md` (更新)
-- [ ] `docs/phases/phase_2_backtest/CHECKLIST.md`
-- [ ] `docs/phases/phase_2_backtest/SUMMARY.md`
+- [ ] `docs/phrases/phase_2_backtest/CHECKLIST.md`
+- [ ] `docs/phrases/phase_2_backtest/SUMMARY.md`
 
 ### 数据结果
 - [ ] `data/results/backtest_*.md`
