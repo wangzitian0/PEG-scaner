@@ -1,0 +1,192 @@
+[project]
+name = "peg-scanner"
+version = "1.0.0"
+description = "PEG指标分析系统：科技股估值分析与回测工具"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+keywords = ["finance", "peg-ratio", "stock-valuation", "backtesting", "quantitative-trading"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+dependencies = [
+    # 数据获取
+    "yfinance>=0.2.38",
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.0",
+    
+    # 数据处理
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+    
+    # 配置管理
+    "pyyaml>=6.0.1",
+    "python-dotenv>=1.0.0",
+    
+    # 日期处理
+    "python-dateutil>=2.8.2",
+    
+    # 数据验证
+    "pydantic>=2.5.0",
+    
+    # 进度条
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+# 开发依赖
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.8.0",
+    "ipython>=8.20.0",
+    "ipdb>=0.13.13",
+]
+
+# 可视化依赖
+viz = [
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "plotly>=5.18.0",
+]
+
+# 数据源扩展
+datasource = [
+    "alpha-vantage>=2.3.1",
+    "pandas-datareader>=0.10.0",
+]
+
+# 定时任务
+scheduler = [
+    "schedule>=1.2.0",
+    "apscheduler>=3.10.0",
+]
+
+# Web界面（未来功能）
+web = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "jinja2>=3.1.0",
+]
+
+# 全部依赖
+all = [
+    "peg-scanner[dev,viz,datasource,scheduler]",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/peg-scanner"
+Documentation = "https://github.com/yourusername/peg-scanner/blob/main/README.md"
+Repository = "https://github.com/yourusername/peg-scanner"
+Issues = "https://github.com/yourusername/peg-scanner/issues"
+
+[project.scripts]
+peg-scan = "data_collection.fetch_current_peg:main"
+peg-screen = "data_collection.screen_low_peg:main"
+peg-backtest = "backtest.run_single_backtest:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["data_collection", "backtest", "core"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--verbose",
+    "--cov=data_collection",
+    "--cov=backtest",
+    "--cov=core",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.pytest_cache
+  | __pycache__
+  | build
+  | dist
+  | cache
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C",   # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # unused imports
+"tests/*" = ["S101"]      # use of assert
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.coverage.run]
+source = ["data_collection", "backtest", "core"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/cache/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
