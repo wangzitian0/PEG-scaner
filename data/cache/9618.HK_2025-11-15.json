@@ -1,0 +1,16 @@
+{
+  "ticker": "9618.HK",
+  "date": "2025-11-15",
+  "price": 116.9,
+  "market_cap": 360790065152.0,
+  "ttm_profit": 32198000000.0,
+  "ttm_revenue": 1303787000000.0,
+  "shares_outstanding": 2584105173.0,
+  "growth_rate": 0.711383291264948,
+  "pe": 9.382008035396609,
+  "peg": 0.13188400895266975,
+  "currency": "HKD",
+  "data_source": "yfinance",
+  "confidence": "HIGH",
+  "error_message": null
+}

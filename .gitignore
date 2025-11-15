@@ -4,31 +4,14 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
 # Virtual Environment
 .venv/
 venv/
 ENV/
-env/
-.pyenv/
 
 # IDE
 .vscode/
@@ -42,42 +25,27 @@ env/
 .pytest_cache/
 .coverage
 .coverage.*
-htmlcov/
+htmlcov/          # 测试覆盖率报告
 .tox/
-.nox/
 coverage.xml
 *.cover
-.hypothesis/
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Environment variables
+# Environment
 .env
 .env.local
 
-# Project specific
-cache/
-results/
-logs/
+# Temporary files
+*.tmp
+*.bak
+*_backup.*
+
+# Logs
 *.log
 
-# Data files
-*.csv
-*.json
-!config.yaml
-!pyproject.toml
+# Data (some kept for development)
+data/raw/*.json
+data/processed/*.json
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Ruff
-.ruff_cache/
-
+# Build
+build/
+dist/

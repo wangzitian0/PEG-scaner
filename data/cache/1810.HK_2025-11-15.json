@@ -1,0 +1,16 @@
+{
+  "ticker": "1810.HK",
+  "date": "2025-11-15",
+  "price": 42.36,
+  "market_cap": 1132834193408.0,
+  "ttm_profit": 17002407000.0,
+  "ttm_revenue": 204843919000.0,
+  "shares_outstanding": 21530610634.0,
+  "growth_rate": 0.35381355022923094,
+  "pe": 53.641620651490115,
+  "peg": 1.5160985388133508,
+  "currency": "HKD",
+  "data_source": "yfinance",
+  "confidence": "HIGH",
+  "error_message": null
+}

@@ -1,0 +1,16 @@
+{
+  "ticker": "1211.HK",
+  "date": "2025-11-15",
+  "price": 100.6,
+  "market_cap": 971282186240.0,
+  "ttm_profit": 42133622000.0,
+  "ttm_revenue": 847256690000.0,
+  "shares_outstanding": 3683400000.0,
+  "growth_rate": 0.3399886574300541,
+  "pe": 8.794640062038816,
+  "peg": 0.258674513688685,
+  "currency": "HKD",
+  "data_source": "yfinance",
+  "confidence": "HIGH",
+  "error_message": null
+}

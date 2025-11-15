@@ -1,5 +1,8 @@
 """
 数据模型定义
+
+符合core/schemas/定义的数据结构
+详见：core/README.md
 """
 
 from dataclasses import dataclass, asdict
