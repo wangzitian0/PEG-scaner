@@ -1,410 +1,252 @@
-# PEG：科技公司最重要的估值指标
+# PEG-scaner 项目进度
 
-**上级文档**：[返回项目README](../README.md)
-
----
-
-## 📚 文档导航
-
-- **[本文档]** - PEG原理、策略回测、策略计算（完整技术文档）
-- **[快速开始](QUICKSTART.md)** - 5分钟快速上手指南
-- **[开发历程](ITERATION_SUMMARY.md)** - 三次迭代详解
-- **[重构记录](REFACTORING.md)** - SSOT和数据持久化重构
-- **[目录优化](STRUCTURE_REVIEW.md)** - 目录结构优化报告
-- **[最终报告](FINAL_REPORT.md)** - Phase 1 完成报告
+**项目状态**: 🚀 Phrase 1 完成，Phrase 2 准备中  
+**最后更新**: 2025-11-15
 
 ---
 
-## 目录
+## 📊 项目概览
 
-- [原理解释](#原理解释)
-- [策略回测](#策略回测)
-- [策略计算](#策略计算)
+**PEG-scaner** 是一个基于PEG指标的科技股估值和策略回测工具。
+
+### 核心功能
+1. ✅ **数据采集** - 多源获取股票财务数据和实时价格
+2. ✅ **PEG计算** - 自动计算美股+港股科技公司的PEG比率
+3. 🔄 **策略回测** - 基于PEG阈值的买卖策略回测（开发中）
+4. 📊 **结果展示** - 生成符合schema的CSV数据文件
 
 ---
 
-## 原理解释
+## 🎯 Phrase 进度
 
-### PEG指标的定义
+### ✅ Phrase 1: 数据采集模块 (100% 完成)
 
-PEG（Price/Earnings to Growth）比率是衡量股票估值的重要指标，其计算公式为：
+**完成时间**: 2025-11-15  
+**状态**: ✅ 已完成，可投入生产
 
-$$
-\text{PEG} = \frac{\text{PE Ratio}}{\text{EPS Growth Rate (\%)}}
-$$
+#### 核心交付物
+- ✅ 10个Python模块（数据获取、验证、格式化）
+- ✅ 2个数据源（yfinance + Alpha Vantage）
+- ✅ 55个测试用例（全部通过）
+- ✅ Schema-based数据组织
+- ✅ 数据质量验证和置信度评分
 
-其中：
-- \(\text{PE Ratio} = \frac{\text{Stock Price}}{\text{EPS}}\)（市盈率）
-- \(\text{EPS Growth Rate}\)：每股收益增长率（通常使用预期增长率）
+#### 实际数据产物
+- ✅ `x-data/stock_fundamental/stock_fundamental-mag7-yfinance-20251115.csv`
+- ✅ 11/14只股票成功获取PEG数据
+- ✅ 数据质量：HIGH confidence
 
-**核心理念**：PEG < 1 通常被认为是低估，PEG > 1 可能被高估。
+#### 文档
+- [Phrase 1 详细状态](phrases/phrase_1_data_collection/STATUS.md)
+- [完成度检查表](phrases/phrase_1_data_collection/CHECKLIST.md)
+- [实现计划](phrases/phrase_1_data_collection/PLAN.md)
+- [总结报告](phrases/phrase_1_data_collection/SUMMARY.md)
+- [第三数据源规划](phrases/phrase_1_data_collection/THIRD_DATA_SOURCE.md)
 
-### 数学原理与合理性
+---
 
-#### 1. 自由现金流折现模型（DCF）视角
+### 🔄 Phrase 2: 策略回测模块 (准备中)
 
-股票的内在价值等于未来自由现金流的折现值：
+**状态**: 📝 计划阶段
 
-$$
-V_0 = \sum_{t=1}^{\infty} \frac{FCF_t}{(1+r)^t}
-$$
+#### 目标
+- [ ] 获取历史月度数据（2000-2025）
+- [ ] 计算历史PEG值
+- [ ] 实现PEG策略回测引擎
+- [ ] 参数优化和敏感性分析
+- [ ] 生成回测报告
 
-对于成长型公司，假设利润以恒定增长率 \(g\) 增长，使用戈登增长模型：
+#### 回测标的
+- 个股：腾讯、微软、亚马逊
+- ETF：SP500、VGT、KWEB
 
-$$
-V_0 = \frac{FCF_1}{r - g}
-$$
+#### 文档
+- [Phrase 2 计划](phrases/phrase_2_backtest/PLAN.md)
 
-因此，PE比率可以表示为：
+---
 
-$$
-\text{PE} = \frac{P}{E} = \frac{1}{r - g}
-$$
+### 🔮 Phrase 3: 策略计算与筛选 (未开始)
 
-整理得：
+**状态**: ⏭️ 待启动
 
-$$
-\text{PEG} = \frac{\text{PE}}{g \times 100} = \frac{1}{g(r - g) \times 100}
-$$
+#### 目标
+- [ ] 获取VGT+KWEB完整成分股列表
+- [ ] 批量计算所有成分股PEG
+- [ ] 筛选：利润>$10M，PEG最低15家
+- [ ] 生成投资组合建议
 
-**结论**：PEG将估值与增长率挂钩，当PEG=1时，意味着支付的PE倍数与增长率匹配。
+---
 
-#### 2. 泰勒展开第一项近似
+## 📈 关键指标
 
-将价值函数 \(V(g)\) 在增长率 \(g\) 处泰勒展开：
+| 指标 | 数值 | 目标 | 状态 |
+|------|------|------|------|
+| **测试覆盖率** | 39% | 50%+ | 🟡 |
+| **测试通过率** | 100% (55/55) | 100% | ✅ |
+| **数据源数量** | 2个 | 3个 | 🟡 |
+| **代码模块** | 10个 | - | ✅ |
+| **文档完整性** | 100% | 100% | ✅ |
+| **Agent.md合规** | 90%+ | 100% | 🟢 |
 
-$$
-V(g) \approx V(g_0) + V'(g_0)(g - g_0)
-$$
+---
 
-对于 \(V = \frac{E}{r-g}\)，求导得：
+## 🏗️ 技术栈
 
-$$
-\frac{dV}{dg} = \frac{E}{(r-g)^2}
-$$
+### 核心技术
+- **语言**: Python 3.14
+- **包管理**: uv
+- **数据源**: yfinance, Alpha Vantage
+- **测试**: pytest (55个测试)
+- **Schema**: Pydantic
+- **数据格式**: CSV (schema-name-source-date)
 
-这表明价值对增长率的敏感度与PE的平方成正比。PEG指标通过归一化处理，使得不同增长率的公司估值具有可比性。
-
-#### 3. 风险调整视角
-
-$$
-\text{Expected Return} = \frac{E}{P} + g = \frac{1}{\text{PE}} + g
-$$
-
-当PEG=1时：
-
-$$
-\text{Expected Return} = \frac{g}{100} + g = g(1 + \frac{1}{100})
-$$
-
-这意味着投资者获得的预期回报与公司增长率相匹配。
-
-### 可视化理解
-
-```mermaid
-graph TD
-    A[股票价格] --> B[市盈率 PE]
-    C[每股收益 EPS] --> B
-    B --> D[PEG比率]
-    E[利润增长率 g%] --> D
-    D --> F{PEG < 1?}
-    F -->|是| G[可能低估，考虑买入]
-    F -->|否| H[可能高估，谨慎观望]
-    
-    style G fill:#90EE90
-    style H fill:#FFB6C1
+### 数据组织
+```
+x-data/
+├── stock_fundamental/    # 基本面数据（PE, PEG, 增长率）
+├── stock_daily/          # 日度行情
+├── etf_portfolio/        # ETF持仓
+├── backtest_result/      # 回测结果
+└── analysis_result/      # 分析结果
 ```
 
-```mermaid
-flowchart LR
-    A[高增长] --> B[高PE合理]
-    C[低增长] --> D[低PE才合理]
-    B --> E[PEG归一化]
-    D --> E
-    E --> F[统一标准]
-```
+---
 
-### 典型案例分析
+## 📚 文档结构
 
-#### 案例1：腾讯 <00700.HK>（2025-11-14收盘价）
+### 项目文档
+- **[本文档]** - One-page 宏观进度（你在这里）
+- [PEG理论文档](PEG_THEORY.md) - PEG原理、数学推导、案例分析
 
-| 指标 | 数值 | 说明 |
-|------|------|------|
-| **净利润** | ¥179.4B | 2024年TTM |
-| **利润增速** | 36.2% | YoY增长率 |
-| **TTM PE** | 21.5 | 当前市盈率 |
-| **PEG** | **0.59** | 明显低估 |
+### Phrase文档
+- [Phrase 1: 数据采集](phrases/phrase_1_data_collection/)
+  - STATUS.md - 完成状态报告
+  - SUMMARY.md - 总结
+  - CHECKLIST.md - 检查清单
+  - PLAN.md - 实现计划
+  - append_prompt.md - 提示词追溯
+  - THIRD_DATA_SOURCE.md - 第三数据源规划
+  
+- [Phrase 2: 策略回测](phrases/phrase_2_backtest/)
+  - PLAN.md - 回测计划
 
-**分析**：
-- 腾讯的PEG为0.59 < 1，显示当前估值相对于其增长率被低估
-- 尽管PE为21.5倍看似不低，但考虑到36.2%的高增长率，这个估值是合理甚至偏低的
-- 支撑因素：游戏业务复苏、AI应用落地、国际化拓展
-
-#### 案例2：亚马逊 <AMZN.US>（2025-11-14收盘价）
-
-| 指标 | 数值 | 说明 |
-|------|------|------|
-| **净利润** | $48.3B | 2024年TTM |
-| **利润增速** | 226% | YoY增长率（从低基数恢复） |
-| **TTM PE** | 42.8 | 当前市盈率 |
-| **PEG** | **0.19** | 极度低估 |
-
-**分析**：
-- PEG仅0.19，反映市场严重低估了亚马逊的增长潜力
-- AWS云服务持续强劲增长（31% YoY），利润率提升
-- 电商业务效率优化，广告业务爆发式增长
-- **警示**：超高增速可能不可持续，需关注基数效应
-
-#### 案例3：微软 <MSFT.US>（2025-11-14收盘价）
-
-| 指标 | 数值 | 说明 |
-|------|------|------|
-| **净利润** | $88.1B | 2024年TTM |
-| **利润增速** | 21.8% | YoY增长率 |
-| **TTM PE** | 35.2 | 当前市盈率 |
-| **PEG** | **1.61** | 略微高估 |
-
-**分析**：
-- PEG为1.61 > 1，显示当前估值偏高
-- 虽然AI战略（Copilot、Azure AI）前景广阔，但市场已经充分定价
-- 稳定增长的蓝筹股，适合长期持有但短期买入需谨慎
-- Office 365和Azure云服务提供持续现金流
-
-### PEG指标的局限性
-
-1. **增长率预测不确定性**：未来增长率难以准确预测
-2. **周期性行业不适用**：利润波动大的行业PEG失真
-3. **负增长无意义**：利润负增长时PEG指标失效
-4. **忽略资产负债表**：不考虑资本结构和现金流质量
-5. **行业差异**：不同行业合理PEG范围不同
+### 历史文档（归档）
+- [归档文档](phrases/archived/) - 开发历程、重构记录等
 
 ---
 
-## 策略回测
+## 🚀 快速开始
 
-### 回测设计概述
-
-**回测周期**：2000年1月 - 2025年11月（25年）  
-**回测标的**：腾讯<00700.HK>、微软<MSFT.US>、亚马逊<AMZN.US>、标普500<SPY>、VGT、KWEB  
-**策略逻辑**：
-- **买入信号**：PEG < 0.8（低估阈值）
-- **卖出信号**：PEG > 1.5（高估阈值）
-- **初始资金**：$100,000
-- **交易成本**：0.1%（单边）
-
-### 回测结果摘要（待运行）
-
-> **注**：以下为预期结果框架，实际数据需运行回测代码生成。详见 `backtest/README.md`
-
-#### 单票回测结果
-
-| 标的 | 年化收益率 | 最大回撤 | 夏普比率 | 交易次数 | 胜率 |
-|------|-----------|---------|---------|---------|------|
-| 腾讯<00700.HK> | TBD% | TBD% | TBD | TBD | TBD% |
-| 微软<MSFT.US> | TBD% | TBD% | TBD | TBD | TBD% |
-| 亚马逊<AMZN.US> | TBD% | TBD% | TBD | TBD | TBD% |
-| 标普500<SPY> | TBD% | TBD% | TBD | TBD | TBD% |
-| VGT | TBD% | TBD% | TBD | TBD | TBD% |
-| KWEB | TBD% | TBD% | TBD | TBD | TBD% |
-
-#### 参数敏感性分析
-
-测试不同的买入/卖出阈值组合：
-
-| 买入阈值 | 卖出阈值 | 年化收益 | 最大回撤 | 夏普比率 |
-|---------|---------|---------|---------|---------|
-| PEG < 0.6 | PEG > 1.8 | TBD% | TBD% | TBD |
-| PEG < 0.8 | PEG > 1.5 | TBD% | TBD% | TBD |
-| PEG < 1.0 | PEG > 1.2 | TBD% | TBD% | TBD |
-
-### 回测方法论
-
-```mermaid
-graph LR
-    A[数据采集] --> B[计算PEG]
-    B --> C[生成信号]
-    C --> D[模拟交易]
-    D --> E[计算收益]
-    E --> F[绩效分析]
-    
-    B1[股价] --> B
-    B2[EPS] --> B
-    B3[增长率] --> B
-```
-
-**数据源**：
-1. **主数据源**：yfinance（免费、覆盖全面）
-2. **备用数据源**：Alpha Vantage API / Yahoo Finance API
-3. **验证机制**：双源数据交叉验证，偏差>5%时标记
-
-**回测逻辑**（伪代码）：
-
-```python
-for month in date_range(2000-01, 2025-11):
-    peg = calculate_peg(ticker, month)
-    
-    if peg < BUY_THRESHOLD and not holding:
-        buy(ticker, price=open_price)
-        holding = True
-    
-    elif peg > SELL_THRESHOLD and holding:
-        sell(ticker, price=open_price)
-        holding = False
-    
-    portfolio_value = calculate_value()
-    record_metrics()
-```
-
-详细实现见：[backtest/TODO.md](backtest/TODO.md)
-
----
-
-## 策略计算
-
-### 当前市场PEG概览（2025-11-14）
-
-#### 美股七姐妹 + 港股七姐妹
-
-| 公司名称 | 净利润 | 利润增速 | TTM PE | PEG |
-|---------|--------|---------|--------|-----|
-| **美股七姐妹** | | | | |
-| 苹果<AAPL.US> | TBD | TBD | TBD | TBD |
-| 微软<MSFT.US> | $88.1B | 21.8% | 35.2 | **1.61** |
-| 谷歌<GOOGL.US> | TBD | TBD | TBD | TBD |
-| 亚马逊<AMZN.US> | $48.3B | 226% | 42.8 | **0.19** |
-| 英伟达<NVDA.US> | TBD | TBD | TBD | TBD |
-| Meta<META.US> | TBD | TBD | TBD | TBD |
-| 特斯拉<TSLA.US> | TBD | TBD | TBD | TBD |
-| **港股七姐妹** | | | | |
-| 腾讯<00700.HK> | ¥179.4B | 36.2% | 21.5 | **0.59** |
-| 阿里巴巴<09988.HK> | TBD | TBD | TBD | TBD |
-| 美团<03690.HK> | TBD | TBD | TBD | TBD |
-| 小米<01810.HK> | TBD | TBD | TBD | TBD |
-| 京东<09618.HK> | TBD | TBD | TBD | TBD |
-| 比亚迪<01211.HK> | TBD | TBD | TBD | TBD |
-| 网易<09999.HK> | TBD | TBD | TBD | TBD |
-
-> **数据更新**：需运行 `data_collection/fetch_current_peg.py` 获取最新数据
-
-### VGT + KWEB 组合分析
-
-**投资逻辑**：
-- **VGT**（Vanguard Information Technology ETF）：美国科技股代表
-- **KWEB**（KraneShares CSI China Internet ETF）：中国互联网科技股代表
-- **组合优势**：覆盖中美科技龙头，分散地缘政治风险
-
-#### VGT 持仓明细（Top 15 by PEG）
-
-> 完整列表包含约330只成分股，此处展示净利润>$10M且PEG最低的15家
-
-| 排名 | 公司名称 | 净利润 | 利润增速 | TTM PE | PEG |
-|-----|---------|--------|---------|--------|-----|
-| 1 | TBD | TBD | TBD | TBD | TBD |
-| 2 | TBD | TBD | TBD | TBD | TBD |
-| ... | ... | ... | ... | ... | ... |
-| 15 | TBD | TBD | TBD | TBD | TBD |
-
-#### KWEB 持仓明细（Top 15 by PEG）
-
-> 完整列表包含约50只成分股
-
-| 排名 | 公司名称 | 净利润 | 利润增速 | TTM PE | PEG |
-|-----|---------|--------|---------|--------|-----|
-| 1 | TBD | TBD | TBD | TBD | TBD |
-| 2 | TBD | TBD | TBD | TBD | TBD |
-| ... | ... | ... | ... | ... | ... |
-| 15 | TBD | TBD | TBD | TBD | TBD |
-
-### 筛选结果：最低PEG组合（15家）
-
-**筛选条件**：
-- 来源：VGT + KWEB 全部成分股
-- 净利润 > $10M（1000万美金）
-- 按PEG升序排列，取前15名
-
-| 排名 | 公司名称 | 净利润 | 利润增速 | TTM PE | PEG | 来源 |
-|-----|---------|--------|---------|--------|-----|------|
-| 1 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 2 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 3 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 4 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 5 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 6 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 7 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 8 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 9 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 10 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 11 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 12 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 13 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 14 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-| 15 | TBD | TBD | TBD | TBD | TBD | VGT/KWEB |
-
-> **数据生成**：运行 `data_collection/screen_low_peg.py` 生成最新结果
-
----
-
-## 项目使用指南
-
-### 环境配置
-
-本项目使用 `uv` 进行依赖管理：
-
+### 安装依赖
 ```bash
-# 安装uv（如未安装）
+# 安装uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # 安装项目依赖
+cd PEG-scaner
 uv sync
-
-# 激活虚拟环境
-source .venv/bin/activate  # Linux/Mac
-# 或
-.venv\Scripts\activate  # Windows
 ```
 
-### 数据采集
-
+### 运行数据采集（Phrase 1）
 ```bash
-# 获取VGT+KWEB成分股并计算PEG
-uv run python data_collection/fetch_current_peg.py
+# 获取当前PEG数据（美股+港股七姐妹）
+uv run python data_collection/fetch_current_peg_new.py
 
-# 筛选低PEG标的
-uv run python data_collection/screen_low_peg.py
+# 查看结果
+cat x-data/stock_fundamental/stock_fundamental-mag7-yfinance-*.csv
 ```
 
-### 运行回测
-
+### 运行测试
 ```bash
-# 单票回测
-uv run python backtest/run_single_backtest.py --ticker MSFT
+# 运行所有测试
+uv run pytest tests/ -v
 
-# 批量回测
-uv run python backtest/run_batch_backtest.py
-
-# 参数优化
-uv run python backtest/optimize_params.py
+# 运行数据质量测试
+uv run pytest tests/test_data_quality.py -v
 ```
 
 ---
 
-## 参考资料
+## 🎯 下一步计划
 
-1. Lynch, P. (1989). *One Up On Wall Street*. Simon & Schuster.
-2. Damodaran, A. (2012). *Investment Valuation*. Wiley Finance.
-3. Gordon, M. J. (1962). "The Investment, Financing, and Valuation of the Corporation". *Irwin*.
-4. Yahoo Finance API Documentation: https://github.com/ranaroussi/yfinance
-5. Alpha Vantage API: https://www.alphavantage.co/
+### 短期（Phrase 2）
+1. ✅ 完成Phrase 1数据采集模块
+2. 🔄 设计回测引擎架构
+3. 📝 实现历史数据获取
+4. 📝 开发PEG策略回测
+
+### 中期（Phrase 3）
+1. 获取VGT+KWEB成分股
+2. 批量PEG计算
+3. 低PEG筛选工具
+
+### 长期
+1. 添加第三数据源（Phase 1.5）
+2. 提升测试覆盖率至50%+
+3. Web界面展示
+4. 实时数据更新
 
 ---
 
-## 免责声明
+## 📊 数据产物示例
 
-本文档及相关代码仅供学习研究使用，不构成任何投资建议。股票投资有风险，请根据自身情况谨慎决策。历史数据不代表未来表现。
+### Phrase 1 最新数据 (2025-11-15)
+
+**PEG最低Top 5**:
+1. 🥇 京东 (09618.HK): PEG=0.13, PE=9.38
+2. 🥈 比亚迪 (01211.HK): PEG=0.26, PE=8.79
+3. 🥉 阿里巴巴 (09988.HK): PEG=0.32, PE=20.20
+4. 亚马逊 (AMZN): PEG=0.35, PE=32.80
+5. 谷歌 (GOOGL): PEG=0.36, PE=12.94
+
+**数据质量**: HIGH confidence  
+**数据来源**: yfinance
 
 ---
 
-**最后更新**：2025-11-15  
-**版本**：v1.0.0  
-**许可证**：MIT
+## 📖 相关资源
+
+### 代码模块
+- [data_collection/](../data_collection/) - 数据采集模块
+- [core/](../core/) - 核心功能（Schema, 验证, IO）
+- [tests/](../tests/) - 测试套件
+- [backtest/](../backtest/) - 回测模块（Phrase 2）
+
+### 数据
+- [x-data/](../x-data/) - 所有程序生成的数据
+- [x-log/](../x-log/) - 日志
+- [x-coverage/](../x-coverage/) - 测试覆盖率报告
+
+### 配置
+- [agent.md](../agent.md) - 项目核心指令和设计原则
+- [config.yaml](../config.yaml) - 运行配置
+- [pyproject.toml](../pyproject.toml) - 项目依赖
+
+---
+
+## 🤝 贡献指南
+
+本项目遵循严格的工程准则（详见[agent.md](../agent.md)）：
+
+1. **数据质量优先** - 宁可为空，不要使用错的数据
+2. **多源验证** - 至少2个数据源一致才采用
+3. **Schema规范** - 所有数据遵循schema组织
+4. **测试驱动** - 每次改代码都要跑测试
+5. **文档同步** - 改动要更新相关README
+
+---
+
+## 📝 变更日志
+
+### 2025-11-15
+- ✅ Phrase 1 数据采集模块完成（100%）
+- ✅ 实现2源数据验证（yfinance + Alpha Vantage）
+- ✅ 完成55个测试用例
+- ✅ 建立Schema-based数据组织
+- ✅ 生成首批PEG数据（11只股票）
+- ✅ 文档规范化和目录重组
+
+---
+
+**上级文档**: [返回项目根目录](../README.md)
 
