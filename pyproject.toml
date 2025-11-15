@@ -29,6 +29,7 @@ dependencies = [
     # 数据处理
     "pandas>=2.2.0",
     "numpy>=1.26.0",
+    "tabulate>=0.9.0",
     
     # 配置管理
     "pyyaml>=6.0.1",
@@ -188,5 +189,11 @@ exclude_lines = [
     "raise NotImplementedError",
     "if __name__ == .__main__.:",
     "if TYPE_CHECKING:",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+    "pytest-cov>=7.0.0",
 ]
 
