@@ -14,8 +14,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# 数据根目录
-DATA_ROOT = Path("data")
+# 数据根目录（程序生成的数据放x-data/，遵循agent.md Line 48）
+DATA_ROOT = Path("x-data")
 
 # Schema目录映射
 SCHEMA_DIRS = {

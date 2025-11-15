@@ -73,11 +73,11 @@
    - 添加测试指导
 
 2. ✅ **建立 phase 文件夹结构**
-   - `docs/phases/phase_1_data_collection/`
+   - `docs/phrases/phase_1_data_collection/`
      - PLAN.md（详细计划）
      - CHECKLIST.md（完成度检查）
      - SUMMARY.md（阶段总结）
-   - `docs/phases/phase_2_backtest/`
+   - `docs/phrases/phase_2_backtest/`
      - PLAN.md（Phase 2 计划）
 
 3. ✅ **更新根目录 README**
@@ -217,7 +217,7 @@ PEG-scaner/
 **相关文档**:
 - [项目README](README.md)
 - [系统设计](agent.md)
-- [Phase 1 总结](docs/phases/phase_1_data_collection/SUMMARY.md)
+- [Phase 1 总结](docs/phrases/phase_1_data_collection/SUMMARY.md)
 - [项目结构](.project-structure.md)
 
 **生成时间**: 2025-11-15  

@@ -13,8 +13,8 @@ from core.models import StockData
 
 logger = logging.getLogger(__name__)
 
-# 默认配置（遵循数据持久化原则）
-DEFAULT_CACHE_DIR = './data/cache'
+# 默认配置（程序生成的数据放x-data/，遵循agent.md Line 48）
+DEFAULT_CACHE_DIR = './x-data/cache'
 DEFAULT_CACHE_EXPIRY = 24 * 3600  # 24小时
 
 

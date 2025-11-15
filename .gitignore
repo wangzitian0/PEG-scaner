@@ -25,7 +25,8 @@ ENV/
 .pytest_cache/
 .coverage
 .coverage.*
-htmlcov/          # 测试覆盖率报告
+htmlcov/
+x-coverage/          # 程序生成的覆盖率报告（agent.md Line 48）
 .tox/
 coverage.xml
 *.cover
@@ -39,12 +40,14 @@ coverage.xml
 *.bak
 *_backup.*
 
-# Logs
+# Logs (agent.md Line 48: 程序生成的日志)
 *.log
+x-log/*.log
 
-# Data (some kept for development)
-data/raw/*.json
-data/processed/*.json
+# Data (agent.md Line 48: 程序生成的数据)
+x-data/cache/        # 缓存数据
+# 保留schema-compliant的CSV数据文件用于开发
+# x-data/**/*.csv
 
 # Build
 build/
