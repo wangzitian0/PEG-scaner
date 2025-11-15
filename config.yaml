@@ -98,21 +98,44 @@ target_stocks:
     - ticker: "09999.HK"
       name: "网易"
 
-# 缓存配置
-cache:
-  enabled: true
-  directory: "./cache"
-  expiry_hours: 24
-  max_size_mb: 1024  # 1GB
-  cleanup_interval_days: 7
-
-# 输出配置
-output:
-  directory: "./results"
-  formats:
-    - markdown
-    - csv
-  timestamp: true
+# 数据管理配置（SSOT + 数据持久化原则）
+data:
+  base_dir: "./data"
+  
+  # 原始数据
+  raw:
+    enabled: true
+    directory: "./data/raw"
+    retention_days: 7
+  
+  # 处理后数据
+  processed:
+    enabled: true
+    directory: "./data/processed"
+    retention_days: 30
+  
+  # 缓存配置
+  cache:
+    enabled: true
+    directory: "./data/cache"
+    expiry_hours: 24
+    max_size_mb: 1024  # 1GB
+    cleanup_interval_days: 7
+  
+  # 输出配置
+  results:
+    directory: "./data/results"
+    formats:
+      - markdown
+      - csv
+    timestamp: true
+  
+  # 日志配置
+  logs:
+    directory: "./data/logs"
+    level: "INFO"
+    rotation: "daily"
+    retention_days: 90
   
   # 文件名模板
   templates:
