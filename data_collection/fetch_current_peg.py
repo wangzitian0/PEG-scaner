@@ -123,9 +123,9 @@ def fetch_peg_batch(tickers: List[str], use_cache: bool = True, max_workers: int
     return results
 
 
-def save_results(data_list: List[StockData], output_dir: str = './results'):
+def save_results(data_list: List[StockData], output_dir: str = './data/results'):
     """
-    保存结果到CSV和Markdown
+    保存结果到CSV和Markdown（数据持久化原则）
     
     Args:
         data_list: StockData列表
