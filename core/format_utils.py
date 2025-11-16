@@ -146,7 +146,11 @@ def format_peg(peg: float) -> str:
 
 def normalize_ticker(ticker: str) -> str:
     """
-    标准化股票代码
+    标准化股票代码（用于yfinance查询）
+    
+    规则:
+    - 港股: 去掉多余前导0，但保留1个0 （00700.HK -> 0700.HK, 01810.HK -> 1810.HK）
+    - 美股: 去掉.US后缀 （MSFT.US -> MSFT）
     
     Args:
         ticker: 原始股票代码
@@ -156,12 +160,19 @@ def normalize_ticker(ticker: str) -> str:
     """
     ticker = ticker.upper().strip()
     
-    # 港股代码：去掉前导0
+    # 港股代码：规范化前导0
     if '.HK' in ticker:
         base = ticker.replace('.HK', '')
-        # 去掉前导0
+        # 去掉前导0，但如果全是0则保留1个
         base = base.lstrip('0') or '0'
+        # 如果结果少于4位，补齐到4位（港股代码标准格式）
+        if len(base) < 4:
+            base = base.zfill(4)
         return f"{base}.HK"
+    
+    # 美股代码：去掉.US后缀（yfinance不需要）
+    if '.US' in ticker:
+        return ticker.replace('.US', '')
     
     return ticker
 

@@ -26,8 +26,11 @@
 - **[重构总结](docs/REFACTORING_SUMMARY.md)** - 重构成果汇总
 - **[合规性总结](docs/COMPLIANCE_SUMMARY.md)** - agent.md合规检查
 - **[Phase管理](docs/phrases/)** - 分阶段计划和总结
-  - [Phase 1: Data Collection](docs/phrases/phase_1_data_collection/) - ✅ 完成
+  - [Phase 1: Data Collection](docs/phrases/phrase_1_data_collection/) - ✅ 完成 (2025-11-16)
+    - 核心产出: [数据源质量评估矩阵](docs/phrases/phrase_1_data_collection/DATA_SOURCE_EVALUATION_REPORT.md)
+    - 完成报告: [COMPLETION_REPORT.md](docs/phrases/phrase_1_data_collection/COMPLETION_REPORT.md)
   - [Phase 2: Backtest](docs/phrases/phase_2_backtest/) - 📝 计划中
+    - 重点: 架构重构（分离财务数据和价格数据）
 
 ---
 

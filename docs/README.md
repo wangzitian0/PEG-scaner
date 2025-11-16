@@ -37,11 +37,10 @@
 - ✅ 数据质量：HIGH confidence
 
 #### 文档
-- [Phrase 1 详细状态](phrases/phrase_1_data_collection/STATUS.md)
-- [完成度检查表](phrases/phrase_1_data_collection/CHECKLIST.md)
+- [最终决策](phrases/phrase_1_data_collection/FINAL_DECISION.md) ⭐ NEW
 - [实现计划](phrases/phrase_1_data_collection/PLAN.md)
+- [完成度检查表](phrases/phrase_1_data_collection/CHECKLIST.md)
 - [总结报告](phrases/phrase_1_data_collection/SUMMARY.md)
-- [第三数据源规划](phrases/phrase_1_data_collection/THIRD_DATA_SOURCE.md)
 
 ---
 
