@@ -4,51 +4,31 @@ __pycache__/
 *$py.class
 *.so
 .Python
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual Environment
 .venv/
 venv/
 ENV/
+
+# 测试和覆盖
+.pytest_cache/
+.coverage
+htmlcov/
+x-coverage/
+
+# 数据和日志 (x-前缀目录)
+x-data/cache/
+x-log/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
+
+# 临时文件
+*.log
+*.tmp
 .DS_Store
 
-# Testing
-.pytest_cache/
-.coverage
-.coverage.*
-htmlcov/
-x-coverage/          # 程序生成的覆盖率报告（agent.md Line 48）
-.tox/
-coverage.xml
-*.cover
+# uv
+.uv/
 
-# Environment
-.env
-.env.local
-
-# Temporary files
-*.tmp
-*.bak
-*_backup.*
-
-# Logs (agent.md Line 48: 程序生成的日志)
-*.log
-x-log/*.log
-
-# Data (agent.md Line 48: 程序生成的数据)
-x-data/cache/        # 缓存数据
-# 保留schema-compliant的CSV数据文件用于开发
-# x-data/**/*.csv
-
-# Build
-build/
-dist/
