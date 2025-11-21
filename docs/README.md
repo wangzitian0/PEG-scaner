@@ -6,6 +6,7 @@ This directory contains high-level project documentation, including the overall 
 
 - [Project Plan](./PLAN.md) - Outlines the major features and development phases.
 - [Architecture](./ARCHITECTURE.md) - Describes the overall architecture of the system.
+- [AI Evaluation](./AI_EVALUATION.md) - Defines the mandatory reward/score mechanism every agent must follow; keep in sync with any `AGENTS.md` updates.
 
 ## Overall Project Goal
 
@@ -19,7 +20,15 @@ To build an AI-native stock analysis tool for quantitative stock selection, prim
 - **Key Achievements:**
     - Created `TODOWRITE.md` to track all requirements.
     - Updated `project/README.md` for detailed project phase tracking.
-    - Created `prompts/append_promot.md` for logging user prompts.
+    - Established `project/prompt_log.md` as the single prompt log per new instruction.
+    - Created `project/phrase_1.initial_setup/` to hold micro-iteration plans, flows, and checklists.
+    - Created `project/phrase_0.infra/` for proto/Nx infrastructure work.
     - Updated root `README.md` with an enhanced directory index.
     - Verified existence of `x-data/` and `x-log/` directories.
-- **Next Steps:** Begin planning for the implementation of the core features outlined in `agent.md`, starting with UI components or data infrastructure.
+    - Captured repository tree snapshots (root/project/backend/mobile) and ran `backend/manage.py test` (0 tests) to understand the current baseline.
+    - Authored `docs/AI_EVALUATION.md` and updated `AGENTS.md` to enforce the agent reward mechanism.
+    - Added Phase 0 ping-pong flow (backend `/api/ping/` + mobile 1px status indicator + tests) to validate infra connectivity using shared protobuf contracts.
+    - Created `regression_tests/` for centralizing end-to-end scripts (currently `ping_pong.py`).
+    - Wired Nx targets (`backend:test`, `mobile:typecheck`, `regression:ping`) so infra checks can run via `nx run ...`.
+    - Added `scripts/dev.sh` for environment-aware start/stop automation.
+- **Next Steps:** Execute the backlog defined in `project/phrase_1.initial_setup/plan.md`, starting with the evaluation mechanism rollout, data-source blueprinting, and schema alignment before UI/data feature coding.

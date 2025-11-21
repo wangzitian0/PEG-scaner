@@ -36,3 +36,5 @@ This directory contains the Django backend application, responsible for providin
 *   **Data Management:** Interacting with the database for storing and retrieving stock data, user profiles, and other application-specific information.
 *   **Business Logic:** Implementing the core logic for quantitative stock selection, factor calculation, and strategy management.
 *   **Admin Interface:** Leveraging Django's built-in administrative interface for easy data management.
+*   **Proto Contracts:** The SSOT for all payloads lives in `schema/stock.proto`. Regenerate Python bindings via `npx nx run backend:generate-proto` whenever the schema changes.
+*   **Testing:** Run `npx nx run backend:test` (or `./backend/.venv/bin/python3 backend/manage.py test`) to execute the protobuf-based ping regression test and future suites.

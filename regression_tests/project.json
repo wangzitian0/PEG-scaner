@@ -1,0 +1,15 @@
+{
+  "name": "regression",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "regression_tests",
+  "projectType": "application",
+  "targets": {
+    "ping": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./backend/.venv/bin/python3 regression_tests/ping_pong.py"
+      },
+      "dependsOn": ["backend:install"]
+    }
+  }
+}

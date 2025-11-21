@@ -24,27 +24,29 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bstock.proto\x12\x10pegscanner.stock\"~\n\x05Stock\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08\x65xchange\x18\x03 \x01(\t\x12\x10\n\x08\x63urrency\x18\x04 \x01(\t\x12\x33\n\x0c\x63ompany_info\x18\x05 \x01(\x0b\x32\x1d.pegscanner.stock.CompanyInfo\"f\n\tKLineData\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12\x0c\n\x04open\x18\x02 \x01(\x01\x12\x0c\n\x04high\x18\x03 \x01(\x01\x12\x0b\n\x03low\x18\x04 \x01(\x01\x12\r\n\x05\x63lose\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x03\"\xf2\x01\n\x0fHistoricalKLine\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x08interval\x18\x02 \x01(\x0e\x32*.pegscanner.stock.HistoricalKLine.Interval\x12,\n\x07k_lines\x18\x03 \x03(\x0b\x32\x1b.pegscanner.stock.KLineData\"c\n\x08Interval\x12\x18\n\x14INTERVAL_UNSPECIFIED\x10\x00\x12\x12\n\x0eINTERVAL_DAILY\x10\x01\x12\x13\n\x0fINTERVAL_WEEKLY\x10\x02\x12\x14\n\x10INTERVAL_MONTHLY\x10\x03\"H\n\x10\x43ompanyValuation\x12\x10\n\x08ps_ratio\x18\x01 \x01(\x01\x12\x10\n\x08pe_ratio\x18\x02 \x01(\x01\x12\x10\n\x08pb_ratio\x18\x03 \x01(\x01\"S\n\x13\x46inancialIndicators\x12\x0b\n\x03\x65ps\x18\x01 \x01(\x01\x12\x0b\n\x03\x66\x63\x66\x18\x02 \x01(\x01\x12\x15\n\rcurrent_ratio\x18\x03 \x01(\x01\x12\x0b\n\x03roe\x18\x04 \x01(\x01\"S\n\x0b\x45\x61rningData\x12\x17\n\x0f\x66iscal_date_end\x18\x01 \x01(\x03\x12\x14\n\x0creported_eps\x18\x02 \x01(\x01\x12\x15\n\restimated_eps\x18\x03 \x01(\x01\"\xf7\x01\n\x0b\x43ompanyInfo\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06sector\x18\x03 \x01(\t\x12\x10\n\x08industry\x18\x04 \x01(\t\x12\x35\n\tvaluation\x18\x05 \x01(\x0b\x32\".pegscanner.stock.CompanyValuation\x12\x39\n\nindicators\x18\x06 \x01(\x0b\x32%.pegscanner.stock.FinancialIndicators\x12/\n\x08\x65\x61rnings\x18\x07 \x03(\x0b\x32\x1d.pegscanner.stock.EarningDatab\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bstock.proto\x12\x10pegscanner.stock\"D\n\x0cPingResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\r\n\x05\x61gent\x18\x02 \x01(\t\x12\x14\n\x0ctimestamp_ms\x18\x03 \x01(\x03\"~\n\x05Stock\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08\x65xchange\x18\x03 \x01(\t\x12\x10\n\x08\x63urrency\x18\x04 \x01(\t\x12\x33\n\x0c\x63ompany_info\x18\x05 \x01(\x0b\x32\x1d.pegscanner.stock.CompanyInfo\"f\n\tKLineData\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12\x0c\n\x04open\x18\x02 \x01(\x01\x12\x0c\n\x04high\x18\x03 \x01(\x01\x12\x0b\n\x03low\x18\x04 \x01(\x01\x12\r\n\x05\x63lose\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x03\"\xf2\x01\n\x0fHistoricalKLine\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x08interval\x18\x02 \x01(\x0e\x32*.pegscanner.stock.HistoricalKLine.Interval\x12,\n\x07k_lines\x18\x03 \x03(\x0b\x32\x1b.pegscanner.stock.KLineData\"c\n\x08Interval\x12\x18\n\x14INTERVAL_UNSPECIFIED\x10\x00\x12\x12\n\x0eINTERVAL_DAILY\x10\x01\x12\x13\n\x0fINTERVAL_WEEKLY\x10\x02\x12\x14\n\x10INTERVAL_MONTHLY\x10\x03\"H\n\x10\x43ompanyValuation\x12\x10\n\x08ps_ratio\x18\x01 \x01(\x01\x12\x10\n\x08pe_ratio\x18\x02 \x01(\x01\x12\x10\n\x08pb_ratio\x18\x03 \x01(\x01\"S\n\x13\x46inancialIndicators\x12\x0b\n\x03\x65ps\x18\x01 \x01(\x01\x12\x0b\n\x03\x66\x63\x66\x18\x02 \x01(\x01\x12\x15\n\rcurrent_ratio\x18\x03 \x01(\x01\x12\x0b\n\x03roe\x18\x04 \x01(\x01\"S\n\x0b\x45\x61rningData\x12\x17\n\x0f\x66iscal_date_end\x18\x01 \x01(\x03\x12\x14\n\x0creported_eps\x18\x02 \x01(\x01\x12\x15\n\restimated_eps\x18\x03 \x01(\x01\"\xf7\x01\n\x0b\x43ompanyInfo\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06sector\x18\x03 \x01(\t\x12\x10\n\x08industry\x18\x04 \x01(\t\x12\x35\n\tvaluation\x18\x05 \x01(\x0b\x32\".pegscanner.stock.CompanyValuation\x12\x39\n\nindicators\x18\x06 \x01(\x0b\x32%.pegscanner.stock.FinancialIndicators\x12/\n\x08\x65\x61rnings\x18\x07 \x03(\x0b\x32\x1d.pegscanner.stock.EarningDatab\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'stock_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_STOCK']._serialized_start=33
-  _globals['_STOCK']._serialized_end=159
-  _globals['_KLINEDATA']._serialized_start=161
-  _globals['_KLINEDATA']._serialized_end=263
-  _globals['_HISTORICALKLINE']._serialized_start=266
-  _globals['_HISTORICALKLINE']._serialized_end=508
-  _globals['_HISTORICALKLINE_INTERVAL']._serialized_start=409
-  _globals['_HISTORICALKLINE_INTERVAL']._serialized_end=508
-  _globals['_COMPANYVALUATION']._serialized_start=510
-  _globals['_COMPANYVALUATION']._serialized_end=582
-  _globals['_FINANCIALINDICATORS']._serialized_start=584
-  _globals['_FINANCIALINDICATORS']._serialized_end=667
-  _globals['_EARNINGDATA']._serialized_start=669
-  _globals['_EARNINGDATA']._serialized_end=752
-  _globals['_COMPANYINFO']._serialized_start=755
-  _globals['_COMPANYINFO']._serialized_end=1002
+  _globals['_PINGRESPONSE']._serialized_start=33
+  _globals['_PINGRESPONSE']._serialized_end=101
+  _globals['_STOCK']._serialized_start=103
+  _globals['_STOCK']._serialized_end=229
+  _globals['_KLINEDATA']._serialized_start=231
+  _globals['_KLINEDATA']._serialized_end=333
+  _globals['_HISTORICALKLINE']._serialized_start=336
+  _globals['_HISTORICALKLINE']._serialized_end=578
+  _globals['_HISTORICALKLINE_INTERVAL']._serialized_start=479
+  _globals['_HISTORICALKLINE_INTERVAL']._serialized_end=578
+  _globals['_COMPANYVALUATION']._serialized_start=580
+  _globals['_COMPANYVALUATION']._serialized_end=652
+  _globals['_FINANCIALINDICATORS']._serialized_start=654
+  _globals['_FINANCIALINDICATORS']._serialized_end=737
+  _globals['_EARNINGDATA']._serialized_start=739
+  _globals['_EARNINGDATA']._serialized_end=822
+  _globals['_COMPANYINFO']._serialized_start=825
+  _globals['_COMPANYINFO']._serialized_end=1072
 # @@protoc_insertion_point(module_scope)

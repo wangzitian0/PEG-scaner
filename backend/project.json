@@ -28,6 +28,13 @@
         },
         "dependsOn": ["install"]
       },
+      "test": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "./backend/.venv/bin/python3 backend/manage.py test"
+        },
+        "dependsOn": ["install"]
+      },
                   "makemigrations": {
                     "executor": "nx:run-commands",
                     "options": {

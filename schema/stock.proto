@@ -2,6 +2,13 @@ syntax = "proto3";
 
 package pegscanner.stock;
 
+// Represents a simple health response for infra ping testing.
+message PingResponse {
+  string message = 1;
+  string agent = 2;
+  int64 timestamp_ms = 3;
+}
+
 // Represents a stock or other financial instrument.
 message Stock {
   string symbol = 1;      // Stock ticker symbol (e.g., "AAPL")

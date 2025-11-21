@@ -75,6 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pegscanner_backend.wsgi.application'
 
+TEST_RUNNER = 'pegscanner_backend.test_runner.PegscannerDiscoverRunner'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
