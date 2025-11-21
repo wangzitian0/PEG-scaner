@@ -4,12 +4,19 @@
   "sourceRoot": "backend/src",
   "projectType": "application",
   "tags": [],
-  "targets": {
-    "serve": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "python backend/src/main.py"
+      "targets": {
+        "install": {
+          "executor": "nx:run-commands",
+          "options": {
+            "command": "pip install -r requirements.txt && pip install -e ."
+          }
+        },
+        "serve": {
+          "executor": "nx:run-commands",
+          "options": {
+            "command": "python backend/src/main.py"
+          },
+          "dependsOn": ["install"]
+        }
       }
-    }
   }
-}
