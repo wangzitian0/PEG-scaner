@@ -1,6 +1,6 @@
 # Phase 0 Checklist
 
-- [x] Confirm `schema/stock.proto` matches current backend/mobile requirements（新增 PingResponse 并驱动 FE/BE 使用 protobuf）.
+- [x] Confirm `libs/schema/stock.proto` matches current backend/mobile requirements（新增 PingResponse 并驱动 FE/BE 使用 protobuf）.
 - [x] Run `nx run backend:generate-proto` and store logs（参见 Phase 0 notes与命令输出）。
 - [x] Document proto usage in backend/mobile READMEs（新增 protobuf 说明与命令引用）。
 - [x] Audit `nx.json` + project configs for required targets (install, start, test, etc.). Added backend `test`, mobile `typecheck`, regression `ping`.
