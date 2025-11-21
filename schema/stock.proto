@@ -8,6 +8,7 @@ message Stock {
   string name = 2;        // Full company name (e.g., "Apple Inc.")
   string exchange = 3;    // Exchange where the stock is traded (e.g., "NASDAQ")
   string currency = 4;    // Currency of the stock (e.g., "USD")
+  CompanyInfo company_info = 5; // Detailed company information
   // Add other common stock identifiers or metadata as needed
 }
 
@@ -71,14 +72,4 @@ message CompanyInfo {
   // Placeholder for operating data and revenue breakdown, which might need
   // more complex structures or separate messages later.
   // Add other F10 data fields as needed.
-}
-
-// Represents a stock or other financial instrument.
-message Stock {
-  string symbol = 1;      // Stock ticker symbol (e.g., "AAPL")
-  string name = 2;        // Full company name (e.g., "Apple Inc.")
-  string exchange = 3;    // Exchange where the stock is traded (e.g., "NASDAQ")
-  string currency = 4;    // Currency of the stock (e.g., "USD")
-  // Add other common stock identifiers or metadata as needed
-  CompanyInfo company_info = 5; // Detailed company information
 }
