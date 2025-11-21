@@ -17,13 +17,14 @@ This command will initialize the Nx workspace directly within the current direct
 ## Development Workflow
 
 1. Run `npm run lint:structure` to ensure the workspace layout remains compliant.
-2. (Optional) Export `ENV=/path/to/.env` so `tools/dev.sh` can load custom variables (ports, API keys, etc.).
-3. Start services with `./tools/dev.sh start` (defaults to `backend` + `mobile`, or pass specific services e.g., `./tools/dev.sh start backend`). Commands run under `nohup` with logs/PIDs in `x-log/`.
-4. Run automated checks:
+2. Start hot-reload services with `npm run dev` (spawns `npx nx run backend:start` + `npx nx run mobile:start` via `concurrently`; respect `MOBILE_DEV_PORT` env var). Use `Ctrl+C` when finished. For the web preview, run `npx nx run mobile:serve` (Vite on port `MOBILE_WEB_PORT`, default 5173) and open `http://localhost:5173`.
+3. Run automated checks while servers are running:
    - Backend proto tests: `npx nx run backend:test`
    - Regression ping: `npx nx run regression:ping` (backend server must be running)
+   - Infra E2E (backend + web reachability): `npx nx run regression:infra-flow`
+   - Full web E2E (backend + Vite + Playwright): `npx nx run regression:web-e2e`
    - Mobile typecheck: `npx nx run mobile:typecheck`
-5. Stop services with `./tools/dev.sh stop` (or `./tools/dev.sh stop backend`).
+4. For manual control or headless environments, use `./tools/dev.sh start|stop [backend|mobile …]`; logs/PIDs live under `x-log/`.
 
 ## Directory Index
 

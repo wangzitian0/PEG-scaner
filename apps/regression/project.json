@@ -10,6 +10,20 @@
         "command": "./apps/backend/.venv/bin/python3 apps/regression/ping_pong.py"
       },
       "dependsOn": ["backend:install"]
+    },
+    "infra-flow": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node apps/regression/check_infra.js"
+      },
+      "dependsOn": ["backend:install"]
+    },
+    "web-e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node apps/regression/run_web_e2e.js"
+      },
+      "dependsOn": ["backend:install"]
     }
   }
 }

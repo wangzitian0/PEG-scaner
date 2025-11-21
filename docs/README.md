@@ -21,14 +21,14 @@ To build an AI-native stock analysis tool for quantitative stock selection, prim
     - Created `docs/TODOWRITE.md` to track all requirements.
     - Updated `docs/project/README.md` for detailed project phase tracking.
     - Established `docs/project/prompt_log.md` as the single prompt log per new instruction.
-    - Created `docs/project/phrase_1.initial_setup/` to hold micro-iteration plans, flows, and checklists.
+    - Created `docs/project/phrase_1.single_stock_page/` to hold micro-iteration plans, flows, and checklists.
     - Created `docs/project/phrase_0.infra/` for proto/Nx infrastructure work.
     - Updated root `README.md` with an enhanced directory index.
     - Verified existence of `x-data/` and `x-log/` directories.
     - Captured repository tree snapshots (root/apps/backend + apps/mobile) and ran `apps/backend/manage.py test` (0 tests) to understand the current baseline.
     - Authored `docs/AI_EVALUATION.md` and updated [`AGENTS.md`](./AGENTS.md) to enforce the agent reward mechanism.
     - Added Phase 0 ping-pong flow (backend `/api/ping/` + mobile 1px status indicator + tests) to validate infra connectivity using shared protobuf contracts.
-    - Created `apps/regression/` for centralizing end-to-end scripts (currently `ping_pong.py`).
-    - Wired Nx targets (`backend:test`, `mobile:typecheck`, `regression:ping`) so infra checks can run via `nx run ...`.
-    - Added `tools/dev.sh` for environment-aware start/stop automation.
-- **Next Steps:** Execute the backlog defined in `docs/project/phrase_1.initial_setup/plan.md`, starting with the evaluation mechanism rollout, data-source blueprinting, and schema alignment before UI/data feature coding.
+    - Created `apps/regression/` for centralizing end-to-end scripts (`ping_pong.py`, `check_infra.js`, `run_web_e2e.js` for Playwright).
+    - Wired Nx targets (`backend:test`, `mobile:typecheck`, `regression:ping`, `regression:infra-flow`, `regression:web-e2e`) so infra checks can run via `nx run ...`.
+    - Added `npm run dev` for lint + backend/Metro/Vite hot reload (with `tools/dev.sh` as manual fallback) to keep previews aligned across platforms.
+- **Next Steps:** Execute the backlog defined in `docs/project/phrase_1.single_stock_page/plan.md`, starting with the single-stock UI/data work now that infra is ready.

@@ -1,5 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const WEB_HOST = process.env.MOBILE_WEB_HOST || '127.0.0.1';
+const WEB_PORT = Number(process.env.MOBILE_WEB_PORT || 5173);
+const BASE_URL = `http://${WEB_HOST}:${WEB_PORT}`;
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
@@ -8,7 +12,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:4200',
+    baseURL: BASE_URL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -18,9 +22,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npx vite',
-    url: 'http://localhost:4200',
+    command: `npx vite --host 0.0.0.0 --port ${WEB_PORT}`,
+    url: BASE_URL,
     reuseExistingServer: !process.env.CI,
-    cwd: './',
+    cwd: __dirname,
   },
 });

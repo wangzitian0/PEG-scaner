@@ -1,0 +1,28 @@
+{
+  "nested": {
+    "pegscanner": {
+      "nested": {
+        "ping": {
+          "nested": {
+            "PingResponse": {
+              "fields": {
+                "message": {
+                  "type": "string",
+                  "id": 1
+                },
+                "agent": {
+                  "type": "string",
+                  "id": 2
+                },
+                "timestampMs": {
+                  "type": "int64",
+                  "id": 3
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

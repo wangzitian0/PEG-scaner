@@ -1,7 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
 
-from stock_research.generated import stock_pb2
+from stock_research.generated import ping_pb2
 
 
 class PingPongViewTests(TestCase):
@@ -14,7 +14,7 @@ class PingPongViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/x-protobuf')
 
-        payload = stock_pb2.PingResponse()
+        payload = ping_pb2.PingResponse()
         payload.ParseFromString(response.content)
         self.assertEqual(payload.message, 'pong')
         self.assertEqual(payload.agent, 'pegscanner-backend')

@@ -1,4 +1,4 @@
-# Iteration Flow – Phase 1
+# Iteration Flow – Phase 1 (Single Stock Page)
 
 1. **Morning Sync (or first session)**
    - Re-read `AGENTS.md`, `docs/AI_EVALUATION.md`, `docs/TODOWRITE.md`, and this iteration's checklist.

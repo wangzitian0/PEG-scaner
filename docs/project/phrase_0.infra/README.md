@@ -4,7 +4,7 @@ This phase captures all work related to the foundational tooling: protobuf schem
 
 ## Objectives
 
-- Maintain protobuf definitions (`schema/`) and codegen rules consistently across backend/mobile/services.
+- Maintain protobuf definitions (`libs/schema/`) and codegen rules consistently across backend/mobile/services.
 - Keep Nx configuration (workspace setup, project.json files, shared generators) in a ready-to-use state for subsequent phases.
 - Provide onboarding notes/checklists so future phases can reuse infra without rediscovery.
 - Host shared regression tests (see `apps/regression/`) for infra-level health checks.
@@ -20,14 +20,15 @@ This phase captures all work related to the foundational tooling: protobuf schem
 
 - **State:** Active
 - **Scope Owner:** Codex (AI Agent)
-- **Dependencies:** `schema/`, `nx.json`, `apps/backend/project.json`, `apps/mobile/project.json`, `apps/regression/`, and future shared libraries.
+- **Dependencies:** `libs/schema/`, `nx.json`, `apps/backend/project.json`, `apps/mobile/project.json`, `apps/regression/`, and future shared libraries.
 
 ## Notes
 
 - When schema files change, run the codegen target noted in `apps/backend/project.json` and capture results in `x-log/`.
 - Nx upgrades or new executors should be documented here before touching app-specific phases.
 - Ping-pong verification (backend `/api/ping/` + mobile 1px status indicator) lives here because it validates the infra stack end-to-end before higher-level features rely on it; the regression script is in `apps/regression/ping_pong.py`.
-- Use `tools/dev.sh start|stop` for a one-click lifecycle; it loads env vars from `$ENV` before launching backend/mobile services.
+- `npm run dev` is the canonical single command for linting structure + launching backend, Metro, and Vite hot reloaders; fall back to `tools/dev.sh start|stop` only when you need manual service lifecycles or custom env injection.
+- Infra regressions live under `apps/regression/`: `npx nx run regression:infra-flow` hits backend + Vite directly, while `npx nx run regression:web-e2e` brings up backend/Vite, auto-installs Playwright browsers, and verifies the ping indicator via headless Chromium.
 
 ## Adding a New Nx Project
 
