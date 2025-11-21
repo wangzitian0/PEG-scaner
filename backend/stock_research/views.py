@@ -1,6 +1,47 @@
 from rest_framework import viewsets
 from .models import Stock, KLineData, CompanyInfo, CompanyValuation, FinancialIndicators, EarningData
-from .serializers import StockSerializer, KLineDataSerializer, CompanyInfoSerializer, CompanyValuationSerializer, FinancialIndicatorsSerializer, EarningDataSerializer
+from .serializers import StockSerializer, KLineDataSerializer, CompanyInfoSerializer, CompanyValuationSerializer, FinancialIndicatorsSerializer, EarningDataSerializer, PegStockSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+class PegStockListView(APIView):
+    def get(self, request, format=None):
+        stocks = Stock.objects.all()
+        data = []
+        for stock in stocks:
+            # Get P/E ratio
+            pe_ratio = None
+            try:
+                pe_ratio = stock.company_info.valuation.pe_ratio
+            except CompanyInfo.DoesNotExist:
+                pass
+            except CompanyValuation.DoesNotExist:
+                pass
+
+            # Calculate earnings growth
+            earnings_growth = None
+            try:
+                earnings = stock.company_info.earnings.order_by('-fiscal_date_end')
+                if earnings.count() >= 2:
+                    latest_eps = earnings[0].reported_eps
+                    previous_eps = earnings[1].reported_eps
+                    if latest_eps is not None and previous_eps is not None and previous_eps > 0:
+                        # Simple YoY growth
+                        earnings_growth = (latest_eps - previous_eps) / previous_eps
+            except CompanyInfo.DoesNotExist:
+                pass
+
+            if pe_ratio is not None and earnings_growth is not None:
+                data.append({
+                    'symbol': stock.symbol,
+                    'name': stock.name,
+                    'pe_ratio': pe_ratio,
+                    'earnings_growth': earnings_growth,
+                })
+
+        serializer = PegStockSerializer(data, many=True)
+        return Response(serializer.data)
+
 
 class StockViewSet(viewsets.ModelViewSet):
     queryset = Stock.objects.all()

@@ -10,21 +10,22 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-interface Stock {
+interface PegStock {
   symbol: string;
   name: string;
-  exchange: string;
-  currency: string;
+  pe_ratio: number;
+  earnings_growth: number;
+  peg_ratio: number;
 }
 
 export const App = () => {
-  const [stocks, setStocks] = useState<Stock[]>([]);
+  const [stocks, setStocks] = useState<PegStock[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchStocks = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/stocks/');
+        const response = await fetch('http://127.0.0.1:8000/api/peg-stocks/');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -42,11 +43,18 @@ export const App = () => {
     fetchStocks();
   }, []);
 
-  const renderItem = ({ item }: { item: Stock }) => (
-    <TouchableOpacity style={styles.item}>
-      <Text style={styles.title}>{item.symbol}</Text>
-      <Text style={styles.subtitle}>{item.name}</Text>
-    </TouchableOpacity>
+  const renderItem = ({ item }: { item: PegStock }) => (
+    <View style={styles.item}>
+      <View style={styles.itemHeader}>
+        <Text style={styles.title}>{item.symbol}</Text>
+        <Text style={styles.subtitle}>{item.name}</Text>
+      </View>
+      <View style={styles.itemBody}>
+        <Text style={styles.pegRatio}>PEG: {item.peg_ratio.toFixed(2)}</Text>
+        <Text>P/E: {item.pe_ratio.toFixed(2)}</Text>
+        <Text>Growth: {(item.earnings_growth * 100).toFixed(2)}%</Text>
+      </View>
+    </View>
   );
 
   return (
@@ -54,7 +62,7 @@ export const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Stocks</Text>
+          <Text style={styles.headerText}>PEG Scanner</Text>
         </View>
         {error ? (
           <View style={styles.errorContainer}>
@@ -97,12 +105,25 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 8,
   },
+  itemHeader: {
+    marginBottom: 10,
+  },
+  itemBody: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   title: {
     fontSize: 24,
+    fontWeight: 'bold',
   },
   subtitle: {
     fontSize: 16,
     color: '#666',
+  },
+  pegRatio: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#007bff',
   },
   errorContainer: {
     flex: 1,
