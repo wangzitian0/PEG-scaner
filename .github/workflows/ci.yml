@@ -36,7 +36,7 @@ jobs:
       - name: Start backend server (CI session)
         run: |
           mkdir -p x-log
-          nohup ./backend/.venv/bin/python3 backend/manage.py runserver 0.0.0.0:8000 > x-log/backend.ci.log 2>&1 &
+          nohup ./apps/backend/.venv/bin/python3 apps/backend/manage.py runserver 0.0.0.0:8000 > x-log/backend.ci.log 2>&1 &
           echo $! > backend_server.pid
           sleep 5
 

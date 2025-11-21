@@ -1,6 +1,6 @@
 # Project Prompt Log
 
-Per the latest instruction, all prompts are tracked directly under `project/` so that every iteration has a single source of truth. When AGENTS.md or other directives change, append the new prompt in this file before working.
+Per the latest instruction, all prompts are tracked directly under `docs/project/` so that every iteration has a single source of truth. When AGENTS.md or other directives change, append the new prompt in this file before working.
 
 ## Prompt 1 (Initial Instruction from AGENTS.md)
 
@@ -35,7 +35,7 @@ Per the latest instruction, all prompts are tracked directly under `project/` so
 - 这是个 ai-native 的应用，帮我设计好多 agent 的奖励机制。能相对自助的发展和探索。
 - 使用 Nx 管理包，Monorepo友好。
 ## 流程管理
-- 项目进度相关的东西，集中放在 project/.文件夹里面，编号递增。
+- 项目进度相关的东西，集中放在 `docs/project/` 文件夹里面，编号递增。
 - 我的指令主要是 agent.md，你要有能力检测agent.md的变化，并且记录到project。
 - 我后续追加的提示词，请你写到prompts/append_promot.md，方便追溯
 - 程序自动跑出来的东西，请都放在 x-开头的文件夹，这部分东西 agent 是不允许修改的，如 x-log/., x-data/.

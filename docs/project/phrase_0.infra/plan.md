@@ -7,8 +7,8 @@
 | 3 | Codegen Automation | Ensure `nx run backend:generate-proto` integrates with CI/logging. | Codex | Pending |
 | 4 | Infra Documentation | Document how other phases consume proto/Nx (README updates). | Codex | Completed |
 | 5 | Nx Targets | Add backend test target, mobile typecheck target, regression ping target. | Codex | Completed |
-| 6 | Tooling Verification | Regularly run `nx graph`, lint, and smoke tests to validate infra（documented via scripts/dev.sh + regression targets). | Codex | Completed |
-| 7 | Ping-Pong Flow | Backend `/api/ping/`, mobile indicator, regression script `regression_tests/ping_pong.py`. | Codex | Completed |
+| 6 | Tooling Verification | Regularly run `nx graph`, lint, and smoke tests to validate infra（documented via tools/dev.sh + regression targets). | Codex | Completed |
+| 7 | Ping-Pong Flow | Backend `/api/ping/`, mobile indicator, regression script `apps/regression/ping_pong.py`. | Codex | Completed |
 
 ## Milestones
 

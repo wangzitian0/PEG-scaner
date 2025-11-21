@@ -43,6 +43,10 @@ start_service() {
   local name="$1"
   local cmd="$2"
   local session="$3"
+  local backend_host="${BACKEND_HOST:-127.0.0.1}"
+  local backend_port="${BACKEND_PORT:-8000}"
+  local mobile_port="${MOBILE_DEV_PORT:-8081}"
+
   local pid_file="$PID_DIR/${session}_${name}.pid"
   local log_file="$PID_DIR/${session}_${name}.log"
 
@@ -53,7 +57,13 @@ start_service() {
 
   nohup bash -c "cd \"$ROOT_DIR\" && eval \"$cmd\"" >"$log_file" 2>&1 &
   echo $! >"$pid_file"
-  echo "Started [$session:$name] pid $(cat "$pid_file"). Logs: $log_file"
+  if [[ "$name" == "backend" ]]; then
+    echo "Started [$session:$name] pid $(cat "$pid_file") → http://${backend_host}:${backend_port}/ (logs: $log_file)"
+  elif [[ "$name" == "mobile" ]]; then
+    echo "Started [$session:$name] pid $(cat "$pid_file") → Metro dev server on port ${mobile_port} (logs: $log_file)"
+  else
+    echo "Started [$session:$name] pid $(cat "$pid_file"). Logs: $log_file"
+  fi
 }
 
 stop_service() {
@@ -83,7 +93,7 @@ case "${1:-}" in
     stop_service "mobile" "$SESSION_TAG"
     ;;
   *)
-    echo "Usage: scripts/dev.sh [start|stop]"
+    echo "Usage: tools/dev.sh [start|stop]"
     exit 1
     ;;
 esac

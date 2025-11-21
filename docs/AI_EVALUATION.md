@@ -11,7 +11,7 @@
 ## 2. 必读流程
 
 1. 打开 `docs/AI_EVALUATION.md`（本文件）并确认版本号/更新时间。
-2. 在 `project/phrase_xxx/iteration_flow.md` 记录“已阅读评价机制”的时间戳。
+2. 在 `docs/project/phrase_xxx/iteration_flow.md` 记录“已阅读评价机制”的时间戳。
 3. 若本文件更新，必须同步更新 `TODOWRITE.md` 中的相关要求并广播到当前迭代笔记。
 
 > **强制要求**：所有 Agent 在执行任何 `shell` 或 `apply_patch` 操作前，确认已完成上述步骤。违者视为流程违规，得分直接置 0。
@@ -43,11 +43,11 @@
 ## 6. 与需求的关系
 
 - 满足“帮我设计好多 agent 的奖励机制”这一非功能需求。
-- 连接 `agent.md`、`TODOWRITE.md`、`project/phrase_xxx`，形成闭环。
+- 连接 `agent.md`、`docs/TODOWRITE.md`、`docs/project/phrase_xxx`，形成闭环。
 - 作为 ping-pong 全流程之前的必备保障，确保后续自动化有可度量的目标。
 
 ## 7. 下一步
 
 - 将本文件链接到 `AGENTS.md`，要求所有 Agent 入口阅读。
-- 在 `project/phrase_1.initial_setup/plan.md` 中添加“评价机制”交付物。
+- 在 `docs/project/phrase_1.initial_setup/plan.md` 中添加“评价机制”交付物。
 - 实现打分脚本 & 日志管道（未来任务）。
