@@ -14,13 +14,20 @@
                       "{projectRoot}/.venv"
                     ]
                   },
-                  "start": {
-                    "executor": "nx:run-commands",
-                    "options": {
-                      "command": "./backend/.venv/bin/python3 backend/manage.py runserver"
-                    },
-                    "dependsOn": ["install"]
-                  },
+      "generate-proto": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "./backend/.venv/bin/python3 -m grpc_tools.protoc -I=./schema --python_out=./backend/stock_research/generated --grpc_python_out=./backend/stock_research/generated ./schema/stock.proto"
+        },
+        "dependsOn": ["install"]
+      },
+      "start": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "./backend/.venv/bin/python3 backend/manage.py runserver"
+        },
+        "dependsOn": ["install"]
+      },
                   "makemigrations": {
                     "executor": "nx:run-commands",
                     "options": {
