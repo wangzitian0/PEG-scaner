@@ -8,4 +8,8 @@ Using a centralized schema definition ensures data consistency and type safety a
 
 ## Schema Files
 
-*   `stock.proto`: Defines the `Stock` object, K-line data, historical K-line data, `CompanyValuation`, `FinancialIndicators`, `EarningData`, and `CompanyInfo` messages, covering detailed F10 and financial indicators.
+| File | Description |
+| --- | --- |
+| `stock.proto` | Core stock data structures (`Stock`, K-line data, valuation/indicator messages). |
+| `ping.proto` | `PingResponse` payload for infra health checks. |
+| `single_stock_page.proto` | API contract for the single-stock view (`SingleStockPageRequest/Response`, news items). |

@@ -7,10 +7,12 @@ This directory hosts end-to-end (E2E) and integration tests that span multiple s
 | Test | Description | Command |
 | --- | --- | --- |
 | `ping_pong.py` | Verifies the backend `/api/ping/` endpoint responds with the expected payload. Ensures infra connectivity before frontends rely on it. | `./apps/backend/.venv/bin/python3 apps/regression/ping_pong.py` or `npx nx run regression:ping` (backend server must be running) |
+| `check_infra.js` | Spins up backend + Vite web servers, waits for both to respond, then shuts them down. | `npx nx run regression:infra-flow` |
+| `run_web_e2e.js` | Starts backend, runs Playwright against the Vite web client, then cleans up. | `npx nx run regression:web-e2e` |
 
 ## Usage
 
-1. Start the backend (e.g., `./apps/backend/.venv/bin/python3 apps/backend/manage.py runserver`).
+1. Start the backend (for `regression:ping`) or let the script spawn it (`infra-flow` / `web-e2e`).
 2. Run the regression test script(s) from the repo root.
 3. Capture pass/fail logs under `x-log/` if running in CI.
 

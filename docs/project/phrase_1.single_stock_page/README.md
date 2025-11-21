@@ -1,16 +1,16 @@
-# Phase 1 – Initial Setup
+# Phase 1 – Single Stock Page
 
-This iteration focuses on transforming the high-level requirements in `AGENTS.md` into an actionable plan and scaffolding the workflows needed to ship the first usable slices of the PEG Scanner platform.
+This iteration focuses on delivering the end-to-end single-stock experience (UI + backend data plumbing) per `AGENTS.md`, leveraging the completed infra work from Phase 0.
 
 ## Objectives
 
 - Capture every user prompt and instruction so downstream work remains auditable.
-- Define the scope, backlog, and quality gates for the initial setup tasks (schemas, data checks, and UI/BE alignment).
+- Define the scope, backlog, and quality gates for the single-stock page (data fetch, UI rendering, chart/news placeholders).
 - Outline the day-to-day workflow so that new work items can be prioritized quickly.
 
 ## Deliverables
 
-- `plan.md`: Goals, scope, and prioritized backlog for Phase 1.
+- `plan.md`: Goals, scope, and prioritized backlog for the single-stock page.
 - `iteration_flow.md`: Daily operating procedure for this phase.
 - `checklist.md`: Trackable list of commitments tied to `AGENTS.md`.
 - `append_promot.md`: Prompts that influence this iteration, extracted from the global log.
@@ -19,11 +19,11 @@ This iteration focuses on transforming the high-level requirements in `AGENTS.md
 
 - **State:** In Progress
 - **Iteration Lead:** Codex (AI Agent)
-- **Timebox:** Until the initial cross-component scaffolding is in place (Nx wiring, schema usage, and documentation baselines).
+- **Timebox:** Until the single-stock detail view is functional (backend endpoints, proto wiring, UI skeleton, verification).
 
 ## Next Steps
 
-1. Refine the backlog in `plan.md` with concrete work packages (data ingestion plan, UI mock scopes, agent reward mechanism exploration).
+1. Refine the backlog in `plan.md` with concrete work packages (single-stock data flow, UI mock scopes, chart/news placeholders).
 2. Sequence the tasks via `iteration_flow.md` and start executing the first checklist items.
 3. Report progress back to `../README.md` and `docs/README.md` as milestones are hit.
 4. Enforce the AI evaluation mechanism across all agents before starting new technical work, updating references whenever `AGENTS.md` changes.

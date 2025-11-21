@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Root, Type } from 'protobufjs';
 
-import stockDescriptor from '../proto/stock_descriptor.json';
+import pingDescriptor from '../proto/ping_descriptor.json';
 
 interface PegStock {
   symbol: string;
@@ -34,8 +34,8 @@ export const App = () => {
   const [pingError, setPingError] = useState<string | null>(null);
 
   const pingType = useMemo<Type>(() => {
-    const root = Root.fromJSON(stockDescriptor as any);
-    return root.lookupType('pegscanner.stock.PingResponse') as Type;
+    const root = Root.fromJSON(pingDescriptor as any);
+    return root.lookupType('pegscanner.ping.PingResponse') as Type;
   }, []);
 
   const decodePing = (buffer: ArrayBuffer): PingResponse => {
@@ -90,22 +90,27 @@ export const App = () => {
   const renderPingIndicator = () => {
     let indicatorStyle = styles.pingIndicatorChecking;
     let label = 'Backend status: checking';
+    let status: 'checking' | 'ok' | 'error' = 'checking';
 
     if (pingError) {
       indicatorStyle = styles.pingIndicatorError;
       label = `Backend status error: ${pingError}`;
+      status = 'error';
     } else if (ping) {
       indicatorStyle = styles.pingIndicatorOk;
       label = `Backend status ok at ${new Date(
         ping.timestampMs,
       ).toISOString()}`;
+      status = 'ok';
     }
 
     return (
       <View
         accessibilityRole="status"
         accessibilityLabel={label}
-        style={[styles.pingIndicatorBase, indicatorStyle]}
+        style={[styles.pingIndicatorBase, indicatorStyle, styles.pingIndicatorNoPointer]}
+        dataSet={{ pingstatus: status }}
+        testID="ping-indicator"
       />
     );
   };
@@ -126,12 +131,11 @@ export const App = () => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      {renderPingIndicator()}
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>PEG Scanner</Text>
         </View>
-        {renderPingIndicator()}
         {error ? (
           <View style={styles.errorContainer}>
             <Text style={styles.errorText}>Error: {error}</Text>
@@ -167,8 +171,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   pingIndicatorBase: {
-    height: 1,
-    width: '100%',
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    width: 9,
+    height: 9,
+    borderRadius: 2,
+    zIndex: 100,
   },
   pingIndicatorOk: {
     backgroundColor: '#2b8a3e',
@@ -178,6 +187,9 @@ const styles = StyleSheet.create({
   },
   pingIndicatorChecking: {
     backgroundColor: '#d0e2ff',
+  },
+  pingIndicatorNoPointer: {
+    pointerEvents: 'none' as const,
   },
   item: {
     backgroundColor: '#fff',

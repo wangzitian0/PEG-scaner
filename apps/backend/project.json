@@ -17,7 +17,7 @@
       "generate-proto": {
         "executor": "nx:run-commands",
         "options": {
-        "command": "./apps/backend/.venv/bin/python3 -m grpc_tools.protoc -I=./libs/schema --python_out=./apps/backend/stock_research/generated --grpc_python_out=./apps/backend/stock_research/generated ./libs/schema/stock.proto"
+        "command": "bash -lc 'PROTO_DIR=./libs/schema && ./apps/backend/.venv/bin/python3 -m grpc_tools.protoc -I=$PROTO_DIR --python_out=./apps/backend/stock_research/generated --grpc_python_out=./apps/backend/stock_research/generated $PROTO_DIR/stock.proto $PROTO_DIR/ping.proto $PROTO_DIR/single_stock_page.proto'"
       },
       "dependsOn": ["install"]
     },

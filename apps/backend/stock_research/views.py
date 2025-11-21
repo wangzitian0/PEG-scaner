@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from stock_research.generated import stock_pb2
+from stock_research.generated import ping_pb2
 from .models import (
     Stock,
     KLineData,
@@ -29,7 +29,7 @@ class PingPongView(APIView):
     """Simple health endpoint so infra tests can verify backend availability."""
 
     def get(self, request, format=None):
-        payload = stock_pb2.PingResponse(
+        payload = ping_pb2.PingResponse(
             message="pong",
             agent="pegscanner-backend",
             timestamp_ms=int(time.time() * 1000),

@@ -22,17 +22,17 @@ This directory contains files related to project management and tracking. Each m
 - **Key Activities:**
     - Added backend `/api/ping/` endpoint with DRF test coverage; default `manage.py test` now runs the ping suite.
     - Surfaced backend status in the mobile app so Nx/Vite builds can confirm connectivity.
-    - Introduced Nx targets (`backend:test`, `mobile:typecheck`) and `apps/regression/ping_pong.py` for shared automation.
+    - Introduced Nx targets (`backend:test`, `mobile:typecheck`) and regression scripts (`ping_pong.py`, `check_infra.js`, `run_web_e2e.js`) for shared automation, including Playwright coverage of the ping indicator.
     - Recorded infra prompts and plan/checklist under `phrase_0.infra/`.
 
-### Phase 1: Initial Project Setup
-- **Phase Directory:** [`phrase_1.initial_setup/`](./phrase_1.initial_setup/README.md)
-- **Phase Description:** Setting up the basic project structure, documentation, and tooling as per `AGENTS.md`, and defining the backlog for data pipelines + UI/agent work.
+### Phase 1: Single Stock Page
+- **Phase Directory:** [`phrase_1.single_stock_page/`](./phrase_1.single_stock_page/README.md)
+- **Phase Description:** Implementing the single-stock experience (UI + data flow) per `AGENTS.md`, building on top of the initial infra.
 - **Status:** In Progress
 - **Key Activities:**
     - Created `docs/TODOWRITE.md`
     - Updated `docs/project/README.md`
-    - Logged new prompts and set up iteration management files under `phrase_1.initial_setup/`
+    - Logged new prompts and set up iteration management files under `phrase_1.single_stock_page/`
     - Captured baseline directory trees (root/apps/backend + apps/mobile) for structure audit
     - Ran `apps/backend/manage.py test` (currently reports 0 tests) to gauge automation gaps
     - Added `docs/AI_EVALUATION.md` and updated references (including latest `AGENTS.md` edits) so every agent follows the reward mechanism

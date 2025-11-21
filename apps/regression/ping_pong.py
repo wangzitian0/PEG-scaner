@@ -22,7 +22,7 @@ BACKEND_PATH = Path(__file__).resolve().parent.parent / "backend"
 if str(BACKEND_PATH) not in sys.path:
     sys.path.insert(0, str(BACKEND_PATH))
 
-from stock_research.generated import stock_pb2  # noqa: E402
+from stock_research.generated import ping_pb2  # noqa: E402
 
 PING_URL = os.environ.get("PEGSCANNER_PING_URL", "http://127.0.0.1:8000/api/ping/")
 
@@ -41,7 +41,7 @@ def main() -> int:
         print(f"[ping-pong] FAILED: HTTP {status} from {PING_URL}", file=sys.stderr)
         return 1
 
-    payload = stock_pb2.PingResponse()
+    payload = ping_pb2.PingResponse()
     try:
         payload.ParseFromString(payload_bytes)
     except Exception as exc:  # pylint: disable=broad-except
