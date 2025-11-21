@@ -4,11 +4,11 @@ This document outlines the high-level plan and phased approach for developing th
 
 ## Phase 1: Foundation & Data Infrastructure
 
-**Goal:** Establish the core monorepo structure, define essential data models, and set up basic data acquisition mechanisms.
+**Goal:** Establish the core monorepo structure, define essential data models using Protobuf, and set up basic data acquisition mechanisms.
 
 **Key Deliverables:**
-*   Initialized Nx workspace (completed).
-*   Defined core Protobuf schemas (`stock.proto`) for `Stock`, `KLineData`, etc. (completed).
+*   Initialized Nx workspace (completed, as per `agent.md` setup).
+*   Defined core Protobuf schemas (`stock.proto` etc.) for `Stock`, `KLineData`, `CompanyInfo`, `Financials`, etc. (Next Step).
 *   Basic Python module for data fetching (e.g., daily K-lines for initial symbols).
 *   Initial data storage setup (e.g., local database for historical data).
 *   Minimal API endpoint in the backend for serving raw stock data.
