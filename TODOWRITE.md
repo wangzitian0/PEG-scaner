@@ -47,8 +47,8 @@ This document tracks the requirements from `agent.md` and their completion statu
 - [ ] Avoid repeated crawling to prevent traffic control issues
 
 ### 代码管理 (Code Management)
-- [ ] Use `schema/protobuf` to split sub-applications
-- [ ] Maximize SSOT (Single Source of Truth) principle; related items in one folder/file
+- [X] Use `schema/protobuf` to split sub-applications
+- [X] Maximize SSOT (Single Source of Truth) principle; related items in one folder/file
 
 ### 项目管理 (Project Management)
 - [X] `README.md` for every directory
