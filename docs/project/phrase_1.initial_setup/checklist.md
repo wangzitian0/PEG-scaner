@@ -5,7 +5,7 @@
 - [x] Capture baseline directory trees for root, project, backend, and mobile.
 - [x] Run `backend/manage.py test` (current result: 0 tests) to document readiness gaps.
 - [ ] Draft data source blueprint covering K-line, news, F10, factor data, and verification workflow.
-- [ ] Map `schema/stock.proto` objects to backend/mobile components and list missing fields.
+- [ ] Map `libs/schema/stock.proto` objects to backend/mobile components and list missing fields.
 - [x] Outline agent reward mechanisms tied to requirement coverage, data verification, and testing（`docs/AI_EVALUATION.md` + `AGENTS.md` 强制要求）。
 - [x] Ensure every agent must read `docs/AI_EVALUATION.md` before work (instruction added to `AGENTS.md` & iteration docs，需追踪 AGENTS.md 更新).
 - [ ] Produce initial implementation tickets for:

@@ -13,7 +13,7 @@
 | 1 | Prompt Logging | Keep `../prompt_log.md` and iteration logs up to date (single source). | Codex | Completed |
 | 2 | Iteration Docs | Maintain plan/checklist/flow files for this phase. | Codex | Completed |
 | 3 | Data Source Blueprint | List candidate vendors/APIs for K-line, news, F10, factors, and describe verification workflow. | Codex | Todo |
-| 4 | Schema Alignment | Map `schema/stock.proto` messages to backend/mobile consumers; note missing structures. | Codex | Todo |
+| 4 | Schema Alignment | Map `libs/schema/stock.proto` messages to backend/mobile consumers; note missing structures. | Codex | Todo |
 | 5 | Agent Reward Design | Draft reward signals for future agents (quality, coverage, data verification). | Codex | Completed |
 | 6 | Evaluation Adoption | Enforce AI_EVALUATION doc via `AGENTS.md` and iteration docs; keep in sync when `AGENTS.md` changes. | Codex | In Progress |
 | 7 | Execution Tracking | Update `../README.md`, `docs/README.md`, and `docs/TODOWRITE.md` as milestones complete. | Codex | In Progress |

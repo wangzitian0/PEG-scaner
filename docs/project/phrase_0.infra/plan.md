@@ -2,7 +2,7 @@
 
 | # | Work Package | Description | Owner | Status |
 |---|--------------|-------------|-------|--------|
-| 1 | Proto Governance | Maintain `schema/` definitions, codegen rules, and documentation. | Codex | Pending |
+| 1 | Proto Governance | Maintain `libs/schema/` definitions, codegen rules, and documentation. | Codex | Pending |
 | 2 | Nx Workspace Health | Keep `nx.json`, per-project configs, and shared targets up to date. | Codex | Pending |
 | 3 | Codegen Automation | Ensure `nx run backend:generate-proto` integrates with CI/logging. | Codex | Pending |
 | 4 | Infra Documentation | Document how other phases consume proto/Nx (README updates). | Codex | Completed |
