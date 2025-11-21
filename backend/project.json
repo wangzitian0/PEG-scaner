@@ -42,13 +42,20 @@
                     },
                     "dependsOn": ["install"]
                   },
-                  "shell": {
-                    "executor": "nx:run-commands",
-                    "options": {
-                      "command": "./backend/.venv/bin/python3 backend/manage.py shell"
-                    },
-                    "dependsOn": ["install"]
+                      "shell": {
+                        "executor": "nx:run-commands",
+                        "options": {
+                          "command": "./backend/.venv/bin/python3 backend/manage.py shell"
+                        },
+                        "dependsOn": ["install"]
+                      },
+                      "fetch-stock-data": {
+                        "executor": "nx:run-commands",
+                        "options": {
+                          "command": "./backend/.venv/bin/python3 backend/manage.py fetch_stock_data"
+                        },
+                        "dependsOn": ["install"]
+                      }
+                    }
                   }
-                }
-              }
-                              
+                                                
