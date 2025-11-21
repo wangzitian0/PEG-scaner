@@ -1,2 +1,4 @@
 # backend/requirements.txt
 yfinance
+grpcio-tools
+
