@@ -1,8 +1,8 @@
-# Append Prompts Log
+# Project Prompt Log
 
-This file records all subsequent prompts received from the user, ensuring traceability of instructions and interactions.
+Per the latest instruction, all prompts are tracked directly under `project/` so that every iteration has a single source of truth. When AGENTS.md or other directives change, append the new prompt in this file before working.
 
-## Initial Prompt (from agent.md)
+## Prompt 1 (Initial Instruction from AGENTS.md)
 
 ```
 我想做一个股票软件，量化选股，主要是美股。
@@ -58,4 +58,60 @@ This file records all subsequent prompts received from the user, ensuring tracea
 ## 质量管理
 - 每次改代码都要跑测试，测试不仅仅是测试代码，还有数据产物的基本校验。
 - 每次你认为你完成的时候，请你检查 agent.md 的要求，将未满足的要求追加到 TODOWRITE 里面。
+```
+
+## Prompt 2
+
+```
+请你阅读 AGENTS.md , 现在傻逼 gemini 卡住了调不通，你能比他厉害么？
+```
+
+## Prompt 3
+
+```
+你不知道接下来要干啥？
+```
+
+## Prompt 4
+
+```
+先做 1 吧
+```
+
+## Prompt 5
+
+```
+先做 1 吧，等一下，你怎么保证不同的模型都来读这个文件？在 agents.md 里面说明？
+```
+
+## Prompt 6
+
+```
+我修改了下 agents.md，请你再调整下路径
+```
+
+## Prompt 7
+
+```
+和 proto，nx 相关的基础设施放在 phrase_0.infra 里面哦
+```
+
+## Prompt 8
+
+```
+有毒吧你。新建一个目录叫做 regression_tests/吧，这种端到端测试放里面，单元测试和局部测试，各个文件夹自己管理就好
+```
+
+## Prompt 9
+
+```
+交付标准是，流程跑通。
+```
+
+## Prompt 10
+
+```
+交付标准是，流程跑通。
+- ping-pong 也应该基于 protobuf，FE BE 都应该基于 protobuf 交互
+- 有一个一键启动和关闭服务的脚本，能够读$ENV环境变量
 ```

@@ -1,8 +1,43 @@
+import time
+
+from django.http import HttpResponse
 from rest_framework import viewsets
-from .models import Stock, KLineData, CompanyInfo, CompanyValuation, FinancialIndicators, EarningData
-from .serializers import StockSerializer, KLineDataSerializer, CompanyInfoSerializer, CompanyValuationSerializer, FinancialIndicatorsSerializer, EarningDataSerializer, PegStockSerializer
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from stock_research.generated import stock_pb2
+from .models import (
+    Stock,
+    KLineData,
+    CompanyInfo,
+    CompanyValuation,
+    FinancialIndicators,
+    EarningData,
+)
+from .serializers import (
+    StockSerializer,
+    KLineDataSerializer,
+    CompanyInfoSerializer,
+    CompanyValuationSerializer,
+    FinancialIndicatorsSerializer,
+    EarningDataSerializer,
+    PegStockSerializer,
+)
+
+
+class PingPongView(APIView):
+    """Simple health endpoint so infra tests can verify backend availability."""
+
+    def get(self, request, format=None):
+        payload = stock_pb2.PingResponse(
+            message="pong",
+            agent="pegscanner-backend",
+            timestamp_ms=int(time.time() * 1000),
+        )
+        return HttpResponse(
+            payload.SerializeToString(),
+            content_type="application/x-protobuf",
+        )
 
 class PegStockListView(APIView):
     def get(self, request, format=None):

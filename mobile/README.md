@@ -16,9 +16,17 @@ To run the mobile application, navigate to this directory and follow the standar
 # Install dependencies
 npm install # or yarn install
 
+# Type-check the React Native codebase
+npx nx run mobile:typecheck
+
 # Run on iOS (requires CocoaPods and Xcode)
 npx react-native run-ios
 
 # Run on Android (requires Android Studio and emulator/device)
 npx react-native run-android
 ```
+
+## Proto Integration
+
+- The mobile app consumes the ping response defined in `schema/stock.proto`. A JSON descriptor generated via `npx pbjs -t json` lives under `mobile/src/proto/stock_descriptor.json`.
+- Protobuf decoding uses `protobufjs` with the descriptor to ensure the UI reflects the exact backend payload.

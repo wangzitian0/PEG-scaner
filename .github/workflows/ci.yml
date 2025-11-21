@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Backend install (venv + deps)
+        run: npx nx run backend:install
+
+      - name: Backend unit tests (protobuf ping)
+        run: npx nx run backend:test
+
+      - name: Start backend server (CI session)
+        run: |
+          mkdir -p x-log
+          nohup ./backend/.venv/bin/python3 backend/manage.py runserver 0.0.0.0:8000 > x-log/backend.ci.log 2>&1 &
+          echo $! > backend_server.pid
+          sleep 5
+
+      - name: Regression ping (protobuf)
+        run: npx nx run regression:ping
+
+      - name: Stop backend server
+        if: always()
+        run: |
+          if [ -f backend_server.pid ]; then
+            kill "$(cat backend_server.pid)" || true
+            rm backend_server.pid
+          fi
+
+      - name: Mobile typecheck
+        run: npx nx run mobile:typecheck
