@@ -8,4 +8,4 @@ Using a centralized schema definition ensures data consistency and type safety a
 
 ## Schema Files
 
-*   `stock.proto`: Defines the basic `Stock` object, K-line data, and historical K-line data.
+*   `stock.proto`: Defines the `Stock` object, K-line data, historical K-line data, `CompanyValuation`, `FinancialIndicators`, `EarningData`, and `CompanyInfo` messages, covering detailed F10 and financial indicators.
