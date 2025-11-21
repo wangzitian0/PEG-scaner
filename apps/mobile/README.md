@@ -28,5 +28,5 @@ npx react-native run-android
 
 ## Proto Integration
 
-- The mobile app consumes the ping response defined in `schema/stock.proto`. A JSON descriptor generated via `npx pbjs -t json` lives under `mobile/src/proto/stock_descriptor.json`.
+- The mobile app consumes the ping response defined in `schema/stock.proto`. A JSON descriptor generated via `npx pbjs -t json` lives under `apps/mobile/src/proto/stock_descriptor.json`.
 - Protobuf decoding uses `protobufjs` with the descriptor to ensure the UI reflects the exact backend payload.

@@ -1,7 +1,7 @@
 # Phase 1 Checklist
 
 - [x] Create `phrase_1.initial_setup` iteration folder with plan/process docs.
-- [x] Append user prompts (AGENTS.md request + follow-ups) to `project/prompt_log.md` only.
+- [x] Append user prompts (AGENTS.md request + follow-ups) to `../prompt_log.md` only.
 - [x] Capture baseline directory trees for root, project, backend, and mobile.
 - [x] Run `backend/manage.py test` (current result: 0 tests) to document readiness gaps.
 - [ ] Draft data source blueprint covering K-line, news, F10, factor data, and verification workflow.
@@ -12,4 +12,4 @@
   - [ ] Backend K-line & F10 fetcher
   - [ ] Factor calculation service (PEG)
   - [ ] Mobile UI skeleton for stock details/factor view
-- [ ] Update `TODOWRITE.md` when new gaps are identified during this phase.
+- [ ] Update `docs/TODOWRITE.md` when new gaps are identified during this phase.

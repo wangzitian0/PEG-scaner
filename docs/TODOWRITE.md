@@ -36,11 +36,11 @@ This document tracks the requirements from `agent.md` and their completion statu
 - [ ] Project Management: Nx (Monorepo friendly)
 
 ### 流程管理 (Process Management)
-- [X] Project progress in `project/.` folder, incrementing numbers
-- [X] `agent.md` changes detection and recording to `project/`（本次加入 AI 评价机制后已登记）
-- [X] Append prompts exclusively to `project/prompt_log.md` for traceability
+- [X] Project progress in `docs/project/` folder, incrementing numbers
+- [X] `agent.md` changes detection and recording to `docs/project/`（本次加入 AI 评价机制后已登记）
+- [X] Append prompts exclusively to `docs/project/prompt_log.md` for traceability
 - [X] Auto-generated outputs in `x-` prefixed folders (`x-log/`, `x-data/`), not modifiable by agent
-- [X] Provide `scripts/dev.sh start|stop` for ENV-aware one-click lifecycle management
+- [X] Provide `tools/dev.sh start|stop` for ENV-aware one-click lifecycle management
 - [ ] 坚持“工作前必须阅读 `docs/AI_EVALUATION.md` 并记录”自动化验证机制
 
 ### 数据管理 (Data Management)
@@ -56,8 +56,8 @@ This document tracks the requirements from `agent.md` and their completion statu
 - [X] `README.md` for every directory
 - [X] Update relevant `README.md`s on every change, from file to root; higher-level READMEs are indexes
 - [X] Macro-level project progress in `docs/README.md`
-- [X] Micro-level iterations in `phrase_i.xxxx/` folders with plan, process, checklist, append_promot MDs
-- [X] Proto/Nx infrastructure tasks isolated in `project/phrase_0.infra/`
+- [X] Micro-level iterations in `docs/project/phrase_i.xxxx/` folders with plan, process, checklist, append_promot MDs
+- [X] Proto/Nx infrastructure tasks isolated in `docs/project/phrase_0.infra/`
 
 ### 工程优化准则 (Engineering Optimization Principles)
 - [ ] Maximize use of existing documentation and code before writing new
@@ -69,4 +69,4 @@ This document tracks the requirements from `agent.md` and their completion statu
 - [ ] Backend automated test coverage（`manage.py test` 现已包含 ping-pong 用例，但仍需扩充更多覆盖率）
 - [ ] Integrate backend tests into CI/Nx workflows（`nx run backend:test` 已添加，需纳入常规流程）
 - [ ] Check `agent.md` for unfulfilled requirements and add to `TODOWRITE` upon perceived completion
-- [X] Establish `regression_tests/` for end-to-end flows (e.g., `ping_pong.py`); keep unit tests within each component
+- [X] Establish `apps/regression/` for end-to-end flows (e.g., `ping_pong.py`); keep unit tests within each component

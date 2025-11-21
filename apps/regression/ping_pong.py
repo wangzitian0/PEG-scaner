@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Smoke test for the backend ping endpoint. This script lives under regression_tests/
+Smoke test for the backend ping endpoint. This script lives under apps/regression/
 per the requirement that end-to-end tests stay centralized.
 
 Usage:
-    python3 regression_tests/ping_pong.py
+    python3 apps/regression/ping_pong.py
 
 Environment Variables:
     PEGSCANNER_PING_URL: Override the ping endpoint (default http://127.0.0.1:8000/api/ping/).

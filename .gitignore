@@ -82,7 +82,7 @@ __pycache__/
 .pytest_cache/
 .vscode/
 # Generated Protobuf files
-backend/src/generated/
+apps/backend/src/generated/
 
 # testing
 /coverage
@@ -93,3 +93,10 @@ backend/src/generated/
 node_modules/
 
 vite.config.*.timestamp*
+
+# Dev artifacts
+x-log/**/*.log
+x-log/**/*.pid
+x-log/.dev_session
+apps/backend/.venv/
+apps/backend/db.sqlite3

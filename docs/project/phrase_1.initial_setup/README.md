@@ -25,10 +25,10 @@ This iteration focuses on transforming the high-level requirements in `AGENTS.md
 
 1. Refine the backlog in `plan.md` with concrete work packages (data ingestion plan, UI mock scopes, agent reward mechanism exploration).
 2. Sequence the tasks via `iteration_flow.md` and start executing the first checklist items.
-3. Report progress back to `project/README.md` and `docs/README.md` as milestones are hit.
+3. Report progress back to `../README.md` and `docs/README.md` as milestones are hit.
 4. Enforce the AI evaluation mechanism across all agents before starting new technical work, updating references whenever `AGENTS.md` changes.
 
 ## Baseline Findings (2025-02-14)
 
-- Repository structure captured via `tree` for root, `project/`, `backend/`, and `mobile/`.
+- Repository structure captured via `tree` for root, `docs/project/`, `apps/backend/`, and `apps/mobile/`.
 - `backend/manage.py test` currently reports “Ran 0 tests”, so automated coverage remains to be implemented.
