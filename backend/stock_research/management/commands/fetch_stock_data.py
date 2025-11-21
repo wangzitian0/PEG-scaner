@@ -81,7 +81,9 @@ class Command(BaseCommand):
                 if news:
                     self.stdout.write(self.style.SUCCESS(f'News for {symbol}:'))
                     for item in news:
-                        self.stdout.write(f"- {item['title']} ({item['publisher']})")
+                        title = item.get('title', 'No Title')
+                        publisher = item.get('publisher', 'No Publisher')
+                        self.stdout.write(f"- {title} ({publisher})")
                 else:
                     self.stdout.write(self.style.WARNING(f'No news found for {symbol}'))
 
