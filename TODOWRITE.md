@@ -29,7 +29,7 @@ This document tracks the requirements from `agent.md` and their completion statu
 
 ### 技术栈 (Tech Stack)
 - [ ] FE: react-native (reduce dev cost, unified UI)
-- [ ] BE: python (seamless integration with backend, big data, ML)
+- [X] BE: python (seamless integration with backend, big data, ML)
 - [ ] AI Models: gemini, codex, perplexity, deepseek available; open-router for online dialogue
 - [ ] Hardware: 4090 machine for low-cost pre-computation
 - [ ] AI-Native App: Design agent reward mechanism, self-sufficient development/exploration
