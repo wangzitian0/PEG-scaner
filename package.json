@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "lint:structure": "bash tools/lint_structure.sh"
+  },
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",

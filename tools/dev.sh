@@ -14,7 +14,7 @@ if [[ -n "${ENV_FILE}" && -f "${ENV_FILE}" ]]; then
 fi
 
 BACKEND_CMD=${BACKEND_CMD:-"npx nx run backend:start"}
-MOBILE_CMD=${MOBILE_CMD:-"cd mobile && npx react-native start --port ${MOBILE_DEV_PORT:-8081}"}
+MOBILE_CMD=${MOBILE_CMD:-"cd apps/mobile && npx react-native start --port ${MOBILE_DEV_PORT:-8081}"}
 SESSION_FILE="$PID_DIR/.dev_session"
 
 resolve_session_tag() {
@@ -84,16 +84,36 @@ stop_service() {
 case "${1:-}" in
   start)
     SESSION_TAG="$(resolve_session_tag start)"
-    start_service "backend" "$BACKEND_CMD" "$SESSION_TAG"
-    start_service "mobile" "$MOBILE_CMD" "$SESSION_TAG"
+    shift
+    SERVICES=("$@")
+    if [[ ${#SERVICES[@]} -eq 0 ]]; then
+      SERVICES=("backend" "mobile")
+    fi
+    for svc in "${SERVICES[@]}"; do
+      case "$svc" in
+        backend) start_service "backend" "$BACKEND_CMD" "$SESSION_TAG" ;;
+        mobile) start_service "mobile" "$MOBILE_CMD" "$SESSION_TAG" ;;
+        *) echo "Unknown service '$svc'"; exit 1 ;;
+      esac
+    done
     ;;
   stop)
     SESSION_TAG="$(resolve_session_tag stop)"
-    stop_service "backend" "$SESSION_TAG"
-    stop_service "mobile" "$SESSION_TAG"
+    shift
+    SERVICES=("$@")
+    if [[ ${#SERVICES[@]} -eq 0 ]]; then
+      SERVICES=("backend" "mobile")
+    fi
+    for svc in "${SERVICES[@]}"; do
+      case "$svc" in
+        backend) stop_service "backend" "$SESSION_TAG" ;;
+        mobile) stop_service "mobile" "$SESSION_TAG" ;;
+        *) echo "Unknown service '$svc'"; exit 1 ;;
+      esac
+    done
     ;;
   *)
-    echo "Usage: tools/dev.sh [start|stop]"
+    echo "Usage: tools/dev.sh [start|stop] [backend|mobile ...]"
     exit 1
     ;;
 esac
