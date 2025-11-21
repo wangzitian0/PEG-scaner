@@ -12,4 +12,5 @@ router.register(r'earning-data', views.EarningDataViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('peg-stocks/', views.PegStockListView.as_view(), name='peg-stock-list'),
 ]

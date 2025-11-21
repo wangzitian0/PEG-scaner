@@ -37,3 +37,16 @@ class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = '__all__'
+
+class PegStockSerializer(serializers.Serializer):
+    symbol = serializers.CharField(max_length=10)
+    name = serializers.CharField(max_length=255)
+    pe_ratio = serializers.FloatField()
+    earnings_growth = serializers.FloatField()
+    peg_ratio = serializers.SerializerMethodField()
+
+    def get_peg_ratio(self, obj):
+        if obj.get('pe_ratio') is not None and obj.get('earnings_growth') is not None:
+            if obj['earnings_growth'] > 0:
+                return obj['pe_ratio'] / (obj['earnings_growth'] * 100) # Assuming growth is a percentage
+        return None
