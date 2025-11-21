@@ -49,13 +49,13 @@
                         },
                         "dependsOn": ["install"]
                       },
-                      "fetch-stock-data": {
-                        "executor": "nx:run-commands",
-                        "options": {
-                          "command": "./backend/.venv/bin/python3 backend/manage.py fetch_stock_data"
-                        },
-                        "dependsOn": ["install"]
+                          "fetch-stock-data": {
+                            "executor": "nx:run-commands",
+                            "options": {
+                              "command": "./backend/.venv/bin/python3 backend/manage.py fetch_stock_data AAPL"
+                            },
+                            "dependsOn": ["install"]
+                          }
+                        }
                       }
-                    }
-                  }
-                                                
+                                                                      
