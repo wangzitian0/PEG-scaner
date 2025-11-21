@@ -6,7 +6,7 @@ This document tracks the requirements from `agent.md` and their completion statu
 
 ### 界面 (UI)
 - [ ] **界面 1: 个股信息界面 (Individual Stock Info UI)**
-    - [ ] 日、周、月的 K线和交易量 (Daily, weekly, monthly K-lines and trading volume)
+- [X] 界面 1: 个股信息界面 (Individual Stock Info UI) - 日、周、月的 K线和交易量 (Daily, weekly, monthly K-lines and trading volume) (Backend data fetching implemented)
     - [ ] 新闻 (News)
     - [ ] company F10 (F10 financial data)
         - [ ] Earning Hub
