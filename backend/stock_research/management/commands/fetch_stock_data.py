@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from backend.stock_research.models import Stock, KLineData, CompanyInfo, CompanyValuation, FinancialIndicators, EarningData
+from stock_research.models import Stock, KLineData, CompanyInfo, CompanyValuation, FinancialIndicators, EarningData
 import yfinance as yf
 from datetime import datetime, timedelta
 
