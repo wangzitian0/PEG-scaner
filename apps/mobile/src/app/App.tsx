@@ -6,6 +6,7 @@ import {
   Text,
   StatusBar,
   FlatList,
+  ViewProps,
 } from 'react-native';
 import { Root, Type } from 'protobufjs';
 
@@ -104,12 +105,15 @@ export const App = () => {
       status = 'ok';
     }
 
+    const pingDatasetProps = {
+      dataSet: { pingstatus: status },
+    } as unknown as ViewProps;
+
     return (
       <View
-        accessibilityRole="status"
         accessibilityLabel={label}
         style={[styles.pingIndicatorBase, indicatorStyle, styles.pingIndicatorNoPointer]}
-        dataSet={{ pingstatus: status }}
+        {...pingDatasetProps}
         testID="ping-indicator"
       />
     );
