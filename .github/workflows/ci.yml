@@ -22,6 +22,9 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
+      - name: Lint repository structure
+        run: npm run lint:structure
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -34,22 +37,14 @@ jobs:
         run: npx nx run backend:test
 
       - name: Start backend server (CI session)
-        run: |
-          mkdir -p x-log
-          nohup ./apps/backend/.venv/bin/python3 apps/backend/manage.py runserver 0.0.0.0:8000 > x-log/backend.ci.log 2>&1 &
-          echo $! > backend_server.pid
-          sleep 5
+        run: ./tools/dev.sh start backend && sleep 5
 
       - name: Regression ping (protobuf)
         run: npx nx run regression:ping
 
       - name: Stop backend server
         if: always()
-        run: |
-          if [ -f backend_server.pid ]; then
-            kill "$(cat backend_server.pid)" || true
-            rm backend_server.pid
-          fi
+        run: ./tools/dev.sh stop backend
 
       - name: Mobile typecheck
         run: npx nx run mobile:typecheck

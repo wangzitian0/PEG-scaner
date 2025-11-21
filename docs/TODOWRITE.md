@@ -68,5 +68,5 @@ This document tracks the requirements from `agent.md` and their completion statu
 - [ ] Run tests on every code change; include data product basic verification
 - [ ] Backend automated test coverage（`manage.py test` 现已包含 ping-pong 用例，但仍需扩充更多覆盖率）
 - [ ] Integrate backend tests into CI/Nx workflows（`nx run backend:test` 已添加，需纳入常规流程）
-- [ ] Check `agent.md` for unfulfilled requirements and add to `TODOWRITE` upon perceived completion
+- [ ] Check `AGENTS.md` for unfulfilled requirements and add to `docs/TODOWRITE.md` upon perceived completion
 - [X] Establish `apps/regression/` for end-to-end flows (e.g., `ping_pong.py`); keep unit tests within each component

@@ -1,6 +1,6 @@
 # Project Prompt Log
 
-Per the latest instruction, all prompts are tracked directly under `docs/project/` so that every iteration has a single source of truth. When AGENTS.md or other directives change, append the new prompt in this file before working.
+Per the latest instruction, all prompts are tracked directly under `docs/project/` so that every iteration has a single source of truth. When `AGENTS.md` or other directives change, append the new prompt in this file before working.
 
 ## Prompt 1 (Initial Instruction from AGENTS.md)
 
