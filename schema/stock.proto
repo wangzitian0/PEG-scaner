@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package pegscanner.stock;
+
+// Represents a stock or other financial instrument.
+message Stock {
+  string symbol = 1;      // Stock ticker symbol (e.g., "AAPL")
+  string name = 2;        // Full company name (e.g., "Apple Inc.")
+  string exchange = 3;    // Exchange where the stock is traded (e.g., "NASDAQ")
+  string currency = 4;    // Currency of the stock (e.g., "USD")
+  // Add other common stock identifiers or metadata as needed
+}
+
+// Represents K-line (candlestick) data for a specific time period.
+message KLineData {
+  int64 timestamp = 1;    // Unix timestamp of the data point (e.g., start of day)
+  double open = 2;        // Opening price
+  double high = 3;        // Highest price
+  double low = 4;         // Lowest price
+  double close = 5;       // Closing price
+  int64 volume = 6;       // Trading volume
+}
+
+// Represents historical K-line data for a stock over a specific interval.
+message HistoricalKLine {
+  string symbol = 1;      // The symbol of the stock
+  enum Interval {
+    INTERVAL_UNSPECIFIED = 0;
+    INTERVAL_DAILY = 1;
+    INTERVAL_WEEKLY = 2;
+    INTERVAL_MONTHLY = 3;
+  }
+  Interval interval = 2; // The time interval for the K-line data
+  repeated KLineData k_lines = 3; // List of K-line data points
+}
