@@ -1,42 +1,59 @@
-# PEG Scanner - Django Backend
+# PEG Scanner - Flask Backend
 
-This directory contains the Django backend application, responsible for providing API services, managing data, and handling business logic for the PEG Scanner application.
+This directory now hosts the Flask + Neo4j backend that powers the ping/pong infra, the PEG stock table, the single stock page (protobuf), and the crawler/admin workflows.
 
 ## Structure
 
-*   `.venv/`: Python virtual environment for isolated dependency management (created inside `apps/backend/`).
-*   `requirements.txt`: Python package dependencies for the Django project.
-*   `manage.py`: Django's command-line utility for administrative tasks.
-*   `pegscanner_backend/`: The main Django project directory, containing settings, URL configurations, etc.
-*   `project.json`: Nx project configuration for the Django backend.
+- `src/pegserver/`: Flask application factory, API blueprint, CLI, Flask-Admin view, crawler helpers, and the graph store that talks to Neo4j through `neomodel`.
+- `src/manage.py`: Flask CLI entrypoint used by Nx (`run`, `crawler-run`, etc.).
+- `proto/generated/`: Python code generated from the protobuf contracts in `libs/schema`.
+- `tests/`: Pytest suite that exercises the API via the Flask test client (defaults to the in-memory fake store so CI does not need Neo4j).
+- `requirements.txt`: Runtime + tooling dependencies (Flask, Flask-Admin, neomodel, grpc tools, yfinance, pytest).
 
-## Getting Started
+## Commands
 
-1.  **Install Dependencies:**
-    ```bash
-    npx nx install backend
-    ```
-    This command will create the virtual environment, install Django and other necessary packages.
+All commands run from the repo root:
 
-2.  **Run Migrations:**
-    ```bash
-    npx nx migrate backend
-    ```
-    This will apply any database migrations.
+```bash
+# Install python deps + node modules + proto bindings
+npx nx run backend:install
+npx nx run backend:generate-proto
 
-3.  **Start the Development Server:**
-    ```bash
-    npx nx start backend
-    ```
-    The Django development server will start, typically accessible at `http://127.0.0.1:8000/`.
+# Start the dev stack (Neo4j container + backend + Metro + Vite)
+npm run dev
+# or only the backend with live reload
+npx nx run backend:start
 
-## Key Responsibilities
+# Run backend tests (uses the fake in-memory graph)
+npx nx run backend:test
 
-*   **API Services:** Exposing data and functionality to the frontend (React Native mobile application).
-*   **Data Management:** Interacting with the database for storing and retrieving stock data, user profiles, and other application-specific information.
-*   **Business Logic:** Implementing the core logic for quantitative stock selection, factor calculation, and strategy management.
-*   **Admin Interface:** Leveraging Django's built-in administrative interface for easy data management.
-*   **Proto Contracts:** The SSOT for all payloads lives in `libs/schema/*.proto`. Regenerate Python bindings via `npx nx run backend:generate-proto` whenever the schema changes.
-*   **Crawler App + Neo4j:** The `crawler` Django app manages crawler jobs through the default admin UI and persists graph data to Neo4j. Configure `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`, and `NEO4J_DATABASE` through environment variables. Run a job via `python manage.py run_crawler_job --symbol AAPL` to seed data.
-*   **Single Stock Page API:** `/api/single-stock-page/?symbol=XYZ` serializes `pegscanner.single_stock_page.SingleStockPageResponse` (stock metadata, recent K-line, news). The view first fetches enriched data from Neo4j and falls back to the relational models when the graph is empty.
-*   **Testing:** Run `npx nx run backend:test` (or `./apps/backend/.venv/bin/python3 apps/backend/manage.py test`) to execute the protobuf-based ping regression test and future suites.
+# Run a crawler job (live yfinance or sample fallback)
+PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 \
+  apps/backend/src/manage.py crawler-run --symbol AAPL --live
+```
+
+The CLI also exposes `crawler-job` for seeding Flask-Admin jobs:
+
+```bash
+PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 \
+  apps/backend/src/manage.py crawler-job --symbol AAPL --name "Live AAPL" --metadata "source=yfinance"
+```
+
+## Configuration
+
+Environment variables are read via `pegserver.config.Settings`:
+
+- `NEO4J_URI` / `NEO4J_USER` / `NEO4J_PASSWORD` / `NEO4J_DATABASE` – connection info for Neo4j (defaults match the Podman container started by `tools/envs/manage.py`).
+- `DB_TABLE_PREFIX` – label prefix (defaults to `dev_` or `prod_`) so dev/prod graphs never clash. Tracking events, stock documents, and crawler jobs respect the prefix.
+- `API_CORS_ORIGINS` – comma-separated list of allowed origins for `/api/*`.
+- `NEO4J_FAKE=1` – enables the lightweight in-memory graph store (used only by tests/regression scripts).
+
+## Features
+
+- `/api/ping/` – protobuf ping response that also writes a `TrackingRecord` node. The tests assert that each call succeeds and serializes correctly.
+- `/api/peg-stocks/` – JSON list derived from the latest stock documents, including derived PEG ratios.
+- `/api/single-stock-page/?symbol=XYZ` – protobuf payload built from Neo4j (crawler data first, seeded fallbacks if necessary).
+- `/admin/` – Flask-Admin console that lists crawler jobs and lets you trigger them. Jobs execute via yfinance when available or synthetic payloads for demos.
+- CLI commands (`crawler-run`, `crawler-job`) to wire automation and CI scripts without touching the UI.
+
+Read `AGENTS.md` / `docs/project/**/README.md` before editing any folder so we preserve the agreed layout and infra standards.

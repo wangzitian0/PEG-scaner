@@ -17,7 +17,7 @@ This command will initialize the Nx workspace directly within the current direct
 ## Development Workflow
 
 1. Run `npm run lint:structure` to ensure the workspace layout remains compliant.
-2. Start the full stack (Neo4j via Docker, Django backend, Metro, Vite) with **one command**:
+2. Start the full stack (Neo4j via Docker, Flask backend, Metro, Vite) with **one command**:
    ```bash
    npm run dev
    ```
@@ -32,16 +32,21 @@ This command will initialize the Nx workspace directly within the current direct
 
 ## Crawler + Neo4j
 
-The crawler app stores graph-shaped stock metadata inside Neo4j and feeds the single stock page.
+The crawler stores graph-shaped stock metadata inside Neo4j and feeds the single stock page.
 
 1. Run Neo4j locally (default URI `bolt://localhost:7687`, user/password `neo4j/neo4j`, override via `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`).
-2. Create crawler jobs via Django admin (`/admin/`) or `python apps/backend/manage.py shell`.
+2. Manage crawler jobs with Flask-Admin at `http://127.0.0.1:8000/admin/` or via the CLI:
+   ```bash
+   PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 \\
+     apps/backend/src/manage.py crawler-job --symbol AAPL --name \"AAPL Live\" --metadata \"source=yfinance\"
+   ```
 3. Execute a job to seed Neo4j (crawler fetches live data via `yfinance`; falls back to a synthetic payload if Yahoo Finance is unreachable):
    ```bash
    npx nx run backend:install
-   ./apps/backend/.venv/bin/python3 apps/backend/manage.py run_crawler_job --symbol AAPL
+   PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 \\
+     apps/backend/src/manage.py crawler-run --symbol AAPL --live
    ```
-4. Visit `http://localhost:5173/?symbol=AAPL` and the single-stock page will fetch its data straight from Neo4j (news, K-line, metadata).
+4. Visit `http://localhost:5173/?symbol=AAPL` – the single stock page reads the protobuf payload straight from Neo4j (news, K-line, metadata, valuations).
 
 ## Environment Tools
 

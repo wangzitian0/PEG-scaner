@@ -8,6 +8,7 @@ const BACKEND_URL = process.env.PEGSCANNER_PING_URL || 'http://127.0.0.1:8000/ap
 const WEB_URL = `http://127.0.0.1:${WEB_PORT}/`;
 
 const children = [];
+let shuttingDown = false;
 
 function startTarget(target) {
   const child = spawn('npx', ['nx', 'run', target], {
@@ -20,6 +21,7 @@ function startTarget(target) {
 }
 
 function stopAll() {
+  shuttingDown = true;
   for (const child of children) {
     if (child && !child.killed) {
       child.kill('SIGINT');
@@ -48,8 +50,11 @@ async function waitForUrl(url, timeoutMs = 45000) {
 (async () => {
   console.log('[infra] starting backend server…');
   const backend = startTarget('backend:start');
-  backend.on('exit', (code) => {
-    if (code !== null && code !== 0) {
+  backend.on('exit', (code, signal) => {
+    if (shuttingDown) {
+      return;
+    }
+    if ((code !== null && code !== 0) || signal) {
       console.error('[infra] backend exited prematurely');
       process.exitCode = 1;
     }
@@ -60,8 +65,11 @@ async function waitForUrl(url, timeoutMs = 45000) {
 
   console.log('[infra] starting web (Vite) server…');
   const web = startTarget('mobile:serve');
-  web.on('exit', (code) => {
-    if (code !== null && code !== 0) {
+  web.on('exit', (code, signal) => {
+    if (shuttingDown) {
+      return;
+    }
+    if ((code !== null && code !== 0) || signal) {
       console.error('[infra] web server exited prematurely');
       process.exitCode = 1;
     }

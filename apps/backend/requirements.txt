@@ -1,8 +1,9 @@
 # backend/requirements.txt
-Django
-djangorestframework
-django-cors-headers
-lxml
+Flask
+Flask-Cors
+Flask-Admin
 grpcio-tools
 yfinance
 neo4j
+neomodel
+pytest

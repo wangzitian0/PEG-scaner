@@ -1,0 +1,34 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+<div class="container-fluid">
+  <h2>Crawler Jobs</h2>
+  {% if jobs %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Metadata</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for job in jobs %}
+      <tr>
+        <td>{{ job.symbol }}</td>
+        <td>{{ job.name }}</td>
+        <td>{{ job.status }}</td>
+        <td><code>{{ job.metadata }}</code></td>
+        <td>
+          <a class="btn btn-primary btn-sm" href="{{ url_for('.run_job', job_id=job.uid) }}">Run</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No crawler jobs defined yet. Use the CLI to seed jobs.</p>
+  {% endif %}
+</div>
+{% endblock %}

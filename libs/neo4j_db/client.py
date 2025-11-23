@@ -1,12 +1,18 @@
 import json
 import logging
+import os
 from functools import lru_cache
 from typing import Any, Dict, List, Optional
 
-try:
+try:  # pragma: no cover - optional dependency
     from django.conf import settings
 except ImportError:  # pragma: no cover - non-Django contexts
     settings = None  # type: ignore
+
+try:  # pragma: no cover - optional dependency
+    from flask import current_app
+except ImportError:  # pragma: no cover - Flask not installed
+    current_app = None  # type: ignore
 
 try:
     from neo4j import GraphDatabase, basic_auth
@@ -23,7 +29,9 @@ logger = logging.getLogger(__name__)
 def _get_setting(name: str, default: Optional[str] = None) -> Optional[str]:
     if settings and hasattr(settings, name):
         return getattr(settings, name)
-    return default
+    if current_app and name in current_app.config:  # pragma: no branch - Flask optional
+        return current_app.config[name]
+    return os.getenv(name, default)
 
 
 @lru_cache(maxsize=1)
