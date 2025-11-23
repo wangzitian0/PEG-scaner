@@ -1,6 +1,8 @@
+import logging
 import time
 from datetime import datetime, time as datetime_time
 
+from django.db import DatabaseError
 from django.db.models import Prefetch
 from django.http import HttpResponse
 from django.utils import timezone
@@ -17,6 +19,7 @@ from .models import (
     CompanyValuation,
     FinancialIndicators,
     EarningData,
+    TrackingRecord,
 )
 from .serializers import (
     StockSerializer,
@@ -33,6 +36,7 @@ class PingPongView(APIView):
     """Simple health endpoint so infra tests can verify backend availability."""
 
     def get(self, request, format=None):
+        self._record_tracking()
         payload = ping_pb2.PingResponse(
             message="pong",
             agent="pegscanner-backend",
@@ -42,6 +46,15 @@ class PingPongView(APIView):
             payload.SerializeToString(),
             content_type="application/x-protobuf",
         )
+
+    @staticmethod
+    def _record_tracking():
+        try:
+
+            record = TrackingRecord.objects.create()
+            TrackingRecord.objects.filter(pk=record.pk).exists()
+        except DatabaseError as exc:
+            logging.getLogger(__name__).error('Failed to record tracking entry: %s', exc)
 
 
 class SingleStockPageView(APIView):
