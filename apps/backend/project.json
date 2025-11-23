@@ -1,68 +1,38 @@
 {
   "name": "backend",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "backend",
+  "sourceRoot": "backend/src",
   "projectType": "application",
-  "tags": [],
-                  "targets": {
-                    "install": {
-                      "executor": "nx:run-commands",
-                      "options": {
-        "command": "python3 -m venv apps/backend/.venv && ./apps/backend/.venv/bin/pip3 install -r apps/backend/requirements.txt"
+  "targets": {
+    "install": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "python3 -m venv apps/backend/.venv && ./apps/backend/.venv/bin/python3 -m pip install -r apps/backend/requirements.txt"
       },
-    "outputs": [
-      "{projectRoot}/.venv"
-    ]
-  },
-      "generate-proto": {
-        "executor": "nx:run-commands",
-        "options": {
-        "command": "bash -lc 'PROTO_DIR=./libs/schema && ./apps/backend/.venv/bin/python3 -m grpc_tools.protoc -I=$PROTO_DIR --python_out=./apps/backend/stock_research/generated --grpc_python_out=./apps/backend/stock_research/generated $PROTO_DIR/stock.proto $PROTO_DIR/ping.proto $PROTO_DIR/single_stock_page.proto'"
+      "outputs": [
+        "{projectRoot}/.venv"
+      ]
+    },
+    "generate-proto": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash -lc 'PROTO_DIR=./libs/schema && ./apps/backend/.venv/bin/python3 -m grpc_tools.protoc -I=$PROTO_DIR --python_out=./apps/backend/proto/generated $PROTO_DIR/stock.proto $PROTO_DIR/ping.proto $PROTO_DIR/single_stock_page.proto'"
       },
       "dependsOn": ["install"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "./apps/backend/.venv/bin/python3 apps/backend/manage.py runserver"
+        "command": "bash -lc 'PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 apps/backend/src/manage.py run --host 0.0.0.0 --port 8000 --reload'"
       },
-      "dependsOn": ["install"]
+      "dependsOn": ["install", "generate-proto"]
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "./apps/backend/.venv/bin/python3 apps/backend/manage.py test"
+        "command": "bash -lc 'PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. NEO4J_FAKE=1 ./apps/backend/.venv/bin/pytest apps/backend/tests'"
       },
-      "dependsOn": ["install"]
-    },
-                  "makemigrations": {
-                    "executor": "nx:run-commands",
-                    "options": {
-                      "command": "./apps/backend/.venv/bin/python3 apps/backend/manage.py makemigrations"
-                    },
-                    "dependsOn": ["install"]
-                  },
-                  "migrate": {
-                    "executor": "nx:run-commands",
-                    "options": {
-                      "command": "./apps/backend/.venv/bin/python3 apps/backend/manage.py migrate"
-                    },
-                    "dependsOn": ["install"]
-                  },
-                      "shell": {
-                        "executor": "nx:run-commands",
-                        "options": {
-                          "command": "./apps/backend/.venv/bin/python3 apps/backend/manage.py shell"
-                        },
-                        "dependsOn": ["install"]
-                      },
-                          "fetch-stock-data": {
-                            "executor": "nx:run-commands",
-                            "options": {
-                              "command": "./apps/backend/.venv/bin/python3 apps/backend/manage.py fetch_stock_data AAPL"
-                            },
-                            "dependsOn": ["install"]
-                          }
-                        }
-                      }
-                                                                      
+      "dependsOn": ["install", "generate-proto"]
+    }
+  }
+}

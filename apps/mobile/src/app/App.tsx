@@ -495,7 +495,7 @@ export const App = () => {
           <View style={styles.errorContainer}>
             <Text style={styles.errorText}>Error: {error}</Text>
             <Text style={styles.errorText}>
-              Please make sure the Django development server is running.
+              Please make sure the Flask backend server is running.
             </Text>
           </View>
         ) : (
