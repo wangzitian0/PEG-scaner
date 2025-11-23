@@ -1,7 +1,7 @@
 {
   "scripts": {
     "lint:structure": "bash tools/lint_structure.sh",
-    "dev": "npm run lint:structure && concurrently \"npx nx run backend:start\" \"npx nx run mobile:start\" \"npx nx run mobile:serve\""
+    "dev": "npm run lint:structure && node tools/clear_vite_cache.js && concurrently \"npx nx run backend:start\" \"npx nx run mobile:start\" \"npx nx run mobile:serve\""
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",

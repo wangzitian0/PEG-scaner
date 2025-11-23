@@ -13,3 +13,6 @@
   - [ ] Factor calculation service (PEG)
   - [ ] Mobile single-stock UI skeleton (charts/news placeholders)
 - [ ] Update `docs/TODOWRITE.md` when new gaps are identified during this phase.
+- [x] Implement backend single-stock protobuf endpoint (`/api/single-stock-page/`) with initial K-line + F10 payload.
+- [x] Implement mobile single-stock UI skeleton that decodes protobuf payloads (company info, K-line summary, news placeholder).
+- [x] Support queryable single-stock page links (URL `?symbol=` param + manual input) so any ticker can be loaded directly.

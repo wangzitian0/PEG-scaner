@@ -1,11 +1,25 @@
 #!/usr/bin/env node
 const { spawn } = require('child_process');
+const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '../../');
+const WEB_HOST = process.env.MOBILE_WEB_HOST || '127.0.0.1';
 const WEB_PORT = process.env.MOBILE_WEB_PORT || '5173';
+const BASE_URL = `http://${WEB_HOST}:${WEB_PORT}`;
 const MOBILE_DIR = path.join(ROOT, 'apps/mobile');
+const VITE_CACHE_DIR = path.join(MOBILE_DIR, 'node_modules', '.vite');
+let previewServer;
 
+const clearViteCache = () => {
+  try {
+    fs.rmSync(VITE_CACHE_DIR, { recursive: true, force: true });
+  } catch (err) {
+    console.warn('[web-e2e] failed to clear Vite cache:', err.message);
+  }
+};
+
+clearViteCache();
 const backend = spawn('npx', ['nx', 'run', 'backend:start'], {
   cwd: ROOT,
   stdio: 'inherit',
@@ -13,11 +27,27 @@ const backend = spawn('npx', ['nx', 'run', 'backend:start'], {
 
 const cleanUp = () => {
   if (!backend.killed) backend.kill('SIGINT');
+  if (previewServer && !previewServer.killed) {
+    previewServer.kill('SIGINT');
+  }
 };
 
 const run = async () => {
   try {
+    await exec('npx', ['vite', 'build'], {
+      cwd: MOBILE_DIR,
+      stdio: 'inherit',
+    });
     await waitForUrl(`http://127.0.0.1:8000/api/ping/`);
+    previewServer = spawn(
+      'npx',
+      ['vite', 'preview', '--host', WEB_HOST, '--port', WEB_PORT],
+      {
+        cwd: MOBILE_DIR,
+        stdio: 'inherit',
+      },
+    );
+    await waitForUrl(BASE_URL);
     await exec('npx', ['playwright', 'install', 'chromium'], {
       cwd: MOBILE_DIR,
       stdio: 'inherit',

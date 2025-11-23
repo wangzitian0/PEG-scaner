@@ -17,7 +17,7 @@ This command will initialize the Nx workspace directly within the current direct
 ## Development Workflow
 
 1. Run `npm run lint:structure` to ensure the workspace layout remains compliant.
-2. Start hot-reload services with `npm run dev` (spawns `npx nx run backend:start` + `npx nx run mobile:start` via `concurrently`; respect `MOBILE_DEV_PORT` env var). Use `Ctrl+C` when finished. For the web preview, run `npx nx run mobile:serve` (Vite on port `MOBILE_WEB_PORT`, default 5173) and open `http://localhost:5173`.
+2. Start hot-reload services with `npm run dev` (spawns `npx nx run backend:start` + `npx nx run mobile:start` via `concurrently`; respect `MOBILE_DEV_PORT` env var). This command also clears `apps/mobile/node_modules/.vite` first, eliminating the “Outdated Optimize Dep” 504 errors. Use `Ctrl+C` when finished. For the web preview, run `npx nx run mobile:serve` (Vite on port `MOBILE_WEB_PORT`, default 5173) and open `http://localhost:5173`.
 3. Run automated checks while servers are running:
    - Backend proto tests: `npx nx run backend:test`
    - Regression ping: `npx nx run regression:ping` (backend server must be running)
