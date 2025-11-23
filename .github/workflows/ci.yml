@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONUNBUFFERED: "1"
+      NEO4J_AUTH: "neo4j/pegscanner"
+      NEO4J_CONTAINER: "pegscanner_ci_neo4j"
+      NEO4J_DATA_DIR: "${{ github.workspace }}/x-data/neo4j"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,15 +39,14 @@ jobs:
       - name: Backend unit tests (protobuf ping)
         run: npx nx run backend:test
 
-      - name: Start backend server (CI session)
-        run: ./tools/dev.sh start backend && sleep 5
+      - name: Install Playwright system dependencies
+        run: sudo npx playwright install-deps chromium
 
-      - name: Regression ping (protobuf)
-        run: npx nx run regression:ping
+      - name: Regression infra flow (backend + Vite + Neo4j)
+        run: npx nx run regression:infra-flow
 
-      - name: Stop backend server
-        if: always()
-        run: ./tools/dev.sh stop backend
+      - name: Regression web E2E (Playwright + Neo4j)
+        run: npx nx run regression:web-e2e
 
       - name: Mobile typecheck
         run: npx nx run mobile:typecheck

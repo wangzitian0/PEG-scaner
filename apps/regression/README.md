@@ -7,13 +7,13 @@ This directory hosts end-to-end (E2E) and integration tests that span multiple s
 | Test | Description | Command |
 | --- | --- | --- |
 | `ping_pong.py` | Verifies the backend `/api/ping/` endpoint responds with the expected payload. Ensures infra connectivity before frontends rely on it. | `./apps/backend/.venv/bin/python3 apps/regression/ping_pong.py` or `npx nx run regression:ping` (backend server must be running) |
-| `check_infra.js` | Spins up backend + Vite web servers, waits for both to respond, then shuts them down. | `npx nx run regression:infra-flow` |
-| `run_web_e2e.js` | Builds the mobile web bundle, starts backend + Vite preview, runs Playwright against the production bundle, then cleans up. | `npx nx run regression:web-e2e` |
+| `check_infra.js` | Spins up a disposable Neo4j container (`pegscanner_regression_neo4j`, data stored under `x-data/neo4j/`), launches the Flask backend and Vite dev server, and verifies they are reachable. | `npx nx run regression:infra-flow` |
+| `run_web_e2e.js` | Builds the mobile web bundle, starts the Neo4j + backend stack, runs Playwright against the preview build, and then tears everything down. | `npx nx run regression:web-e2e` |
 
 ## Usage
 
-1. Start the backend (for `regression:ping`) or let the script spawn it (`infra-flow` / `web-e2e`).
-2. Run the regression test script(s) from the repo root.
-3. Capture pass/fail logs under `x-log/` if running in CI.
+1. Make sure Podman/Docker is available (the scripts call `docker ...` under the hood; on Podman, the wrapper in `tools/bin/docker` will be used automatically).
+2. The helper scripts manage Neo4j for you. To rely on an external instance set `SKIP_NEO4J_CONTAINER=1` and expose `NEO4J_URI/USER/PASSWORD`.
+3. Run the regression test script(s) from the repo root and capture pass/fail logs under `x-log/` if running in CI.
 
 Future regression suites (e.g., frontend automation that hits live APIs) should live beside this script, following the same documentation pattern.
