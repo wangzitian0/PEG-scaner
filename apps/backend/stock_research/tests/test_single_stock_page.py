@@ -1,4 +1,5 @@
 import datetime
+from unittest import mock
 
 from django.test import TestCase
 from django.urls import reverse
@@ -95,3 +96,43 @@ class SingleStockPageViewTests(TestCase):
         response = self.client.get(url, {'symbol': 'TSLA'})
 
         self.assertEqual(response.status_code, 404)
+
+    @mock.patch('stock_research.views.fetch_stock_document')
+    def test_includes_neo4j_payload_when_available(self, fetch_stock_document):
+        fetch_stock_document.return_value = {
+            'stock': {
+                'name': 'Apple Neo',
+                'description': 'From Neo4j',
+                'sector': 'Tech',
+                'industry': 'Devices',
+            },
+            'daily_kline': [
+                {
+                    'timestamp': 1700000000,
+                    'open': 100,
+                    'high': 110,
+                    'low': 90,
+                    'close': 108,
+                    'volume': 900000,
+                }
+            ],
+            'news': [
+                {
+                    'title': 'Neo4j News',
+                    'url': 'https://example.com',
+                    'source': 'Crawler',
+                    'published_at': 1700000500,
+                }
+            ],
+        }
+
+        url = reverse('single-stock-page')
+        response = self.client.get(url, {'symbol': 'AAPL'})
+
+        self.assertEqual(response.status_code, 200)
+        payload = single_stock_page_pb2.SingleStockPageResponse()
+        payload.ParseFromString(response.content)
+        self.assertEqual(payload.stock.company_info.description, 'From Neo4j')
+        self.assertEqual(len(payload.news), 1)
+        self.assertEqual(payload.news[0].title, 'Neo4j News')
+        fetch_stock_document.assert_called_once_with('AAPL')

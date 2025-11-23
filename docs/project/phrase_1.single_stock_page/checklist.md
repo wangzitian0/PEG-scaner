@@ -16,3 +16,4 @@
 - [x] Implement backend single-stock protobuf endpoint (`/api/single-stock-page/`) with initial K-line + F10 payload.
 - [x] Implement mobile single-stock UI skeleton that decodes protobuf payloads (company info, K-line summary, news placeholder).
 - [x] Support queryable single-stock page links (URL `?symbol=` param + manual input) so any ticker can be loaded directly.
+- [x] Add crawler app + Django admin to manage crawl jobs, persist graph data to Neo4j, and source the single stock page from the graph.
