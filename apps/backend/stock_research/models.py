@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 class CompanyInfo(models.Model):
@@ -64,3 +65,16 @@ class KLineData(models.Model):
 
     def __str__(self):
         return f"{self.stock.symbol} K-line at {self.timestamp}"
+
+
+class TrackingRecord(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = f"{settings.DB_TABLE_PREFIX}tracking"
+        ordering = ['-created_at']
+        verbose_name = 'Tracking Record'
+        verbose_name_plural = 'Tracking Records'
+
+    def __str__(self):
+        return f"TrackingRecord(id={self.pk}, created_at={self.created_at})"
