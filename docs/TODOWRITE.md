@@ -47,6 +47,7 @@ This document tracks the requirements from `agent.md` and their completion statu
 - [ ] Data Confidence: Local data construction, verify with at least 3 sources via browser
 - [ ] Prioritize null over incorrect data
 - [ ] Avoid repeated crawling to prevent traffic control issues
+- [x] Graph persistence (Neo4j) for crawler output feeding the single stock page, with admin-managed crawl jobs.
 
 ### 代码管理 (Code Management)
 - [X] Use `libs/schema` protobuf to split sub-applications

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'stock_research',
+    'crawler',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,8 @@ _env_cors = {
 }
 
 CORS_ALLOWED_ORIGINS = sorted(_env_cors or _default_cors)
+
+NEO4J_URI = os.getenv('NEO4J_URI', 'bolt://localhost:7687')
+NEO4J_USER = os.getenv('NEO4J_USER', 'neo4j')
+NEO4J_PASSWORD = os.getenv('NEO4J_PASSWORD', 'neo4j')
+NEO4J_DATABASE = os.getenv('NEO4J_DATABASE', '')

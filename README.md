@@ -17,7 +17,11 @@ This command will initialize the Nx workspace directly within the current direct
 ## Development Workflow
 
 1. Run `npm run lint:structure` to ensure the workspace layout remains compliant.
-2. Start hot-reload services with `npm run dev` (spawns `npx nx run backend:start` + `npx nx run mobile:start` via `concurrently`; respect `MOBILE_DEV_PORT` env var). This command also clears `apps/mobile/node_modules/.vite` first, eliminating the “Outdated Optimize Dep” 504 errors. Use `Ctrl+C` when finished. For the web preview, run `npx nx run mobile:serve` (Vite on port `MOBILE_WEB_PORT`, default 5173) and open `http://localhost:5173`.
+2. Start the full stack (Neo4j via Docker, Django backend, Metro, Vite) with **one command**:
+   ```bash
+   npm run dev
+   ```
+   Requirements: Docker CLI (for the Neo4j container). The script lints the repo, clears Vite cache, boots a `neo4j:5` container (configurable via `NEO4J_CONTAINER`, `NEO4J_HTTP_PORT`, `NEO4J_BOLT_PORT`, `NEO4J_AUTH`, `NEO4J_DOCKER_IMAGE`), and spawns `nx run backend:start`, `nx run mobile:start`, and `nx run mobile:serve`. Hit `Ctrl+C` to gracefully terminate everything, including the Neo4j container.
 3. Run automated checks while servers are running:
    - Backend proto tests: `npx nx run backend:test`
    - Regression ping: `npx nx run regression:ping` (backend server must be running)
@@ -25,6 +29,29 @@ This command will initialize the Nx workspace directly within the current direct
    - Full web E2E (backend + Vite + Playwright): `npx nx run regression:web-e2e`
    - Mobile typecheck: `npx nx run mobile:typecheck`
 4. For manual control or headless environments, use `./tools/dev.sh start|stop [backend|mobile …]`; logs/PIDs live under `x-log/`.
+
+## Crawler + Neo4j
+
+The crawler app stores graph-shaped stock metadata inside Neo4j and feeds the single stock page.
+
+1. Run Neo4j locally (default URI `bolt://localhost:7687`, user/password `neo4j/neo4j`, override via `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`).
+2. Create crawler jobs via Django admin (`/admin/`) or `python apps/backend/manage.py shell`.
+3. Execute a job to seed Neo4j (crawler fetches live data via `yfinance`; falls back to a synthetic payload if Yahoo Finance is unreachable):
+   ```bash
+   npx nx run backend:install
+   ./apps/backend/.venv/bin/python3 apps/backend/manage.py run_crawler_job --symbol AAPL
+   ```
+4. Visit `http://localhost:5173/?symbol=AAPL` and the single-stock page will fetch its data straight from Neo4j (news, K-line, metadata).
+
+## Environment Tools
+
+Following Nx best practices, environment helpers live under `tools/envs/manage.py`:
+
+- `npm run dev` → `python3 tools/envs/manage.py dev` (lint + clear cache + Neo4j Docker + backend + Metro + Vite; stops everything when command exits).
+- `python3 tools/envs/manage.py start` → production-oriented start (Neo4j Docker + backend runserver + production Vite preview, PID files under `x-log/`).
+- `python3 tools/envs/manage.py restart` → graceful restart for production (sends SIGTERM, waits, then relaunches).
+- `python3 tools/envs/manage.py bootstrap-dev` / `bootstrap-prod` → install dependencies and prep virtualenvs for dev/prod.
+- `python3 tools/envs/install_system.py` → check/install system-level prerequisites (Node, npm, Python, Docker). Add `--apply` to execute the recommended package-manager commands automatically (requires proper privileges).
 
 ## Directory Index
 

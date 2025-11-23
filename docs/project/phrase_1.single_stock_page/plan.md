@@ -17,6 +17,7 @@
 | 5 | Agent Reward Design | Draft reward signals for future agents (quality, coverage, data verification). | Codex | Completed |
 | 6 | Single Stock Data Flow | Define data sources (K-line, news, F10) and API contracts for single-stock view. | Codex | Completed (proto + endpoint in place) |
 | 7 | UI Skeleton | Design and scaffold single-stock UI (charts/news placeholders) in the mobile app. | Codex | Completed (watchlist + detail view with proto decoding) |
+|11 | Crawler + Neo4j | Bootstrap crawler app, admin surface, and Neo4j-backed data pipeline feeding the single stock page. | Codex | Completed |
 | 8 | Evaluation Adoption | Enforce AI_EVALUATION doc via `AGENTS.md` and iteration docs; keep in sync when `AGENTS.md` changes. | Codex | In Progress |
 | 9 | Execution Tracking | Update `../README.md`, `docs/README.md`, and `docs/TODOWRITE.md` as milestones complete. | Codex | In Progress |
 |10 | Baseline Snapshot | Capture repo trees and run backend smoke tests to understand current health. | Codex | Completed |

@@ -37,5 +37,6 @@ This directory contains the Django backend application, responsible for providin
 *   **Business Logic:** Implementing the core logic for quantitative stock selection, factor calculation, and strategy management.
 *   **Admin Interface:** Leveraging Django's built-in administrative interface for easy data management.
 *   **Proto Contracts:** The SSOT for all payloads lives in `libs/schema/*.proto`. Regenerate Python bindings via `npx nx run backend:generate-proto` whenever the schema changes.
-*   **Single Stock Page API:** `/api/single-stock-page/?symbol=XYZ` serializes `pegscanner.single_stock_page.SingleStockPageResponse` (stock metadata, recent K-line, news placeholder) so the mobile client can decode protobuf payloads directly.
+*   **Crawler App + Neo4j:** The `crawler` Django app manages crawler jobs through the default admin UI and persists graph data to Neo4j. Configure `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`, and `NEO4J_DATABASE` through environment variables. Run a job via `python manage.py run_crawler_job --symbol AAPL` to seed data.
+*   **Single Stock Page API:** `/api/single-stock-page/?symbol=XYZ` serializes `pegscanner.single_stock_page.SingleStockPageResponse` (stock metadata, recent K-line, news). The view first fetches enriched data from Neo4j and falls back to the relational models when the graph is empty.
 *   **Testing:** Run `npx nx run backend:test` (or `./apps/backend/.venv/bin/python3 apps/backend/manage.py test`) to execute the protobuf-based ping regression test and future suites.
