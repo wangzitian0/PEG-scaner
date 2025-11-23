@@ -21,10 +21,4 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: `npx vite --host 0.0.0.0 --port ${WEB_PORT}`,
-    url: BASE_URL,
-    reuseExistingServer: !process.env.CI,
-    cwd: __dirname,
-  },
 });

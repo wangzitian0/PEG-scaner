@@ -15,8 +15,8 @@
 | 3 | Data Source Blueprint | List candidate vendors/APIs for K-line, news, F10, factors, and describe verification workflow. | Codex | Todo |
 | 4 | Schema Alignment | Map `libs/schema/stock.proto` messages to backend/mobile consumers; note missing structures. | Codex | Todo |
 | 5 | Agent Reward Design | Draft reward signals for future agents (quality, coverage, data verification). | Codex | Completed |
-| 6 | Single Stock Data Flow | Define data sources (K-line, news, F10) and API contracts for single-stock view. | Codex | Todo |
-| 7 | UI Skeleton | Design and scaffold single-stock UI (charts/news placeholders) in the mobile app. | Codex | Todo |
+| 6 | Single Stock Data Flow | Define data sources (K-line, news, F10) and API contracts for single-stock view. | Codex | Completed (proto + endpoint in place) |
+| 7 | UI Skeleton | Design and scaffold single-stock UI (charts/news placeholders) in the mobile app. | Codex | Completed (watchlist + detail view with proto decoding) |
 | 8 | Evaluation Adoption | Enforce AI_EVALUATION doc via `AGENTS.md` and iteration docs; keep in sync when `AGENTS.md` changes. | Codex | In Progress |
 | 9 | Execution Tracking | Update `../README.md`, `docs/README.md`, and `docs/TODOWRITE.md` as milestones complete. | Codex | In Progress |
 |10 | Baseline Snapshot | Capture repo trees and run backend smoke tests to understand current health. | Codex | Completed |

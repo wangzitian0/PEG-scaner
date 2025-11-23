@@ -14,4 +14,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('peg-stocks/', views.PegStockListView.as_view(), name='peg-stock-list'),
     path('ping/', views.PingPongView.as_view(), name='ping'),
+    path('single-stock-page/', views.SingleStockPageView.as_view(), name='single-stock-page'),
 ]
