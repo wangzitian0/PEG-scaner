@@ -44,6 +44,7 @@ PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/
 Environment variables are read via `pegserver.config.Settings`:
 
 - `NEO4J_URI` / `NEO4J_USER` / `NEO4J_PASSWORD` / `NEO4J_DATABASE` – connection info for Neo4j (defaults match the Podman container started by `tools/envs/manage.py`).
+- `NEO4J_DATA_DIR` – host directory mounted into the managed Neo4j container (defaults to `x-data/neo4j/`) so dev + CI can persist the graph between runs.
 - `DB_TABLE_PREFIX` – label prefix (defaults to `dev_` or `prod_`) so dev/prod graphs never clash. Tracking events, stock documents, and crawler jobs respect the prefix.
 - `API_CORS_ORIGINS` – comma-separated list of allowed origins for `/api/*`.
 - `NEO4J_FAKE=1` – enables the lightweight in-memory graph store (used only by tests/regression scripts).

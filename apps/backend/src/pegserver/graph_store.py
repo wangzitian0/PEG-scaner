@@ -3,8 +3,6 @@ from __future__ import annotations
 import time
 from typing import Any, Dict, Iterable, List, Optional
 
-import logging
-
 from neomodel import config as neo_config
 from neo4j.exceptions import Neo4jError, ServiceUnavailable
 
@@ -67,7 +65,10 @@ class Neo4jGraphStore(BaseGraphStore):
         return [self._doc_to_candidate(doc) for doc in docs]
 
     def has_stocks(self) -> bool:
-        return bool(StockDocumentNode.nodes.first())
+        try:
+            return bool(StockDocumentNode.nodes.first())
+        except StockDocumentNode.DoesNotExist:
+            return False
 
     def list_jobs(self) -> List[CrawlerJobNode]:
         return list(CrawlerJobNode.nodes.order_by('-updated_at'))
@@ -165,19 +166,21 @@ class FakeGraphStore(BaseGraphStore):
 class GraphStore:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
-        self._logger = logging.getLogger(__name__)
-        self._impl: BaseGraphStore = self._init_store(settings)
-
-    def _init_store(self, settings: Settings) -> BaseGraphStore:
         if settings.use_fake_graph:
-            return FakeGraphStore()
-        try:
-            store = Neo4jGraphStore(settings)
-            store.has_stocks()  # sanity check that the driver is reachable
-            return store
-        except (ServiceUnavailable, Neo4jError) as exc:
-            self._logger.warning('Neo4j unavailable (%s); falling back to fake graph store', exc)
-            return FakeGraphStore()
+            self._impl: BaseGraphStore = FakeGraphStore()
+        else:
+            self._impl = Neo4jGraphStore(settings)
+            self._wait_for_database()
+
+    def _wait_for_database(self, retries: int = 10, delay_seconds: float = 2.0) -> None:
+        for attempt in range(retries):
+            try:
+                self._impl.has_stocks()
+                return
+            except (Neo4jError, ServiceUnavailable):
+                if attempt == retries - 1:
+                    raise
+                time.sleep(delay_seconds)
 
     def record_tracking(self) -> None:
         self._impl.record_tracking()

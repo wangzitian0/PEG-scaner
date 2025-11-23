@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const { spawn } = require('child_process');
 const path = require('path');
+const { startNeo4j, waitForNeo4j, stopNeo4j } = require('./neo4j');
 
 const ROOT = path.resolve(__dirname, '../../');
 const WEB_PORT = Number(process.env.MOBILE_WEB_PORT || 5173);
@@ -9,6 +10,7 @@ const WEB_URL = `http://127.0.0.1:${WEB_PORT}/`;
 
 const children = [];
 let shuttingDown = false;
+let neo4jState = null;
 
 function startTarget(target) {
   const child = spawn('npx', ['nx', 'run', target], {
@@ -48,6 +50,9 @@ async function waitForUrl(url, timeoutMs = 45000) {
 }
 
 (async () => {
+  console.log('[infra] starting Neo4j container…');
+  neo4jState = startNeo4j();
+  await waitForNeo4j();
   console.log('[infra] starting backend server…');
   const backend = startTarget('backend:start');
   backend.on('exit', (code, signal) => {
@@ -89,4 +94,5 @@ async function waitForUrl(url, timeoutMs = 45000) {
   })
   .finally(() => {
     stopAll();
+    stopNeo4j(neo4jState);
   });

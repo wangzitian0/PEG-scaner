@@ -6,6 +6,8 @@ import signal
 import subprocess
 import sys
 import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -16,8 +18,9 @@ PID_DIR = ROOT / 'x-log'
 NEO4J_CONTAINER = os.getenv('NEO4J_CONTAINER', 'pegscanner_neo4j_dev')
 NEO4J_HTTP_PORT = os.getenv('NEO4J_HTTP_PORT', '7474')
 NEO4J_BOLT_PORT = os.getenv('NEO4J_BOLT_PORT', '7687')
-NEO4J_AUTH = os.getenv('NEO4J_AUTH', 'neo4j/neo4j')
+NEO4J_AUTH = os.getenv('NEO4J_AUTH', 'neo4j/pegscanner')
 NEO4J_IMAGE = os.getenv('NEO4J_DOCKER_IMAGE', 'neo4j:5')
+NEO4J_DATA_DIR = Path(os.getenv('NEO4J_DATA_DIR', ROOT / 'x-data' / 'neo4j'))
 SKIP_NEO4J_CONTAINER = os.getenv('SKIP_NEO4J_CONTAINER', '0') == '1'
 
 BACKEND_PID = PID_DIR / 'env_backend.pid'
@@ -56,17 +59,20 @@ def start_neo4j():
     if SKIP_NEO4J_CONTAINER or NEO4J_STARTED:
         return
     ensure_docker()
+    NEO4J_DATA_DIR.mkdir(parents=True, exist_ok=True)
     subprocess.run(['docker', 'rm', '-f', NEO4J_CONTAINER], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     run([
         'docker', 'run', '-d',
         '--name', NEO4J_CONTAINER,
         '-p', f'{NEO4J_HTTP_PORT}:7474',
         '-p', f'{NEO4J_BOLT_PORT}:7687',
+        '-v', f'{NEO4J_DATA_DIR}:/data',
         '-e', f'NEO4J_AUTH={NEO4J_AUTH}',
         '-e', 'NEO4J_PLUGINS=[]',
         NEO4J_IMAGE,
     ])
     NEO4J_STARTED = True
+    _wait_for_http(f'http://127.0.0.1:{NEO4J_HTTP_PORT}', timeout_seconds=120)
     print(f'[env] Neo4j running (http:{NEO4J_HTTP_PORT} bolt:{NEO4J_BOLT_PORT})')
 
 
@@ -88,6 +94,19 @@ def lint_structure():
 
 def clear_vite_cache():
     run(['node', str(TOOLS_DIR / 'clear_vite_cache.js')])
+
+
+def _wait_for_http(url: str, timeout_seconds: int = 60):
+    start = time.time()
+    while time.time() - start < timeout_seconds:
+        try:
+            with urllib.request.urlopen(url, timeout=5) as resp:
+                if resp.status < 500:
+                    return
+        except Exception:
+            time.sleep(1)
+            continue
+    raise RuntimeError(f'Timed out waiting for {url}')
 
 
 def prepare_dev_machine():

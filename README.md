@@ -34,7 +34,7 @@ This command will initialize the Nx workspace directly within the current direct
 
 The crawler stores graph-shaped stock metadata inside Neo4j and feeds the single stock page.
 
-1. Run Neo4j locally (default URI `bolt://localhost:7687`, user/password `neo4j/neo4j`, override via `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`).
+1. Run Neo4j locally (default URI `bolt://localhost:7687`, user/password `neo4j/pegscanner`, override via `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`). All scripted environments mount data under `x-data/neo4j/` so containers can be started/stopped freely without data loss.
 2. Manage crawler jobs with Flask-Admin at `http://127.0.0.1:8000/admin/` or via the CLI:
    ```bash
    PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 \\
@@ -57,6 +57,17 @@ Following Nx best practices, environment helpers live under `tools/envs/manage.p
 - `python3 tools/envs/manage.py restart` → graceful restart for production (sends SIGTERM, waits, then relaunches).
 - `python3 tools/envs/manage.py bootstrap-dev` / `bootstrap-prod` → install dependencies and prep virtualenvs for dev/prod.
 - `python3 tools/envs/install_system.py` → check/install system-level prerequisites (Node, npm, Python, Docker). Add `--apply` to execute the recommended package-manager commands automatically (requires proper privileges).
+
+## Continuous Integration
+
+GitHub Actions (`.github/workflows/ci.yml`) runs on every push/PR:
+
+- `backend:test` for protobuf-level units.
+- `regression:infra-flow` which boots a disposable Neo4j container (`pegscanner_ci_neo4j`, data stored under `x-data/neo4j/`), the Flask backend, and Vite dev server to assert connectivity.
+- `regression:web-e2e` which builds the web bundle and executes the Playwright ping indicator test against the running services.
+- `mobile:typecheck` to keep the RN project healthy.
+
+Use `NEO4J_DATA_DIR` if CI runners need Neo4j data somewhere else (defaults to `x-data/neo4j/`).
 
 ## Directory Index
 
