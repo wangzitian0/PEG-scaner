@@ -15,6 +15,7 @@ This phase captures all work related to the foundational tooling: protobuf schem
 - `iteration_flow.md`: how to operate within this phase (schema updates, Nx commands, verification).
 - `checklist.md`: concrete tasks (e.g., ensure proto compiles, Nx targets exist, docs updated).
 - `append_promot.md`: prompts impacting infra decisions (mirrored from `../prompt_log.md`).
+- `deploy.md`: Cloudflare+VPS 部署 TODOwrite，逐步操作与测试标准。
 
 ## Status
 

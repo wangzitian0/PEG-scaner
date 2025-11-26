@@ -10,9 +10,9 @@
 
 ## 2. 必读流程
 
-1. 打开 `docs/AI_EVALUATION.md`（本文件）并确认版本号/更新时间。
-2. 在 `docs/project/phrase_xxx/iteration_flow.md` 记录“已阅读评价机制”的时间戳。
-3. 若本文件更新，必须同步更新 `TODOWRITE.md` 中的相关要求并广播到当前迭代笔记。
+1. 打开 `docs/AI_EVALUATION.md`（本文件）找到评分标准。
+2. 在 `docs/project/<phrase_i>/iteration_flow.md` 记录一个时间戳，给当前版本打分。
+3. 检查每次迭代之后，打分是否更高了，调整剩下 TODO 的优先级，同步更新或者追加到 `TODOWRITE.md`。
 
 > **强制要求**：所有 Agent 在执行任何 `shell` 或 `apply_patch` 操作前，确认已完成上述步骤。违者视为流程违规，得分直接置 0。
 
