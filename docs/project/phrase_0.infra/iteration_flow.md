@@ -3,7 +3,6 @@
 1. **Pre-work Checklist**
    - Read `AGENTS.md`, `docs/AI_EVALUATION.md`, `../prompt_log.md`.
    - Review open items in `checklist.md` (proto/Nx tasks).
-   - Status log: 2025-11-26T19:42:05+0800 已确认阅读 `docs/AI_EVALUATION.md`（必读后再执行命令）。
 
 2. **Execution Loop**
    - For proto changes: update `libs/schema/*.proto`, run `nx run backend:generate-proto`, inspect outputs under `apps/backend/stock_research/generated`.

@@ -1,35 +1,77 @@
-# PEG Scanner - Project Documentation
+# 文档索引
 
-This directory contains high-level project documentation, including the overall project plan, architectural decisions, and development phases.
+> **AI 阅读入口**：从 `AGENTS.md` 进入，到本文件找到"对的位置"
 
-## Index
+---
 
-- [Project Plan](./PLAN.md) - Outlines the major features and development phases.
-- [Architecture](./ARCHITECTURE.md) - Describes the overall architecture of the system.
-- [AI Evaluation](./AI_EVALUATION.md) - Defines the mandatory reward/score mechanism every agent must follow; keep in sync with any [`AGENTS.md`](./AGENTS.md) updates.
-- [Phase 0 Deploy TODO](./project/phrase_0.infra/deploy.md) - Cloudflare+VPS 部署步骤与测试标准。
+## 文件职责定义
 
-## Overall Project Goal
+| 文件 | 职责 | 更新时机 | 谁写 |
+|------|------|----------|------|
+| **本文件 (README.md)** | 索引 + 当前状态总览 | 每次迭代结束 | Agent |
+| **[PRD.md](./PRD.md)** | 产品需求原文（界面/功能定义） | 用户修改需求时 | 用户 |
+| **[PLAN.md](./PLAN.md)** | 开发路线图（Phase 1-5 高层规划） | 规划调整时 | Agent |
+| **[TODOWRITE.md](./TODOWRITE.md)** | 需求完成状态跟踪（打勾用） | 每次完成任务后 | Agent |
+| **[AI_EVALUATION.md](./AI_EVALUATION.md)** | AI 评分机制详细说明 | 机制变更时 | Agent |
+| **[project/README.md](./project/README.md)** | 迭代管理规范 + 当前 Phase 状态 | Phase 状态变更时 | Agent |
+| **[project/prompt_log.md](./project/prompt_log.md)** | 用户指令日志（SSOT） | 每次收到指令后 | Agent |
+| **project/phrase_N.xxx/** | 单个迭代的详细记录 | 迭代进行中 | Agent |
 
-To build an AI-native stock analysis tool for quantitative stock selection, primarily focusing on US stocks, with a React Native frontend and a Python backend. The application aims to provide comprehensive stock information, custom factor calculation, intelligent data management, and an AI-powered conversational interface for strategy creation and push notifications.
+---
 
-## Project Progress
+## 当前状态
 
-### Phase 1: Initial Project Setup
-- **Status:** In Progress
-- **Description:** Establishing the foundational project structure, documentation, and basic management tools.
-- **Key Achievements:**
-    - Created `docs/TODOWRITE.md` to track all requirements.
-    - Updated `docs/project/README.md` for detailed project phase tracking.
-    - Established `docs/project/prompt_log.md` as the single prompt log per new instruction.
-    - Created `docs/project/phrase_1.single_stock_page/` to hold micro-iteration plans, flows, and checklists.
-    - Created `docs/project/phrase_0.infra/` for proto/Nx infrastructure work.
-    - Updated root `README.md` with an enhanced directory index.
-    - Verified existence of `x-data/` and `x-log/` directories.
-    - Captured repository tree snapshots (root/apps/backend + apps/mobile) and ran `apps/backend/manage.py test` (0 tests) to understand the current baseline.
-    - Authored `docs/AI_EVALUATION.md` and updated [`AGENTS.md`](./AGENTS.md) to enforce the agent reward mechanism.
-    - Added Phase 0 ping-pong flow (backend `/api/ping/` + mobile 1px status indicator + tests) to validate infra connectivity using shared protobuf contracts.
-    - Created `apps/regression/` for centralizing end-to-end scripts (`ping_pong.py`, `check_infra.js`, `run_web_e2e.js` for Playwright).
-    - Wired Nx targets (`backend:test`, `mobile:typecheck`, `regression:ping`, `regression:infra-flow`, `regression:web-e2e`) so infra checks can run via `nx run ...`.
-    - Added `npm run dev` for lint + backend/Metro/Vite hot reload (with `tools/dev.sh` as manual fallback) to keep previews aligned across platforms.
-- **Next Steps:** Execute the backlog defined in `docs/project/phrase_1.single_stock_page/plan.md`, starting with the single-stock UI/data work now that infra is ready.
+| Phase | 名称 | 状态 | 详情 |
+|-------|------|------|------|
+| 0 | Proto & Nx 基础设施 | ✅ Active | [phrase_0.infra/](./project/phrase_0.infra/README.md) |
+| 1 | 个股页面 | 🚧 In Progress | [phrase_1.single_stock_page/](./project/phrase_1.single_stock_page/README.md) |
+| 2 | 因子计算 | 📋 Planned | 见 [PLAN.md](./PLAN.md) |
+| 3 | AI 对话 | 📋 Planned | 见 [PLAN.md](./PLAN.md) |
+| 4 | 策略回测 | 📋 Planned | 见 [PLAN.md](./PLAN.md) |
+| 5 | 策略推送 | 📋 Planned | 见 [PLAN.md](./PLAN.md) |
+
+---
+
+## 导航指南
+
+### 我想知道...
+
+| 问题 | 去哪里 |
+|------|--------|
+| 项目要做什么功能？ | [PRD.md](./PRD.md) |
+| 整体开发计划是什么？ | [PLAN.md](./PLAN.md) |
+| 哪些需求已完成/待做？ | [TODOWRITE.md](./TODOWRITE.md) |
+| 当前在做哪个 Phase？ | 本文件的"当前状态"表格 |
+| 某个 Phase 的详细进展？ | [project/phrase_N/](./project/) |
+| 用户说过什么指令？ | [project/prompt_log.md](./project/prompt_log.md) |
+| AI 评分标准是什么？ | [AI_EVALUATION.md](./AI_EVALUATION.md) |
+
+### AI 工作流程
+
+1. 读 `AGENTS.md` → 了解强制规则
+2. 读本文件 → 找到当前 Phase
+3. 读 `project/phrase_N/README.md` → 了解当前目标
+4. 读 `project/phrase_N/checklist.md` → 找到待做任务
+5. 完成后更新 `TODOWRITE.md` + `phrase_N/checklist.md`
+
+---
+
+## 已完成的里程碑
+
+- ✅ Nx monorepo 初始化
+- ✅ Protobuf schema 定义 (`libs/schema/`)
+- ✅ Backend `/api/ping/` + Frontend 状态指示器
+- ✅ `apps/regression/` E2E 测试框架
+- ✅ `npm run dev` 一键启动
+- ✅ Neo4j + Crawler 集成
+- ✅ 单股页面 protobuf 端点 + UI 骨架
+
+---
+
+## 项目目标
+
+构建 AI-native 的量化选股工具，主要面向美股：
+- 个股信息展示（K线、财务、新闻）
+- 因子计算（PEG、PE、PS、PB）
+- AI 对话创建策略
+- 策略回测与推送

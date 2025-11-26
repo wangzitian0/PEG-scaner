@@ -115,9 +115,3 @@ Per the latest instruction, all prompts are tracked directly under `docs/project
 - ping-pong 也应该基于 protobuf，FE BE 都应该基于 protobuf 交互
 - 有一个一键启动和关闭服务的脚本，能够读$ENV环境变量
 ```
-
-## Prompt 11
-
-```
-你在 @docs/phrase_0.infra/ 里面加一个 deploy.md，把这个当做 TODOwrite 吧。一步步来，每一步要有测试标准，我来遵照你的指令
-```
