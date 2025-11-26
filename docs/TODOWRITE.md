@@ -1,6 +1,10 @@
 # TODOWRITE
 
-This document tracks the requirements from `agent.md` and their completion status.
+> **职责**：跟踪需求完成状态（打勾用）
+> 
+> **与 PRD.md 的关系**：`PRD.md` 是需求原文（不变），本文件是进度跟踪（可变）
+
+This document tracks the requirements from `AGENTS.md` and their completion status.
 
 ## 需求要求 (Requirements)
 

@@ -1,5 +1,9 @@
 # Project Plan for PEG Scanner
 
+> **职责**：高层开发路线图（Phase 1-5 规划）
+> 
+> **与 project/README.md 的关系**：本文件是规划，`project/README.md` 是执行状态
+
 This document outlines the high-level plan and phased approach for developing the PEG Scanner application. Each phase builds upon the previous one, focusing on core functionalities and gradually introducing more complex features.
 
 ## Phase 1: Foundation & Data Infrastructure

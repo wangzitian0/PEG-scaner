@@ -1,5 +1,9 @@
 # PEG Scanner - Project Management
 
+> **职责**：迭代管理规范 + 当前 Phase 执行状态
+> 
+> **与 docs/PLAN.md 的关系**：`PLAN.md` 是高层规划，本目录是执行记录
+
 This directory contains files related to project management and tracking. Each major development phase or iteration will have its own subdirectory.
 
 ## Structure
