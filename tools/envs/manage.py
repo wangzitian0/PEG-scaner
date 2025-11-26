@@ -8,6 +8,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from typing import Iterable
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -109,6 +110,36 @@ def _wait_for_http(url: str, timeout_seconds: int = 60):
     raise RuntimeError(f'Timed out waiting for {url}')
 
 
+def ensure_ports_free(ports: Iterable[int]):
+    for port in ports:
+        free_port(port)
+
+
+def free_port(port: int):
+    try:
+        result = subprocess.run(
+            ['lsof', '-ti', f'TCP:{port}', '-sTCP:LISTEN'],
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
+    except FileNotFoundError:
+        return
+    pids = {line.strip() for line in result.stdout.splitlines() if line.strip()}
+    for pid_str in pids:
+        try:
+            pid = int(pid_str)
+        except ValueError:
+            continue
+        try:
+            print(f'[env] port {port} in use by pid {pid}; terminating')
+            os.kill(pid, signal.SIGTERM)
+            time.sleep(1)
+        except ProcessLookupError:
+            continue
+
+
 def prepare_dev_machine():
     print('[env] preparing development machine (tooling + dependencies)...')
     for binary, hint in [('node', 'install Node.js 20+'),
@@ -198,6 +229,7 @@ def start_dev():
     lint_structure()
     clear_vite_cache()
     start_neo4j()
+    ensure_ports_free([8000, 8081, int(os.getenv('MOBILE_WEB_PORT', '5173'))])
     signal.signal(signal.SIGINT, handle_signal)
     signal.signal(signal.SIGTERM, handle_signal)
 
@@ -214,6 +246,7 @@ def start_dev():
 def start_prod():
     lint_structure()
     start_neo4j()
+    ensure_ports_free([8000, int(os.getenv('MOBILE_WEB_PORT', '5173'))])
     signal.signal(signal.SIGINT, handle_signal)
     signal.signal(signal.SIGTERM, handle_signal)
 
