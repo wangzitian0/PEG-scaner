@@ -24,6 +24,7 @@ This directory contains files related to project management and tracking. Each m
     - Surfaced backend status in the mobile app so Nx/Vite builds can confirm connectivity.
     - Introduced Nx targets (`backend:test`, `mobile:typecheck`) and regression scripts (`ping_pong.py`, `check_infra.js`, `run_web_e2e.js`) for shared automation, including Playwright coverage of the ping indicator.
     - Recorded infra prompts and plan/checklist under `phrase_0.infra/`.
+    - Authored `phrase_0.infra/deploy.md` as the Cloudflare+VPS TODOwrite with stepwise checks.
 
 ### Phase 1: Single Stock Page
 - **Phase Directory:** [`phrase_1.single_stock_page/`](./phrase_1.single_stock_page/README.md)

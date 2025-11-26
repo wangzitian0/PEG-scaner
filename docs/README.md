@@ -7,6 +7,7 @@ This directory contains high-level project documentation, including the overall 
 - [Project Plan](./PLAN.md) - Outlines the major features and development phases.
 - [Architecture](./ARCHITECTURE.md) - Describes the overall architecture of the system.
 - [AI Evaluation](./AI_EVALUATION.md) - Defines the mandatory reward/score mechanism every agent must follow; keep in sync with any [`AGENTS.md`](./AGENTS.md) updates.
+- [Phase 0 Deploy TODO](./project/phrase_0.infra/deploy.md) - Cloudflare+VPS 部署步骤与测试标准。
 
 ## Overall Project Goal
 

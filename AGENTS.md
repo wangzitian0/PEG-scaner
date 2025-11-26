@@ -17,7 +17,7 @@
 ## 流程管理
 - 项目进度相关的东西，集中放在 `docs/project/` 文件夹里面，编号递增。
 - 我的指令主要是 agent.md，你要有能力检测agent.md的变化，并且记录到 `docs/project/`.
-- 我后续追加的提示词，请你写到 `docs/project/prompt_log.md`，方便追溯（不要再维护其他位置的副本）
+- 我后续追加的提示词，请你写到 `docs/project/<phrase_i>/append_promot.md`，方便追溯（不要再维护其他位置的副本）
 - 程序自动跑出来的东西，请都放在 x- 开头的文件夹，这部分东西 agent 是不允许修改的，如 x-log/., x-data/.
 - 一键启动/关闭脚本放在 `tools/dev.sh`，能读取 `$ENV` 指定的环境变量文件（没有就用默认）
 ## 测试管理

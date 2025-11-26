@@ -71,7 +71,7 @@ Use `NEO4J_DATA_DIR` if CI runners need Neo4j data somewhere else (defaults to `
 
 ## Directory Index
 
-*   [`/docs/`](./docs/README.md): High-level documentation, including [`AI_EVALUATION.md`](./docs/AI_EVALUATION.md), phase folders (`./docs/project/`), and the stage tracker [`docs/TODOWRITE.md`](./docs/TODOWRITE.md).
+*   [`/docs/`](./docs/README.md): High-level documentation, including [`AI_EVALUATION.md`](./docs/AI_EVALUATION.md), phase folders (`./docs/project/`), the stage tracker [`docs/TODOWRITE.md`](./docs/TODOWRITE.md), and the Cloudflare+VPS deploy TODO at `docs/project/phrase_0.infra/deploy.md`.
 *   [`/apps/`](./apps/README.md): Runtime applications (backend API, mobile client, regression utilities) managed by Nx.
 *   [`/libs/schema/`](./libs/schema/README.md): The Single Source of Truth (SSOT) for data structures, defined using Protobuf.
 *   [`/tools/`](./tools/README.md): Automation helpers such as [`tools/dev.sh`](./tools/dev.sh) for starting/stopping services with env injection.
