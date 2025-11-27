@@ -78,7 +78,20 @@ interface SingleStockPageData {
 type GraphQLErrorItem = { message?: string };
 type GraphQLResponse<T> = { data: T; errors?: GraphQLErrorItem[] };
 
-const GRAPHQL_URL = 'http://127.0.0.1:8000/graphql';
+const resolveGraphqlUrl = () => {
+  // If a full URL is provided via env, honor it (e.g., https://api.truealpha.club/graphql)
+  if (process.env.PEG_GRAPHQL_URL && process.env.PEG_GRAPHQL_URL.trim().length > 0) {
+    return process.env.PEG_GRAPHQL_URL.trim();
+  }
+  if (typeof window !== 'undefined') {
+    // Use current host in web builds to avoid 127.0.0.1 in production bundles
+    return `${window.location.origin.replace(/\/$/, '')}/graphql`;
+  }
+  // Native/SSR fallback via env; default to localhost for dev
+  return process.env.PEG_GRAPHQL_URL || 'http://127.0.0.1:8000/graphql';
+};
+
+const GRAPHQL_URL = resolveGraphqlUrl();
 
 const PING_QUERY = /* GraphQL */ `
   query Ping {
