@@ -82,6 +82,9 @@ def get_settings() -> Settings:
     neo4j_user = os.getenv('NEO4J_USER', 'neo4j')
     neo4j_password = os.getenv('NEO4J_PASSWORD', 'pegscanner')
     neo4j_database = os.getenv('NEO4J_DATABASE', '').strip()
+    # Legacy DSN override if user already embeds credentials in URI
+    uri_from_env = os.getenv('NEO4J_URI') or neo4j_uri
+    neo4j_uri = uri_from_env
 
     prefix = os.getenv('DB_TABLE_PREFIX')
     if not prefix:
