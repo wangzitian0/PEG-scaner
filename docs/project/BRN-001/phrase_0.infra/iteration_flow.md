@@ -2,10 +2,10 @@
 
 1. **Pre-work Checklist**
    - Read `AGENTS.md`, `../../../specs/infra/IRD-001.md`, `../prompt.md`.
-   - Review open items in `checklist.md` (proto/Nx tasks).
+   - Review open items in `checklist.md` (GraphQL/Nx tasks).
 
 2. **Execution Loop**
-   - For proto changes: update `libs/schema/*.proto`, run `nx run backend:generate-proto`, inspect outputs under `apps/backend/stock_research/generated`.
+   - For schema changes: update `libs/schema/schema.graphql`, ensure backend resolvers/front-end hooks align, and re-run relevant Nx targets (`backend:test`, `regression:ping`).
    - For Nx tasks: edit configs, then run `npx nx graph` / `nx show project ...` / `nx run backend:test` / `nx run regression:ping` as needed.
    - Record command outputs/logs under `x-log/` if automated.
 

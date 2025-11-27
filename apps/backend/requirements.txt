@@ -2,7 +2,7 @@
 Flask
 Flask-Cors
 Flask-Admin
-grpcio-tools
+ariadne
 yfinance
 neo4j
 neomodel

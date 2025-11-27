@@ -22,10 +22,10 @@ This directory contains files related to project management and tracking. Each m
 
 ### Phase 0: Proto & Nx Infrastructure
 - **Phase Directory:** [`phrase_0.infra/`](./phrase_0.infra/README.md)
-- **Scope:** SSOT schema management, proto code generation, Nx workspace/tooling upkeep.
+- **Scope:** SSOT schema管理（GraphQL SDL），Nx workspace/tooling upkeep。
 - **Status:** Active (tracking infra items such as ping-pong verification).
 - **Key Activities:**
-    - Added backend `/api/ping/` endpoint with DRF test coverage; default `manage.py test` now runs the ping suite.
+    - Added backend `/graphql` ping; default `backend:test` now runs the GraphQL ping suite.
     - Surfaced backend status in the mobile app so Nx/Vite builds can confirm connectivity.
     - Introduced Nx targets (`backend:test`, `mobile:typecheck`) and regression scripts (`ping_pong.py`, `check_infra.js`, `run_web_e2e.js`) for shared automation, including Playwright coverage of the ping indicator.
     - Recorded infra prompts and plan/checklist under `phrase_0.infra/`，关联 BRN-002（协议与通信依赖，对应 `docs/specs/tech/TRD-002.md`，原文在 `docs/origin/BRN-002.md`）。

@@ -6,7 +6,7 @@ This directory hosts end-to-end (E2E) and integration tests that span multiple s
 
 | Test | Description | Command |
 | --- | --- | --- |
-| `ping_pong.py` | Verifies the backend `/api/ping/` endpoint responds with the expected payload. Ensures infra connectivity before frontends rely on it. | `./apps/backend/.venv/bin/python3 apps/regression/ping_pong.py` or `npx nx run regression:ping` (backend server must be running) |
+| `ping_pong.py` | Verifies the backend GraphQL `ping` query at `/graphql` responds with the expected payload. Ensures infra connectivity before frontends rely on it. | `./apps/backend/.venv/bin/python3 apps/regression/ping_pong.py` or `npx nx run regression:ping` (backend server must be running) |
 | `check_infra.js` | Spins up a disposable Neo4j container (`pegscanner_regression_neo4j`, data stored under `x-data/neo4j/`), launches the Flask backend and Vite dev server, and verifies they are reachable. | `npx nx run regression:infra-flow` |
 | `run_web_e2e.js` | Builds the mobile web bundle, starts the Neo4j + backend stack, runs Playwright against the preview build, and then tears everything down. | `npx nx run regression:web-e2e` |
 

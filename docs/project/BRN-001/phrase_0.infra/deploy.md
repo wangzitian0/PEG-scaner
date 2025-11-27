@@ -45,7 +45,7 @@ cd /opt/peg-scanner
 docker compose up -d --build
 
 # 验证
-curl http://localhost/api/ping/
+curl -X POST http://localhost/graphql -H "Content-Type: application/json" -d '{"query":"{ ping { message } }"}'
 ```
 
 ---
@@ -57,7 +57,7 @@ curl http://localhost/api/ping/
 | `docker-compose.yml` | 定义 neo4j + backend + frontend |
 | `apps/backend/Dockerfile` | Flask 后端 |
 | `apps/mobile/Dockerfile` | Vite 构建 + Nginx |
-| `apps/mobile/nginx.conf` | Nginx 配置，/api/ 代理到 backend |
+| `apps/mobile/nginx.conf` | Nginx 配置，/graphql 代理到 backend |
 
 ---
 

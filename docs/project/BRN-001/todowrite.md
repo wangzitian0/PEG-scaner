@@ -54,7 +54,7 @@ This document tracks the requirements from `AGENTS.md` and their completion stat
 - [x] Graph persistence (Neo4j) for crawler output feeding the single stock page, with admin-managed crawl jobs.
 
 ### 代码管理 (Code Management)
-- [X] Use `libs/schema` protobuf to split sub-applications
+- [X] Use `libs/schema` GraphQL SDL to split sub-applications
 - [X] Maximize SSOT (Single Source of Truth) principle; related items in one folder/file
 
 ### 项目管理 (Project Management)

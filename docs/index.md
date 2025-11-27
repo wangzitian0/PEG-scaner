@@ -24,7 +24,7 @@
 
 | Phase | 名称 | 状态 | 详情 |
 |-------|------|------|------|
-| 0 | Proto & Nx 基础设施 | ✅ Active | [phrase_0.infra/](./project/BRN-001/phrase_0.infra/README.md) |
+| 0 | GraphQL & Nx 基础设施 | ✅ Active | [phrase_0.infra/](./project/BRN-001/phrase_0.infra/README.md) |
 | 1 | 个股页面 | 🚧 In Progress | [phrase_1.single_stock_page/](./project/BRN-001/phrase_1.single_stock_page/README.md) |
 | 2 | 因子计算 | 📋 Planned | 见 [TRD-001.md](./specs/tech/TRD-001.md) |
 | 3 | AI 对话 | 📋 Planned | 见 [TRD-001.md](./specs/tech/TRD-001.md) |
@@ -60,12 +60,12 @@
 ## 已完成的里程碑
 
 - ✅ Nx monorepo 初始化
-- ✅ Protobuf schema 定义 (`libs/schema/`)
-- ✅ Backend `/api/ping/` + Frontend 状态指示器
+- ✅ GraphQL schema 定义 (`libs/schema/schema.graphql`)
+- ✅ Backend `/graphql` ping + Frontend 状态指示器
 - ✅ `apps/regression/` E2E 测试框架
 - ✅ `npm run dev` 一键启动
 - ✅ Neo4j + Crawler 集成
-- ✅ 单股页面 protobuf 端点 + UI 骨架
+- ✅ 单股页面 GraphQL 端点 + UI 骨架
 
 ---
 

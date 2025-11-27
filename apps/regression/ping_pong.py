@@ -1,59 +1,61 @@
 #!/usr/bin/env python3
 """
-Smoke test for the backend ping endpoint. This script lives under apps/regression/
+Smoke test for the backend GraphQL ping. This script lives under apps/regression/
 per the requirement that end-to-end tests stay centralized.
 
 Usage:
     python3 apps/regression/ping_pong.py
 
 Environment Variables:
-    PEGSCANNER_PING_URL: Override the ping endpoint (default http://127.0.0.1:8000/api/ping/).
+    PEGSCANNER_GRAPHQL_URL: Override the endpoint (default http://127.0.0.1:8000/graphql).
 """
 
 from __future__ import annotations
 
 import os
 import sys
+import json
 import urllib.error
 import urllib.request
-from pathlib import Path
 
-BACKEND_PATH = Path(__file__).resolve().parent.parent / "backend"
-if str(BACKEND_PATH) not in sys.path:
-    sys.path.insert(0, str(BACKEND_PATH))
-
-from stock_research.generated import ping_pb2  # noqa: E402
-
-PING_URL = os.environ.get("PEGSCANNER_PING_URL", "http://127.0.0.1:8000/api/ping/")
+GRAPHQL_URL = os.environ.get("PEGSCANNER_GRAPHQL_URL", "http://127.0.0.1:8000/graphql")
+PING_QUERY = {"query": "query Ping { ping { message agent timestampMs } }"}
 
 
 def main() -> int:
-    req = urllib.request.Request(PING_URL)
+    body = json.dumps(PING_QUERY).encode("utf-8")
+    req = urllib.request.Request(
+        GRAPHQL_URL, data=body, headers={"Content-Type": "application/json"}, method="POST"
+    )
     try:
         with urllib.request.urlopen(req, timeout=5) as resp:
             status = resp.getcode()
             payload_bytes = resp.read()
     except urllib.error.URLError as exc:
-        print(f"[ping-pong] FAILED: cannot reach {PING_URL}: {exc}", file=sys.stderr)
+        print(f"[ping-pong] FAILED: cannot reach {GRAPHQL_URL}: {exc}", file=sys.stderr)
         return 1
 
     if status != 200:
-        print(f"[ping-pong] FAILED: HTTP {status} from {PING_URL}", file=sys.stderr)
+        print(f"[ping-pong] FAILED: HTTP {status} from {GRAPHQL_URL}", file=sys.stderr)
         return 1
 
-    payload = ping_pb2.PingResponse()
     try:
-        payload.ParseFromString(payload_bytes)
+        payload = json.loads(payload_bytes)
     except Exception as exc:  # pylint: disable=broad-except
-        print(f"[ping-pong] FAILED: invalid protobuf payload: {exc}", file=sys.stderr)
+        print(f"[ping-pong] FAILED: invalid JSON payload: {exc}", file=sys.stderr)
         return 1
 
-    if payload.message != "pong":
-        print(f"[ping-pong] FAILED: unexpected message {payload}", file=sys.stderr)
+    if "errors" in payload:
+        print(f"[ping-pong] FAILED: GraphQL errors: {payload['errors']}", file=sys.stderr)
         return 1
 
-    agent = payload.agent
-    timestamp = payload.timestamp_ms
+    data = payload.get("data", {}).get("ping", {})
+    if data.get("message") != "pong":
+        print(f"[ping-pong] FAILED: unexpected message {data}", file=sys.stderr)
+        return 1
+
+    agent = data.get("agent")
+    timestamp = data.get("timestampMs")
     print(f"[ping-pong] OK: agent={agent} timestamp={timestamp}")
     return 0
 

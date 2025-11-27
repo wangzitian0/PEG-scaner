@@ -11,9 +11,8 @@ COPY apps/backend/ .
 
 # 设置环境变量
 ENV FLASK_APP=src/pegserver
-ENV PYTHONPATH=/app/src:/app/proto/generated
+ENV PYTHONPATH=/app/src
 
 EXPOSE 8000
 
 CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8000"]
-
