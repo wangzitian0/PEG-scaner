@@ -14,6 +14,20 @@ npx nx init peg-scanner --prefer-free-syntax
 
 This command will initialize the Nx workspace directly within the current directory, naming it `peg-scanner`. Follow any prompts to configure the workspace. It's recommended to choose an "integrated" monorepo style for mixed technologies (React Native and Python).
 
+### System prerequisites
+
+You need the following tools installed on the host (not provided automatically by Nx):
+- Docker or Podman (daemon/machine running) — used by regression scripts to start Neo4j (`neo4j:5`).
+- Python 3.9+ — backend virtualenv is created via `nx run backend:install`.
+- Node.js + npm — front-end tooling and Nx CLI (`npm install`).
+
+Rationale: keeping Python/Node on the host keeps dev/test fast (Nx targets spawn local processes). Only Neo4j runs in a container during regressions; if you prefer full containerization for backend/frontend too, add a compose stack, but the current flow expects host Python/Node.
+
+### Dependency boundaries (to avoid cross-app leaks)
+- JS/TS: A single root `package.json`/`package-lock.json` is used for all apps/libs. Use Nx tags and `nx lint` (with dep-graph rules) to prevent forbidden imports (e.g., FE code pulling BE-only utilities). Add tags in each `project.json` and enforce with `nx.json` `implicitDependencies`/`namedInputs`/`targetDefaults` as needed.
+- Python: Backend and future Python libs share one venv via `nx run backend:install` unless a library has conflicting deps (then create a dedicated requirements/venv and target). Keep imports layered (libs -> apps), not the reverse.
+- Data/SSOT: Contracts live in `libs/schema/schema.graphql`; no ad-hoc JSON. Backend/FE/regression consume the same SDL to prevent drift.
+
 ## Development Workflow
 
 1. Run `npm run lint:structure` to ensure the workspace layout remains compliant.
