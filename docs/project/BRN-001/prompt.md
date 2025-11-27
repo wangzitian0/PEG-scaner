@@ -148,6 +148,13 @@ docs/
     └── BRN-002/    
 ```
 
+## Prompt 13
+
+```
+docs/project/BRN-001/phrase_1.single_stock_page 帮我写一个 10 行的 BRN-003，对应 PRD-001。然后把整个目录按照 agents.md 的标准组织。
+BRN-002 是定义好协议，通信方式，依赖关系。15 行以内表述。建好 TRD-002
+```
+
 按照这个调整目录啊？
 ```
 
