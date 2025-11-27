@@ -179,6 +179,10 @@ class GraphStore:
                 return
             except (Neo4jError, ServiceUnavailable):
                 if attempt == retries - 1:
+                    print(f"\n[!] Critical Error: Failed to connect to Neo4j at {self.settings.neo4j_bolt_url}")
+                    print("    Please ensure the Neo4j container is running.")
+                    print("    You can start the full dev environment using: python3 tools/envs/manage.py dev")
+                    print("    Or run the backend with: nx run backend:start (requires Neo4j running separately)\n")
                     raise
                 time.sleep(delay_seconds)
 
