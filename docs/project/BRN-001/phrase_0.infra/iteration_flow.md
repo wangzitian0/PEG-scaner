@@ -1,7 +1,7 @@
 # Iteration Flow – Phase 0 Infra
 
 1. **Pre-work Checklist**
-   - Read `AGENTS.md`, `docs/AI_EVALUATION.md`, `../prompt_log.md`.
+   - Read `AGENTS.md`, `../../../specs/infra/IRD-001.md`, `../prompt.md`.
    - Review open items in `checklist.md` (proto/Nx tasks).
 
 2. **Execution Loop**
@@ -15,4 +15,4 @@
 
 4. **Handoff**
    - Note remaining risks or TODOs in `checklist.md`.
-   - Ensure `../prompt_log.md` includes any new prompts before closing the session.
+   - Ensure `../prompt.md` includes any new prompts before closing the session.

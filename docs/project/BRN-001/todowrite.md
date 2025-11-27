@@ -2,7 +2,7 @@
 
 > **职责**：跟踪需求完成状态（打勾用）
 > 
-> **与 PRD.md 的关系**：`PRD.md` 是需求原文（不变），本文件是进度跟踪（可变）
+> **与 PRD-001.md 的关系**：`PRD-001.md` 是需求原文（不变），本文件是进度跟踪（可变）
 
 This document tracks the requirements from `AGENTS.md` and their completion status.
 
@@ -36,16 +36,16 @@ This document tracks the requirements from `AGENTS.md` and their completion stat
 - [X] BE: python (seamless integration with backend, big data, ML)
 - [ ] AI Models: gemini, codex, perplexity, deepseek available; open-router for online dialogue
 - [ ] Hardware: 4090 machine for low-cost pre-computation
-- [X] AI-Native App: Design agent reward mechanism, self-sufficient development/exploration（`docs/AI_EVALUATION.md` 已发布并写入 `AGENTS.md`）
+- [X] AI-Native App: Design agent reward mechanism, self-sufficient development/exploration（`docs/specs/infra/IRD-001.md` 已发布并写入 `AGENTS.md`）
 - [ ] Project Management: Nx (Monorepo friendly)
 
 ### 流程管理 (Process Management)
 - [X] Project progress in `docs/project/` folder, incrementing numbers
 - [X] `agent.md` changes detection and recording to `docs/project/`（本次加入 AI 评价机制后已登记）
-- [X] Append prompts exclusively to `docs/project/prompt_log.md` for traceability
+- [X] Append prompts exclusively to `docs/project/BRN-001/prompt.md` for traceability
 - [X] Auto-generated outputs in `x-` prefixed folders (`x-log/`, `x-data/`), not modifiable by agent
 - [X] Provide `tools/dev.sh start|stop` for ENV-aware one-click lifecycle management
-- [ ] 坚持“工作前必须阅读 `docs/AI_EVALUATION.md` 并记录”自动化验证机制
+- [ ] 坚持“工作前必须阅读 `docs/specs/infra/IRD-001.md` 并记录”自动化验证机制
 
 ### 数据管理 (Data Management)
 - [ ] Data Confidence: Local data construction, verify with at least 3 sources via browser
@@ -60,9 +60,9 @@ This document tracks the requirements from `AGENTS.md` and their completion stat
 ### 项目管理 (Project Management)
 - [X] `README.md` for every directory
 - [X] Update relevant `README.md`s on every change, from file to root; higher-level READMEs are indexes
-- [X] Macro-level project progress in `docs/README.md`
-- [X] Micro-level iterations in `docs/project/phrase_i.xxxx/` folders with plan, process, checklist, append_promot MDs
-- [X] Proto/Nx infrastructure tasks isolated in `docs/project/phrase_0.infra/`
+- [X] Macro-level project progress in `docs/index.md`
+- [X] Micro-level iterations in `docs/project/BRN-001/phrase_i.xxxx/` folders with plan, process, checklist, append_promot MDs
+- [X] Proto/Nx infrastructure tasks isolated in `docs/project/BRN-001/phrase_0.infra/`
 
 ### 工程优化准则 (Engineering Optimization Principles)
 - [ ] Maximize use of existing documentation and code before writing new
@@ -73,5 +73,5 @@ This document tracks the requirements from `AGENTS.md` and their completion stat
 - [ ] Run tests on every code change; include data product basic verification
 - [ ] Backend automated test coverage（`manage.py test` 现已包含 ping-pong 用例，但仍需扩充更多覆盖率）
 - [ ] Integrate backend tests into CI/Nx workflows（`nx run backend:test` 已添加，需纳入常规流程）
-- [ ] Check `AGENTS.md` for unfulfilled requirements and add to `docs/TODOWRITE.md` upon perceived completion
+- [ ] Check `AGENTS.md` for unfulfilled requirements and add to `docs/project/BRN-001/todowrite.md` upon perceived completion
 - [X] Establish `apps/regression/` for end-to-end flows (e.g., `ping_pong.py`); keep unit tests within each component

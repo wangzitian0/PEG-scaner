@@ -6,7 +6,7 @@
 |------|----------|
 | 先读后写 | 修改任何目录/文件前必须先阅读该层 README |
 | 跑测试 | 每次改代码都要跑测试（代码 + 数据产物校验） |
-| 检查遗漏 | 完成后检查 agent.md，未满足的追加到 TODOWRITE |
+| 检查遗漏 | 完成后检查 agent.md，未满足的追加到 `docs/project/BRN-001/todowrite.md` |
 | 宁空勿错 | 数据不确定就留空，不要用错的 |
 | 利用存量 | 先读存量文档和代码，不要上来就重写 |
 | Anti: Over-engineering | 是否引入了用户没要求的抽象层/框架？ |
@@ -40,24 +40,24 @@
 - 始终要思考怎么写可维护性最好。
 - 文档和模块，既要避免找不到地方重新造轮子或者重复一段话，又要避免过度引用改一点点东西需要改一大堆文件。
 - 尽可能遵循 Linux 写东西的基本准则
-- 这是个 ai-native 的应用，帮我设计好多 agent 的奖励机制。能相对自助的发展和探索。所有 Agent 在动手前必须阅读 `docs/AI_EVALUATION.md` 并按照里面的打分/奖励机制执行。
+- 这是个 ai-native 的应用，帮我设计好多 agent 的奖励机制。能相对自助的发展和探索。所有 Agent 在动手前必须阅读 `docs/specs/infra/IRD-001.md` 并按照里面的打分/奖励机制执行。
 
 ### 文档管理
 - 文档是非常珍贵的材料，不可以直接无脑删除一大段。这个会导致丢东西。
 - 让你整理文档，是希望你把相关的内容放到对的位置。并且不断加强“对的位置”的定义。
 - 如果发现内容重复了，这种时候确实应该删除冗余的那一份。
-- 请你在`docs/README.md`仔细定义对的位置。
+- 请你在`docs/index.md`仔细定义对的位置。
 
 ## 三、流程与项目管理
 
 ### 项目进度
-- 项目类宏观层面的进度请放在 docs/readme.md，能够 onepage 知道现在做到哪里了。
+- 项目类宏观层面的进度请放在 docs/index.md，能够 onepage 知道现在做到哪里了。
 - 项目进度相关的东西，集中放在 `docs/project/` 文件夹里面，编号递增。
 - 微观层面的迭代每个 phrase 请放在一个文件夹，命名为phrase_i.xxxx/..，里面放对应的 plan,迭代流程，checklist，append_prompt各种 md 文件
 
 ### 指令与追溯
-- 我的指令主要是 agent.md，你要有能力检测agent.md的变化，并且记录到 `docs/project/`.
-- 我后续追加的提示词，请你写到 `docs/project/<phrase_i>/append_prompt.md`，方便追溯（不要再维护其他位置的副本）
+- 我的指令主要是 agent.md，你要有能力检测agent.md的变化，并且记录到 `docs/project/BRN-*/prompt.md`.
+- 我后续追加的提示词，请你写到 `docs/project/BRN-*/phrase_i.xxxx/append_promot.md`，方便追溯（不要再维护其他位置的副本）
 
 ### 自动产物
 - 程序自动跑出来的东西，请都放在 x- 开头的文件夹，这部分东西 agent 是不允许修改的，如 x-log/., x-data/.
@@ -83,4 +83,4 @@
 | **Impact** | 70% | 用户的主要问题解决了吗？ |
 | **Quality** | 30% | 代码能跑、有测试、文档更新了吗？ |
 
-详细评价流程见 `docs/AI_EVALUATION.md`。
+详细评价流程见 `docs/specs/infra/IRD-001.md`。

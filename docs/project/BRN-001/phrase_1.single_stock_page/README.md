@@ -25,7 +25,7 @@ This iteration focuses on delivering the end-to-end single-stock experience (UI 
 
 1. Refine the backlog in `plan.md` with concrete work packages (single-stock data flow, UI mock scopes, chart/news placeholders).
 2. Sequence the tasks via `iteration_flow.md` and start executing the first checklist items.
-3. Report progress back to `../README.md` and `docs/README.md` as milestones are hit.
+3. Report progress back to `../README.md` and `docs/index.md` as milestones are hit.
 4. Enforce the AI evaluation mechanism across all agents before starting new technical work, updating references whenever `AGENTS.md` changes.
 
 ## Baseline Findings (2025-02-14)

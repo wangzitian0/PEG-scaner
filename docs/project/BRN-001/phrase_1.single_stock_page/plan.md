@@ -10,7 +10,7 @@
 
 | # | Work Package | Description | Owner | Status |
 |---|--------------|-------------|-------|--------|
-| 1 | Prompt Logging | Keep `../prompt_log.md` and iteration logs up to date (single source). | Codex | Completed |
+| 1 | Prompt Logging | Keep `../prompt.md` and iteration logs up to date (single source). | Codex | Completed |
 | 2 | Iteration Docs | Maintain plan/checklist/flow files for this phase. | Codex | Completed |
 | 3 | Data Source Blueprint | List candidate vendors/APIs for K-line, news, F10, factors, and describe verification workflow. | Codex | Todo |
 | 4 | Schema Alignment | Map `libs/schema/stock.proto` messages to backend/mobile consumers; note missing structures. | Codex | Todo |
@@ -18,8 +18,8 @@
 | 6 | Single Stock Data Flow | Define data sources (K-line, news, F10) and API contracts for single-stock view. | Codex | Completed (proto + endpoint in place) |
 | 7 | UI Skeleton | Design and scaffold single-stock UI (charts/news placeholders) in the mobile app. | Codex | Completed (watchlist + detail view with proto decoding) |
 |11 | Crawler + Neo4j | Bootstrap crawler app, admin surface, and Neo4j-backed data pipeline feeding the single stock page. | Codex | Completed |
-| 8 | Evaluation Adoption | Enforce AI_EVALUATION doc via `AGENTS.md` and iteration docs; keep in sync when `AGENTS.md` changes. | Codex | In Progress |
-| 9 | Execution Tracking | Update `../README.md`, `docs/README.md`, and `docs/TODOWRITE.md` as milestones complete. | Codex | In Progress |
+| 8 | Evaluation Adoption | Enforce `docs/specs/infra/IRD-001.md` via `AGENTS.md` and iteration docs; keep in sync when `AGENTS.md` changes. | Codex | In Progress |
+| 9 | Execution Tracking | Update `../README.md`, `docs/index.md`, and `../todowrite.md` as milestones complete. | Codex | In Progress |
 |10 | Baseline Snapshot | Capture repo trees and run backend smoke tests to understand current health. | Codex | Completed |
 
 ## Milestones

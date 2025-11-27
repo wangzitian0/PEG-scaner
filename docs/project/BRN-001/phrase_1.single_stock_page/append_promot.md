@@ -1,6 +1,6 @@
 # Phase 1 Prompt Snippets
 
-Prompts impacting this iteration (mirrored from `../prompt_log.md`):
+Prompts impacting this iteration (mirrored from `../prompt.md`):
 
 1. **Prompt 2:** “请你阅读 AGENTS.md , 现在傻逼 gemini 卡住了调不通，你能比他厉害么？”
 2. **Prompt 3:** “你不知道接下来要干啥？”
