@@ -5,7 +5,7 @@ const { startNeo4j, waitForNeo4j, stopNeo4j } = require('./neo4j');
 
 const ROOT = path.resolve(__dirname, '../../');
 const WEB_PORT = Number(process.env.MOBILE_WEB_PORT || 5173);
-const BACKEND_URL = process.env.PEGSCANNER_PING_URL || 'http://127.0.0.1:8000/api/ping/';
+const BACKEND_URL = process.env.PEGSCANNER_GRAPHQL_URL || 'http://127.0.0.1:8000/graphql';
 const WEB_URL = `http://127.0.0.1:${WEB_PORT}/`;
 
 const children = [];

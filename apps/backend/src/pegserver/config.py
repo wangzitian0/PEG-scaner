@@ -59,7 +59,11 @@ class Settings:
         return urlunparse(parsed._replace(netloc=netloc, path=path))
 
     def cors_resources(self) -> dict[str, dict[str, Iterable[str]]]:
-        return {'/api/*': {'origins': self.cors_allowed_origins or sorted(_DEFAULT_CORS)}}
+        origins = self.cors_allowed_origins or sorted(_DEFAULT_CORS)
+        return {
+            '/api/*': {'origins': origins},
+            '/graphql': {'origins': origins},
+        }
 
 
 def _derive_env() -> str:

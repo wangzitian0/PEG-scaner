@@ -8,9 +8,9 @@ from flask import Flask
 from flask_cors import CORS
 
 from .admin import register_admin
-from .api import api
 from .config import get_settings
 from .crawler import build_sample_payload, fetch_yfinance_payload
+from .graphql_api import graphql_api
 from .graph_store import GraphStore
 
 _TEMPLATE_FOLDER = Path(__file__).parent / 'templates'
@@ -30,7 +30,7 @@ def create_app() -> Flask:
     app.extensions['graph_store'] = store
     _seed_default_payloads(store)
 
-    app.register_blueprint(api)
+    app.register_blueprint(graphql_api)
 
     if not settings.use_fake_graph:
         register_admin(app, store)

@@ -1,0 +1,79 @@
+# GraphQL Schema (SSOT)
+
+"""
+Ping/health check for infra connectivity.
+"""
+type Ping {
+  message: String!
+  agent: String!
+  timestampMs: Float!
+}
+
+"""
+PEG watchlist candidate entry.
+"""
+type PegStock {
+  symbol: String!
+  name: String!
+  peRatio: Float
+  earningsGrowth: Float
+  pegRatio: Float
+}
+
+type CompanyValuation {
+  psRatio: Float
+  peRatio: Float
+  pbRatio: Float
+}
+
+type FinancialIndicators {
+  eps: Float
+  fcf: Float
+  currentRatio: Float
+  roe: Float
+}
+
+type CompanyInfo {
+  symbol: String!
+  description: String
+  sector: String
+  industry: String
+  valuation: CompanyValuation
+  indicators: FinancialIndicators
+}
+
+type Stock {
+  symbol: String!
+  name: String!
+  exchange: String
+  currency: String
+  companyInfo: CompanyInfo
+}
+
+type KLinePoint {
+  timestamp: Float!
+  open: Float
+  high: Float
+  low: Float
+  close: Float
+  volume: Float
+}
+
+type NewsItem {
+  title: String!
+  url: String
+  source: String
+  publishedAt: Float
+}
+
+type SingleStockPage {
+  stock: Stock!
+  dailyKline: [KLinePoint!]!
+  news: [NewsItem!]!
+}
+
+type Query {
+  ping: Ping!
+  pegStocks: [PegStock!]!
+  singleStock(symbol: String!): SingleStockPage
+}

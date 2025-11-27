@@ -169,7 +169,6 @@ def bootstrap_dev():
     run(['npm', 'install'])
     run(['python3', '-m', 'venv', 'apps/backend/.venv'])
     run(['./apps/backend/.venv/bin/python3', '-m', 'pip', 'install', '-r', 'apps/backend/requirements.txt'])
-    run(['npx', 'nx', 'run', 'backend:generate-proto'])
     print('[env] dev bootstrap complete.')
 
 
@@ -178,7 +177,6 @@ def bootstrap_prod():
     run(['npm', 'ci'])
     run(['python3', '-m', 'venv', 'apps/backend/.venv'])
     run(['./apps/backend/.venv/bin/python3', '-m', 'pip', 'install', '-r', 'apps/backend/requirements.txt'])
-    run(['npx', 'nx', 'run', 'backend:generate-proto'])
     print('[env] prod bootstrap complete.')
 
 
@@ -252,7 +250,7 @@ def start_prod():
 
     backend_cmd = [
         'bash', '-lc',
-        'PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 apps/backend/src/manage.py run --host 0.0.0.0 --port 8000'
+        'PYTHONPATH=apps/backend/src:. ./apps/backend/.venv/bin/python3 apps/backend/src/manage.py run --host 0.0.0.0 --port 8000'
     ]
     frontend_cmd = ['npx', 'nx', 'run', 'mobile:serve', '--', '--mode', 'production', '--host', '0.0.0.0']
 

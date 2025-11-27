@@ -1,6 +1,6 @@
 # Phase 1 – Single Stock Page
 
-This iteration focuses on delivering the end-to-end single-stock experience (UI + backend data plumbing) per `AGENTS.md`, leveraging the completed infra work from Phase 0.
+This iteration focuses on delivering the end-to-end single-stock experience (UI + backend data plumbing via GraphQL) per `AGENTS.md`, leveraging the completed infra work from Phase 0.
 
 ## Objectives
 
@@ -20,7 +20,7 @@ This iteration focuses on delivering the end-to-end single-stock experience (UI 
 
 - **State:** In Progress
 - **Iteration Lead:** Codex (AI Agent)
-- **Timebox:** Until the single-stock detail view is functional (backend endpoints, proto wiring, UI skeleton, verification).
+- **Timebox:** Until the single-stock detail view is functional (backend GraphQL endpoint, UI skeleton, verification).
 
 ## Next Steps
 

@@ -54,7 +54,7 @@ const run = async () => {
       cwd: MOBILE_DIR,
       stdio: 'inherit',
     });
-    await waitForUrl(`http://127.0.0.1:8000/api/ping/`);
+    await waitForUrl(`http://127.0.0.1:8000/graphql`);
     previewServer = spawn(
       'npx',
       ['vite', 'preview', '--host', WEB_HOST, '--port', WEB_PORT],

@@ -9,12 +9,13 @@
 - What：
   - `apps/backend` (Backend: Python)
     - Seamless integration with Backend, Big Data, ML
-    - Communication: GraphQL (Ariadne/Strawberry) for API; Redis + Neo4j for storage
+    - Communication: GraphQL (Ariadne) for API; Neo4j for storage
+  - `apps/mobile`（React Native + Vite for web preview）。
   - `apps/regression`（回归/Playwright）。
 - Where：`apps/` 目录；Nx `project.json` 各自管理。
 - When：开发/CI 通过 Nx 目标（例 `backend:test`、`regression:ping`、`regression:web-e2e`、`mobile:typecheck`）；本地一键 `npm run dev`。
 - Who：终端用户、开发/QA。
-- How：健康 `/api/ping`；Vite 产出静态资源；Playwright 校验 ping/UI。
+- How：GraphQL `/graphql` 提供 ping/数据查询；Vite 产出静态资源；Playwright 校验 ping/UI。
 
 ### 数据与测试
 - Why：保障数据可信与回归稳定。
@@ -28,9 +29,9 @@
 
 ### 共享契约与组件
 - Why：SSOT，避免重复与漂移。
-- What：`libs/schema/` 持有 Proto；后续可加 UI/feature/util 库。
-- Where：`libs/` 根；生成物分发到 apps。
-- When：业务字段新增/调整时先改 Proto 再生成。
+- What：`libs/schema/` 持有 GraphQL SDL；后续可加 UI/feature/util 库。
+- Where：`libs/` 根；Schema 直接被前后端/回归加载。
+- When：业务字段新增/调整时先改 SDL，再更新客户端/服务端实现。
 - Who：全部应用依赖。
 - How：用 Nx dep graph + tags 限制引用；仅从 libs → apps，避免反向。
 

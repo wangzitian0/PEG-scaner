@@ -1,6 +1,6 @@
 # BRN-002 Execution Notes
 
-Scope: 协议与通信依赖的执行落地，对应 `docs/origin/BRN-002.md` 与 `docs/specs/tech/TRD-002.md`。按需挂载到相关 phase（主要是 proto/Nx/接口管线）。
+Scope: 协议与通信依赖的执行落地，对应 `docs/origin/BRN-002.md` 与 `docs/specs/tech/TRD-002.md`。按需挂载到相关 phase（主要是 GraphQL/Nx/接口管线）。
 
 Artifacts to keep here (when active):
 - `prompt.md` / `todowrite.md` / `context.md`（如进入执行态再补充）

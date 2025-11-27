@@ -13,26 +13,19 @@
         "{projectRoot}/.venv"
       ]
     },
-    "generate-proto": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "bash -lc 'PROTO_DIR=./libs/schema && ./apps/backend/.venv/bin/python3 -m grpc_tools.protoc -I=$PROTO_DIR --python_out=./apps/backend/proto/generated $PROTO_DIR/stock.proto $PROTO_DIR/ping.proto $PROTO_DIR/single_stock_page.proto'"
-      },
-      "dependsOn": ["install"]
-    },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "bash -lc 'PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. ./apps/backend/.venv/bin/python3 apps/backend/src/manage.py run --host 0.0.0.0 --port 8000 --reload'"
+        "command": "bash -lc 'PYTHONPATH=apps/backend/src:. ./apps/backend/.venv/bin/python3 apps/backend/src/manage.py run --host 0.0.0.0 --port 8000 --reload'"
       },
-      "dependsOn": ["install", "generate-proto"]
+      "dependsOn": ["install"]
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "bash -lc 'PYTHONPATH=apps/backend/src:apps/backend/proto/generated:. NEO4J_FAKE=1 ./apps/backend/.venv/bin/pytest apps/backend/tests'"
+        "command": "bash -lc 'PYTHONPATH=apps/backend/src:. NEO4J_FAKE=1 ./apps/backend/.venv/bin/pytest apps/backend/tests'"
       },
-      "dependsOn": ["install", "generate-proto"]
+      "dependsOn": ["install"]
     }
   }
 }

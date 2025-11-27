@@ -155,6 +155,12 @@ docs/project/BRN-001/phrase_1.single_stock_page 帮我写一个 10 行的 BRN-00
 BRN-002 是定义好协议，通信方式，依赖关系。15 行以内表述。建好 TRD-002
 ```
 
+## Prompt 14
+
+```
+请你实现 docs/origin/BRN-002.md 的要求。全面替换成 graphQL。先跑通 ping-pong，再把原有的 protobuf 从代码库里面删除
+```
+
 按照这个调整目录啊？
 ```
 
