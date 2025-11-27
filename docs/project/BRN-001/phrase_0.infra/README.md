@@ -14,7 +14,7 @@ This phase captures all work related to the foundational tooling: protobuf schem
 - `plan.md`: roadmap of pending proto/Nx enhancements or maintenance.
 - `iteration_flow.md`: how to operate within this phase (schema updates, Nx commands, verification).
 - `checklist.md`: concrete tasks (e.g., ensure proto compiles, Nx targets exist, docs updated).
-- `append_promot.md`: prompts impacting infra decisions (mirrored from `../prompt_log.md`).
+- `append_promot.md`: prompts impacting infra decisions (mirrored from `../prompt.md`).
 
 ## Status
 

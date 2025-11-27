@@ -1,6 +1,6 @@
 # Project Prompt Log
 
-Per the latest instruction, all prompts are tracked directly under `docs/project/` so that every iteration has a single source of truth. When `AGENTS.md` or other directives change, append the new prompt in this file before working.
+Per the latest instruction, all prompts are tracked directly under `docs/project/BRN-001/` so that every iteration has a single source of truth. When `AGENTS.md` or other directives change, append the new prompt in this file before working.
 
 ## Prompt 1 (Initial Instruction from AGENTS.md)
 
@@ -57,7 +57,7 @@ Per the latest instruction, all prompts are tracked directly under `docs/project
 - 请严格管理目录，符合人类阅读习惯的组织结构就是 6～7 个目录+ 3～4 个文件。打破了就要重新组织。
 ## 质量管理
 - 每次改代码都要跑测试，测试不仅仅是测试代码，还有数据产物的基本校验。
-- 每次你认为你完成的时候，请你检查 agent.md 的要求，将未满足的要求追加到 TODOWRITE 里面。
+- 每次你认为你完成的时候，请你检查 agent.md 的要求，将未满足的要求追加到 `docs/project/BRN-001/todowrite.md` 里面。
 ```
 
 ## Prompt 2
@@ -114,4 +114,45 @@ Per the latest instruction, all prompts are tracked directly under `docs/project
 交付标准是，流程跑通。
 - ping-pong 也应该基于 protobuf，FE BE 都应该基于 protobuf 交互
 - 有一个一键启动和关闭服务的脚本，能够读$ENV环境变量
+```
+
+## Prompt 11
+
+```
+你在 @docs/phrase_0.infra/ 里面加一个 deploy.md，把这个当做 TODOwrite 吧。一步步来，每一步要有测试标准，我来遵照你的指令
+```
+
+## Prompt 12
+
+```
+# docs 目录组织原则
+分三块
+```
+docs/
+├── index.md    # 价值索引表格，每行大概是|i.BRD|summary|i.TRD, i.DRD|status|
+├── arch.md    # 这部分非常基础，会很大程度上决定后续的方向。每一个技术点要求讲清楚5W1H(Who, What, Where, When, Why, How) **核心原则**：任何技术决定需要从现状出发，所以阅读docs/arch.md是必须的。
+├── origin/       (State: Immutable Input)
+│   └── BRN-001.md  # 原始决策录（!!AI只能读不可修改）
+│
+├── specs/        (State: Definitive Guide)
+│   ├── product/    # PRD -> apps, PRD-001.md
+│   ├── tech/       # TRD -> libs, TRD-001.md
+│   ├── data/       # DRD -> ops, DRD-003.md
+│   └── infra/      # IRD -> tools, IRD-012.md
+│
+└── project/       (State: Dynamic Execution)
+    ├── BRN-001/     # 当前正在发生的迭代
+    │   ├── prompt.md (记录提示词)
+    │   ├── todowrite.md (AI 任务队列)
+    │   └── context.md   (当前上下文)
+    └── BRN-002/    
+```
+
+按照这个调整目录啊？
+```
+
+## Prompt 11
+
+```
+你在 @docs/phrase_0.infra/ 里面加一个 deploy.md，把这个当做 TODOwrite 吧。一步步来，每一步要有测试标准，我来遵照你的指令
 ```

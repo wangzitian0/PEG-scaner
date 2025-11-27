@@ -16,7 +16,7 @@
 ### AI & Compute
 - **Models**: Gemini, Codex, Perplexity, DeepSeek (via OpenRouter for production)
 - **Compute**: Local RTX 4090 for low-cost pre-computation
-- **AI-Native**: Self-evolving agent system with reward mechanisms (see `docs/AI_EVALUATION.md`)
+- **AI-Native**: Self-evolving agent system with reward mechanisms (see `docs/specs/infra/IRD-001.md`)
 
 ## Configuration & Tooling
 
