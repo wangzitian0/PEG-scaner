@@ -15,14 +15,44 @@
 
 ---
 
-# 非需求要求
+# 组织哲学
 
-## 一、技术栈
+我们的代码库不是由“团队”分割的，而是由**“驱动力 (Drivers)”** 分割的。
+每一个物理目录的存在，都是为了响应某种特定性质的目标 (Goal)。
 
-详细架构设计请参考 [docs/arch.md](docs/arch.md)。
-- **核心原则**：任何技术决定需要从现状出发，所以阅读docs/arch.md是必须的。
-- 这部分非常基础，会很大程度上决定后续的方向。每一个技术点要求讲清楚5W1H(Who, What, Where, When, Why, How)
+核心链条：
+目标 (Goal) -> 执行逻辑 (Logic) -> 执行层 (Layer) -> 定义类型 (Definition) -> 文档类型 (Doc Type)
 
+| 目标 (Goal) | 执行逻辑 (Logic) | 执行层 (Layer) | 定义类型 (Definition) | 文档类型 (Doc Type) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Value**<br>(创造商业价值) | **Decision**<br>(决策与点子) | `docs/` | **Origin**<br>(原点) | **BRN**<br>(Business Request Note) |
+| **Experience**<br>(交付用户体验) | **Assembly**<br>(拼装与交互) | `apps/` | **Product**<br>(产品) | **PRD**<br>(Product Req Doc) |
+| **Capability**<br>(构建核心能力) | **Abstraction**<br>(复用与算法) | `libs/` | **Tech**<br>(技术) | **TRD**<br>(Tech Req Doc) |
+| **Trust**<br>(确保数据置信) | **Verification**<br>(验证与对抗) | `ops/` | **Data**<br>(数据) | **DRD**<br>(Data Req Doc) |
+| **Efficiency**<br>(提升生产效率) | **Automation**<br>(杠杆与基建) | `tools/` | **Infra**<br>(基建) | **IRD**<br>(Infra Req Doc) |
+
+# docs 目录组织原则
+分三块
+```
+docs/
+├── index.md    # 价值索引表格，每行大概是|i.BRD|summary|i.TRD, i.DRD|status|
+├── arch.md    # 这部分非常基础，会很大程度上决定后续的方向。每一个技术点要求讲清楚5W1H(Who, What, Where, When, Why, How) **核心原则**：任何技术决定需要从现状出发，所以阅读docs/arch.md是必须的。
+├── origin/       (State: Immutable Input)
+│   └── BRN-001.md  # 原始决策录（!!AI只能读不可修改）
+│
+├── specs/        (State: Definitive Guide)
+│   ├── product/    # PRD -> apps, PRD-001.md
+│   ├── tech/       # TRD -> libs, TRD-001.md
+│   ├── data/       # DRD -> ops, DRD-003.md
+│   └── infra/      # IRD -> tools, IRD-012.md
+│
+└── project/       (State: Dynamic Execution)
+    ├── BRN-001/     # 当前正在发生的迭代
+    │   ├── prompt.md (记录提示词)
+    │   ├── todowrite.md (AI 任务队列)
+    │   └── context.md   (当前上下文)
+    └── BRN-002/    
+```
 ## 二、代码与目录规范
 
 ### 代码管理
