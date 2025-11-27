@@ -6,8 +6,9 @@ WORKDIR /app
 COPY apps/backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 复制代码
+# 复制代码 + GraphQL schema
 COPY apps/backend/ .
+COPY libs/schema/ /app/libs/schema/
 
 # 设置环境变量
 ENV FLASK_APP=src/pegserver

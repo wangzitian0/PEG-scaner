@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+import os
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -9,8 +10,24 @@ from flask import Blueprint, current_app, jsonify, request
 
 from .config import get_settings
 
-_ROOT = Path(__file__).resolve().parents[4]
-_SCHEMA_PATH = _ROOT / 'libs' / 'schema' / 'schema.graphql'
+
+def _find_schema_path() -> Path:
+    # 1) Env override
+    env_path = os.getenv('PEG_SCHEMA_PATH')
+    if env_path:
+        candidate = Path(env_path).expanduser().resolve()
+        if candidate.exists():
+            return candidate
+    # 2) Walk up to find libs/schema/schema.graphql
+    here = Path(__file__).resolve()
+    for ancestor in [here, *here.parents]:
+        candidate = ancestor / 'libs' / 'schema' / 'schema.graphql'
+        if candidate.exists():
+            return candidate
+    raise FileNotFoundError("Cannot locate GraphQL schema (tried PEG_SCHEMA_PATH and libs/schema/schema.graphql)")
+
+
+_SCHEMA_PATH = _find_schema_path()
 
 query = QueryType()
 

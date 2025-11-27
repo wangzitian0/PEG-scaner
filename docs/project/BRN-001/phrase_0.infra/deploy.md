@@ -58,6 +58,7 @@ curl -X POST http://localhost/graphql -H "Content-Type: application/json" -d '{"
 | `apps/backend/Dockerfile` | Flask 后端 |
 | `apps/mobile/Dockerfile` | Vite 构建 + Nginx |
 | `apps/mobile/nginx.conf` | Nginx 配置，/graphql 代理到 backend |
+| `libs/schema/schema.graphql` | GraphQL SDL（镜像需复制到 `/app/libs/schema/` 或通过 `PEG_SCHEMA_PATH` 指定） |
 
 ---
 
