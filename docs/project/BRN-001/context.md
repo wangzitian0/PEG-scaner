@@ -14,6 +14,7 @@ This directory contains files related to project management and tracking. Each m
   - `iteration_flow.md`: daily/loop procedure (including reminders to read `AGENTS.md` + `../../../specs/infra/IRD-001.md` and update `./prompt.md`).
   - `checklist.md`: trackable commitments tied to AGENTS/todowrite.
   - `append_promot.md`: local snapshot of prompts pulled from `./prompt.md`.
+  - BRN 对齐：业务请求存放于 `docs/origin/BRN-xxx.md`，执行产物放各自 BRN 目录（如 `../BRN-002/`, `../BRN-003/`）。
   - Any additional files (plans, tickets, appendices) relevant to that iteration.
 - `../apps/`: Runtime apps live there; refer back when phases touch specific code.
 
@@ -27,7 +28,7 @@ This directory contains files related to project management and tracking. Each m
     - Added backend `/api/ping/` endpoint with DRF test coverage; default `manage.py test` now runs the ping suite.
     - Surfaced backend status in the mobile app so Nx/Vite builds can confirm connectivity.
     - Introduced Nx targets (`backend:test`, `mobile:typecheck`) and regression scripts (`ping_pong.py`, `check_infra.js`, `run_web_e2e.js`) for shared automation, including Playwright coverage of the ping indicator.
-    - Recorded infra prompts and plan/checklist under `phrase_0.infra/`.
+    - Recorded infra prompts and plan/checklist under `phrase_0.infra/`，关联 BRN-002（协议与通信依赖，对应 `docs/specs/tech/TRD-002.md`，原文在 `docs/origin/BRN-002.md`）。
     - Authored `phrase_0.infra/deploy.md` as the Cloudflare+VPS TODOwrite with stepwise checks.
 
 ### Phase 1: Single Stock Page
@@ -37,7 +38,7 @@ This directory contains files related to project management and tracking. Each m
 - **Key Activities:**
     - Created `project/BRN-001/todowrite.md`
     - Updated `project/BRN-001/README.md`
-    - Logged new prompts and set up iteration management files under `phrase_1.single_stock_page/`
+    - Logged new prompts and set up iteration management files under `phrase_1.single_stock_page/`，关联 BRN-003（对应 `docs/specs/product/PRD-001.md`，原文在 `docs/origin/BRN-003.md`）。
     - Captured baseline directory trees (root/apps/backend + apps/mobile) for structure audit
     - Ran `apps/backend/manage.py test` (currently reports 0 tests) to gauge automation gaps
     - Added `specs/infra/IRD-001.md` and updated references (including latest `AGENTS.md` edits) so every agent follows the reward mechanism

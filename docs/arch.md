@@ -6,19 +6,15 @@
 
 ### 运行目标与布局
 - Why：集中可运行目标，清晰依赖与部署边界。
-- What：`apps/backend`（Python API/任务）、`apps/mobile`（React Native + RN Web + Vite）、`apps/regression`（回归/Playwright）。
+- What：
+  - `apps/backend` (Backend: Python)
+    - Seamless integration with Backend, Big Data, ML
+    - Communication: GraphQL (Ariadne/Strawberry) for API; Redis + Neo4j for storage
+  - `apps/regression`（回归/Playwright）。
 - Where：`apps/` 目录；Nx `project.json` 各自管理。
 - When：开发/CI 通过 Nx 目标（例 `backend:test`、`regression:ping`、`regression:web-e2e`、`mobile:typecheck`）；本地一键 `npm run dev`。
 - Who：终端用户、开发/QA。
 - How：健康 `/api/ping`；Vite 产出静态资源；Playwright 校验 ping/UI。
-
-### 接口与协议
-- Why：保持前后端一致的契约。
-- What：Protobuf（v7.5.4）生成 DTO；HTTP/Proto 交互。
-- Where：生成物放在各 app 的生成目录。
-- When：Schema 变更后先代码生成再提交。
-- Who：前端/后端/回归共用。
-- How：以 `libs/schema/` 为 SSOT，禁止手改生成代码。
 
 ### 数据与测试
 - Why：保障数据可信与回归稳定。
@@ -37,6 +33,14 @@
 - When：业务字段新增/调整时先改 Proto 再生成。
 - Who：全部应用依赖。
 - How：用 Nx dep graph + tags 限制引用；仅从 libs → apps，避免反向。
+
+### 接口与协议 (GraphQL)
+- Why：图谱同构（Graph DB -> Graph API -> Graph UI），按需查询，消除阻抗失配。
+- What：GraphQL SDL (`.graphql`) 作为 SSOT；GraphQL over HTTP。
+- Where：Schema 定义在 `libs/schema/`；后端使用 Ariadne/Strawberry；前端使用 Apollo/TanStack Query。
+- When：Schema 变更后，前端重新生成类型/Hooks，后端更新 Resolver。
+- Who：前端/后端/回归共用。
+- How：以 `libs/schema/*.graphql` 为唯一真理；禁止 Ad-hoc 接口；利用 GraphiQL 调试。
 
 ### 依赖与版本
 - Why：控制技术栈一致性。

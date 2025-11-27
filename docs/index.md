@@ -11,6 +11,7 @@
 | **本文件 (index.md)** | 索引 + 当前状态总览 | 每次迭代结束 | Agent |
 | **[PRD-001.md](./specs/product/PRD-001.md)** | 产品需求原文（界面/功能定义） | 用户修改需求时 | 用户 |
 | **[TRD-001.md](./specs/tech/TRD-001.md)** | 开发路线图（Phase 1-5 高层规划） | 规划调整时 | Agent |
+| **[TRD-002.md](./specs/tech/TRD-002.md)** | 协议与通信约束（对应 `origin/BRN-002.md`） | 协议/Schema 变更时 | Agent |
 | **[todowrite.md](./project/BRN-001/todowrite.md)** | 需求完成状态跟踪（打勾用） | 每次完成任务后 | Agent |
 | **[IRD-001.md](./specs/infra/IRD-001.md)** | AI 评分机制详细说明 | 机制变更时 | Agent |
 | **[project/BRN-001/README.md](./project/BRN-001/README.md)** | 迭代管理规范 + 当前 Phase 状态 | Phase 状态变更时 | Agent |

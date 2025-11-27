@@ -14,6 +14,7 @@ This iteration focuses on delivering the end-to-end single-stock experience (UI 
 - `iteration_flow.md`: Daily operating procedure for this phase.
 - `checklist.md`: Trackable list of commitments tied to `AGENTS.md`.
 - `append_promot.md`: Prompts that influence this iteration, extracted from the global log.
+- 关联 BRN：`docs/origin/BRN-003.md`（对应 `docs/specs/product/PRD-001.md`，限定本阶段交付范围）。
 
 ## Status
 

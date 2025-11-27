@@ -20,6 +20,7 @@
 |11 | Crawler + Neo4j | Bootstrap crawler app, admin surface, and Neo4j-backed data pipeline feeding the single stock page. | Codex | Completed |
 | 8 | Evaluation Adoption | Enforce `docs/specs/infra/IRD-001.md` via `AGENTS.md` and iteration docs; keep in sync when `AGENTS.md` changes. | Codex | In Progress |
 | 9 | Execution Tracking | Update `../README.md`, `docs/index.md`, and `../todowrite.md` as milestones complete. | Codex | In Progress |
+| 10 | BRN Alignment | Maintain BRN-003 (PRD-001 对应) as scope guardrail; ensure UI/data work maps to it. | Codex | New |
 |10 | Baseline Snapshot | Capture repo trees and run backend smoke tests to understand current health. | Codex | Completed |
 
 ## Milestones

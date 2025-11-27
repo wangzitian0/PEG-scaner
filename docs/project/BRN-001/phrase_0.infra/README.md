@@ -15,6 +15,7 @@ This phase captures all work related to the foundational tooling: protobuf schem
 - `iteration_flow.md`: how to operate within this phase (schema updates, Nx commands, verification).
 - `checklist.md`: concrete tasks (e.g., ensure proto compiles, Nx targets exist, docs updated).
 - `append_promot.md`: prompts impacting infra decisions (mirrored from `../prompt.md`).
+- 关联 BRN：`docs/origin/BRN-002.md`（协议与通信依赖，对应 `docs/specs/tech/TRD-002.md`）。
 
 ## Status
 
