@@ -37,5 +37,5 @@ class CrawlerJobAdmin(BaseView):
 
 
 def register_admin(app, store: GraphStore) -> None:
-    admin = Admin(app, name='PEG Scanner Admin', template_mode='bootstrap4')
+    admin = Admin(app, name='PEG Scanner Admin')
     admin.add_view(CrawlerJobAdmin(store, name='Crawler Jobs', endpoint='crawler_jobs'))
