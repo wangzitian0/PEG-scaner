@@ -132,7 +132,7 @@ docs/
 ├── index.md    # 价值索引表格，每行大概是|i.BRD|summary|i.TRD, i.DRD|status|
 ├── arch.md    # 这部分非常基础，会很大程度上决定后续的方向。每一个技术点要求讲清楚5W1H(Who, What, Where, When, Why, How) **核心原则**：任何技术决定需要从现状出发，所以阅读docs/arch.md是必须的。
 ├── origin/       (State: Immutable Input)
-│   └── BRN-001.md  # 原始决策录（!!AI只能读不可修改）
+│   └── BRN-001.core_infra_ping.md  # 原始决策录（!!AI只能读不可修改）
 │
 ├── specs/        (State: Definitive Guide)
 │   ├── product/    # PRD -> apps, PRD-001.md
