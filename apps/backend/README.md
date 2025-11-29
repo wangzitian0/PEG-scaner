@@ -1,57 +1,96 @@
-# PEG Scanner - Flask Backend
+# PEG Scanner Backend
 
-This directory now hosts the Flask + Neo4j backend that powers the ping/pong infra, the PEG stock table, the single stock page (GraphQL), and the crawler/admin workflows.
+FastAPI + Strawberry GraphQL backend for the PEG Scanner application.
 
-## Structure
+## Architecture (BRN-002)
 
-- `src/pegserver/`: Flask application factory, API blueprint, CLI, Flask-Admin view, crawler helpers, and the graph store that talks to Neo4j through `neomodel`.
-- `src/manage.py`: Flask CLI entrypoint used by Nx (`run`, `crawler-run`, etc.).
-- `/graphql`: GraphQL endpoint aligned with `libs/schema/schema.graphql`.
-- `tests/`: Pytest suite that exercises the API via the Flask test client (defaults to the in-memory fake store so CI does not need Neo4j).
-- `requirements.txt`: Runtime + tooling dependencies (Flask, Flask-Admin, neomodel, ariadne, yfinance, pytest).
+- **Framework**: FastAPI + Strawberry GraphQL (migrated from Flask + Ariadne)
+- **Database**: Neo4j via neomodel
+- **Structure**: Three-layer architecture (Resolver → Service → Repository)
+
+## Directory Structure
+
+```
+apps/backend/
+├── __init__.py
+├── main.py              # FastAPI entry point
+├── config.py            # Settings re-export
+├── resolvers/           # Strawberry GraphQL resolvers
+│   ├── __init__.py      # Merged Query type
+│   ├── ping.py          # Ping/health check
+│   └── stock.py         # Stock/market domain
+├── services/            # Business logic layer
+│   ├── __init__.py
+│   ├── stock_service.py
+│   └── seed.py          # Sample data for dev
+├── tests/               # Pytest suite
+│   ├── conftest.py
+│   └── test_graphql.py
+├── requirements.txt
+├── project.json         # Nx targets
+└── README.md
+```
 
 ## Commands
 
-All commands run from the repo root:
+All commands run from repo root:
 
 ```bash
-# Install python deps + node modules
+# Install dependencies
 npx nx run backend:install
 
-# Start the dev stack (Neo4j container + backend + Metro + Vite)
-npm run dev
-# or only the backend with live reload
+# Start dev server (with hot reload)
 npx nx run backend:start
+# or directly:
+PYTHONPATH=apps/backend:libs:. uvicorn apps.backend.main:app --reload --port 8000
 
-# Run backend tests (uses the fake in-memory graph)
+# Run tests
 npx nx run backend:test
-
-# Run a crawler job (live yfinance or sample fallback)
-PYTHONPATH=apps/backend/src:. ./apps/backend/.venv/bin/python3 \
-  apps/backend/src/manage.py crawler-run --symbol AAPL --live
 ```
 
-The CLI also exposes `crawler-job` for seeding Flask-Admin jobs:
+## Environment Variables
 
-```bash
-PYTHONPATH=apps/backend/src:. ./apps/backend/.venv/bin/python3 \
-  apps/backend/src/manage.py crawler-job --symbol AAPL --name "Live AAPL" --metadata "source=yfinance"
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `NEO4J_URI` | `bolt://localhost:7687` | Neo4j connection URI |
+| `NEO4J_USER` | `neo4j` | Username |
+| `NEO4J_PASSWORD` | `pegscanner` | Password |
+| `NEO4J_DATABASE` | (default) | Database name |
+| `NEO4J_FAKE` | `0` | Set to `1` for in-memory fake |
+| `DB_TABLE_PREFIX` | `dev_` | Node label prefix |
+| `API_CORS_ORIGINS` | localhost:5173,5174 | CORS origins |
+| `PEG_AGENT_NAME` | `pegscanner-backend` | Agent identifier |
+
+## API Endpoints
+
+- `GET /` - Root status endpoint
+- `POST /graphql` - GraphQL API
+- `GET /graphql` - GraphQL Playground (dev only)
+
+### GraphQL Queries
+
+```graphql
+# Health check
+query { ping { message agent timestampMs } }
+
+# PEG candidates list
+query { pegStocks { symbol name pegRatio } }
+
+# Single stock page
+query ($symbol: String!) {
+  singleStock(symbol: $symbol) {
+    stock { symbol name companyInfo { sector } }
+    dailyKline { timestamp open high low close volume }
+    news { title url source publishedAt }
+  }
+}
 ```
 
-## Configuration
+## Migration Notes (BRN-002)
 
-Environment variables are read via `pegserver.config.Settings`:
+Migrated from Flask + Ariadne to FastAPI + Strawberry (2024-11-30):
 
-- `NEO4J_URI` / `NEO4J_USER` / `NEO4J_PASSWORD` / `NEO4J_DATABASE` – connection info for Neo4j (defaults match the Podman container started by `tools/envs/manage.py`).
-- `NEO4J_DATA_DIR` – host directory mounted into the managed Neo4j container (defaults to `x-data/neo4j/`) so dev + CI can persist the graph between runs.
-- `DB_TABLE_PREFIX` – label prefix (defaults to `dev_` or `prod_`) so dev/prod graphs never clash. Tracking events, stock documents, and crawler jobs respect the prefix.
-- `API_CORS_ORIGINS` – comma-separated list of allowed origins for `/graphql`.
-- `NEO4J_FAKE=1` – enables the lightweight in-memory graph store (used only by tests/regression scripts).
+- **Why**: Strong typing, dataclass resolvers, better async support, Pydantic integration
+- **Compatibility**: Same GraphQL schema, same test coverage
 
-## Features
-
-- `/graphql` – GraphQL endpoint for ping, pegStocks, singleStock. Ping writes a `TrackingRecord` node; singleStock pulls from Neo4j (crawler data first, seeded fallbacks if necessary).
-- `/admin/` – Flask-Admin console that lists crawler jobs and lets you trigger them. Jobs execute via yfinance when available or synthetic payloads for demos.
-- CLI commands (`crawler-run`, `crawler-job`) to wire automation and CI scripts without touching the UI.
-
-Read `AGENTS.md` / `docs/project/**/README.md` before editing any folder so we preserve the agreed layout and infra standards.
+See [TRD-002](../../docs/specs/tech/TRD-002.strawberry_fastapi.md) for detailed documentation.

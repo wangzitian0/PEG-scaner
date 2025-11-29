@@ -6,14 +6,14 @@ WORKDIR /app
 COPY apps/backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 复制代码 + GraphQL schema
-COPY apps/backend/ .
-COPY libs/schema/ /app/libs/schema/
+# 复制代码
+COPY apps/backend/ ./apps/backend/
+COPY libs/ ./libs/
 
 # 设置环境变量
-ENV FLASK_APP=src/pegserver
-ENV PYTHONPATH=/app/src
+ENV PYTHONPATH=/app/apps/backend:/app/libs:/app
+ENV PEG_ENV=production
 
 EXPOSE 8000
 
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8000"]
+CMD ["uvicorn", "apps.backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

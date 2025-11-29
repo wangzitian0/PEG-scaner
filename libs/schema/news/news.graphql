@@ -1,0 +1,13 @@
+# news/news.graphql - 新闻域
+# 命名约定：News* 前缀
+
+"""
+News article item.
+"""
+type NewsItem {
+  title: String!
+  url: String
+  source: String
+  publishedAt: Float
+}
+

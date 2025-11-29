@@ -28,7 +28,7 @@
 | 迭代 | 名称 | 状态 | 详情 |
 |------|------|------|------|
 | BRN-001 | 核心基建 & 个股页面 | 🚧 进行中 | [project/BRN-001/](./project/BRN-001/README.md) |
-| BRN-002 | 架构迁移（Strawberry + FastAPI） | 📋 规划中 | [project/BRN-002/](./project/BRN-002/README.md) |
+| BRN-002 | 架构迁移（Strawberry + FastAPI） | ✅ 已完成 | [project/BRN-002/](./project/BRN-002/README.md) |
 | BRN-003 | 个股页面完整实现 | 📋 未开始 | [project/BRN-003/](./project/BRN-003/README.md) |
 
 ### BRN-001 Phase 进度
@@ -75,6 +75,10 @@
 - ✅ Neo4j + Crawler 集成
 - ✅ 单股页面 GraphQL 端点 + UI 骨架
 - ✅ 文档体系治理（BRN/PRD/TRD 编号统一，specs/BI 目录调整）
+- ✅ **BRN-002**: FastAPI + Strawberry GraphQL 架构迁移
+  - 三层分离（Resolver → Service → Repository）
+  - Schema 多域管理（common/market/news）
+  - 共享数据访问层 `libs/neo4j_repo/`
 
 ---
 

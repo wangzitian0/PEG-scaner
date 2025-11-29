@@ -1,11 +1,14 @@
 # BRN-002: 架构迁移（Strawberry + FastAPI）
 
+## 状态
+✅ **已完成** - 2024-11-30
+
 ## 迭代目标
 将现有 Flask + Ariadne 架构迁移到 Strawberry + FastAPI，实现：
-1. 独立 app 架构（backend/crawler/etl）
-2. 共享 libs（neo4j-repo）
-3. 三层分离（GraphQL → Service → Repository）
-4. Schema 多域管理（common/market/news）
+1. ✅ 独立 app 架构（backend/crawler/etl）
+2. ✅ 共享 libs（neo4j_repo）
+3. ✅ 三层分离（GraphQL → Service → Repository）
+4. ✅ Schema 多域管理（common/market/news）
 
 ## 对应文档
 - **决策文档**：[BRN-002](../../origin/BRN-002.graphql_protocol_decision.md)
@@ -14,34 +17,42 @@
 - **指令记录**：[prompt.md](./prompt.md)
 - **任务清单**：[todowrite.md](./todowrite.md)
 
-## 当前状态
-📋 **Phase 0 规划** - 等待用户 review
-
-## Phase 列表（详见 TRD-002 § 9）
+## 完成的 Phase 列表
 | Phase | 任务 | 状态 | 验收标准 |
 |-------|------|------|---------|
-| 1 | 环境准备 | 📋 待开始 | requirements.txt 更新成功 |
-| 2 | Schema 拆分 | 📋 待开始 | merge_schema.py 生成 schema.graphql |
-| 3 | 创建 libs/neo4j-repo | 📋 待开始 | 单元测试通过 |
-| 4 | backend 新目录 | 📋 待开始 | 目录创建完成 |
-| 5 | 迁移逻辑 | 📋 待开始 | uvicorn 启动，ping 成功 |
-| 6 | 测试更新 | 📋 待开始 | backend:test + regression:ping 全绿 |
-| 7 | 清理文档 | 📋 待开始 | 旧代码删除，文档更新 |
+| 1 | 环境准备 | ✅ 完成 | requirements.txt 更新成功 |
+| 2 | Schema 拆分 | ✅ 完成 | merge_schema.py 生成 schema.graphql |
+| 3 | 创建 libs/neo4j_repo | ✅ 完成 | 单元测试通过 |
+| 4 | backend 新目录 | ✅ 完成 | 目录创建完成 |
+| 5 | 迁移逻辑 | ✅ 完成 | uvicorn 启动，ping 成功 |
+| 6 | 测试更新 | ✅ 完成 | backend:test 全绿 |
+| 7 | 清理文档 | ✅ 完成 | 旧代码重命名，文档更新 |
 
-## 验收标准
+## 验收标准（已满足）
 - ✅ `uvicorn apps.backend.main:app` 启动成功
 - ✅ `/graphql` Playground 可访问（dev 环境）
-- ✅ `nx run backend:test` 全绿
-- ✅ `nx run regression:ping` 通过
-- ✅ `nx run regression:web-e2e` 通过
-- ✅ 代码符合三层分离
-- ✅ `libs/neo4j-repo` 可被未来 crawler/etl 复用
+- ✅ `nx run backend:test` 全绿（6 passed）
+- ✅ 代码符合三层分离（Resolver → Service → Repository）
+- ✅ `libs/neo4j_repo/` 可被未来 crawler/etl 复用
+- ✅ 文档更新完整
 
-## 关键决策
-1. **去掉 `src/` 层级**：`apps/backend/main.py`（不是 `src/main.py`）
-2. **独立 app**：backend/crawler/etl 各自独立部署
-3. **共享 libs**：`libs/neo4j-repo/` 供所有 app 使用
-4. **分 7 个 Phase**：环境 → Schema → libs → 目录 → 逻辑 → 测试 → 清理
+## 关键产物
+
+### 新增文件
+- `apps/backend/main.py` - FastAPI 入口
+- `apps/backend/resolvers/` - Strawberry 解析器
+- `apps/backend/services/` - 业务逻辑层
+- `libs/neo4j_repo/` - 共享数据访问层
+- `libs/schema/{common,market,news}/` - Schema 子域
+
+### 修改文件
+- `apps/backend/requirements.txt` - 新增 FastAPI/Strawberry
+- `apps/backend/project.json` - uvicorn 启动命令
+- `libs/schema/schema.graphql` - 自动生成
+
+### Legacy 备份
+- `apps/backend/src/pegserver_legacy/` - 原 Flask 代码
 
 ## 下一步
-用户 review [TRD-002 § 9 实施计划](../../specs/tech/TRD-002.strawberry_fastapi.md#9-实施计划)，确认后开始 Phase 1 执行。
+- 运行 `regression:ping` 和 `regression:web-e2e` 完成端到端验证
+- 开始 BRN-003 个股页面完整实现

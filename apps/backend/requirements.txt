@@ -1,9 +1,20 @@
 # backend/requirements.txt
-Flask
-Flask-Cors
-Flask-Admin
-ariadne
-yfinance
-neo4j
-neomodel
-pytest
+# FastAPI + Strawberry GraphQL (BRN-002)
+fastapi>=0.109.0
+strawberry-graphql[fastapi]>=0.219.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# CORS (included in starlette, bundled with FastAPI)
+
+# Database
+neo4j>=5.15.0
+neomodel>=5.2.0
+
+# Data fetching
+yfinance>=0.2.36
+
+# Testing
+pytest>=7.4.0
+httpx>=0.26.0
