@@ -11,10 +11,11 @@ docs/
 ├── origin/            # BRN-NNN.md（用户决策录，AI 只读）
 ├── specs/             # 各类规范文档（PRD/TRD/DRD/IRD）
 │   ├── product/       # PRD - 产品需求
-│   ├── tech/          # TRD - 技术规范
+│   ├── tech/          # TRD - 技术规范（含实施计划）
 │   ├── BI/            # DRD - 数据运营与 BI
 │   └── infra/         # IRD - 基础设施
-└── project/           # 迭代执行记录（BRN-NNN/）
+└── project/           # 迭代执行记录
+    └── BRN-NNN/       # 仅 4 个文件：prompt/context/todowrite/README
 ```
 
 ## 快速导航
