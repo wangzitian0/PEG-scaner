@@ -11,6 +11,13 @@
       },
       "dependsOn": ["backend:install"]
     },
+    "graphql-e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./apps/backend/.venv/bin/python3 apps/regression/graphql_e2e.py"
+      },
+      "dependsOn": ["backend:install"]
+    },
     "infra-flow": {
       "executor": "nx:run-commands",
       "options": {

@@ -1,14 +1,15 @@
 # Regression Tests
 
-This directory hosts end-to-end (E2E) and integration tests that span multiple subsystems. Unit or module-level tests should stay inside their respective packages (e.g., Flask blueprints, React components). By isolating regression assets here, we can automate “ping-pong” style checks without bloating individual projects.
+This directory hosts end-to-end (E2E) and integration tests that span multiple subsystems. Unit or module-level tests should stay inside their respective packages. By isolating regression assets here, we can automate checks without bloating individual projects.
 
 ## Available Tests
 
 | Test | Description | Command |
-| --- | --- | --- |
-| `ping_pong.py` | Verifies the backend GraphQL `ping` query at `/graphql` responds with the expected payload. Ensures infra connectivity before frontends rely on it. | `./apps/backend/.venv/bin/python3 apps/regression/ping_pong.py` or `npx nx run regression:ping` (backend server must be running) |
-| `check_infra.js` | Spins up a disposable Neo4j container (`pegscanner_regression_neo4j`, data stored under `x-data/neo4j/`), launches the Flask backend and Vite dev server, and verifies they are reachable. | `npx nx run regression:infra-flow` |
-| `run_web_e2e.js` | Builds the mobile web bundle, starts the Neo4j + backend stack, runs Playwright against the preview build, and then tears everything down. | `npx nx run regression:web-e2e` |
+|------|-------------|---------|
+| `ping_pong.py` | Quick GraphQL `ping` query smoke test | `npx nx run regression:ping` |
+| `graphql_e2e.py` | Full GraphQL E2E: ping, pegStocks, singleStock | `npx nx run regression:graphql-e2e` |
+| `check_infra.js` | Neo4j + Backend + Vite reachability check | `npx nx run regression:infra-flow` |
+| `run_web_e2e.js` | Full web E2E with Playwright | `npx nx run regression:web-e2e` |
 
 ## Usage
 
