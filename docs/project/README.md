@@ -10,11 +10,23 @@ project/
 │   ├── prompt.md      # 用户指令（SSOT）
 │   ├── context.md     # 技术现状
 │   ├── todowrite.md   # 任务清单
-│   ├── phrase_0.infra/        # Phase 0 执行记录
-│   └── phrase_1.single_stock/ # Phase 1 执行记录
-├── BRN-002/           # 架构迁移迭代（规划中）
+│   └── README.md      # 迭代总览
+├── BRN-002/           # 架构迁移迭代
+│   ├── prompt.md
+│   ├── context.md
+│   ├── todowrite.md
+│   └── README.md
 └── BACKLOG.md         # 未来需求池
 ```
+
+## 文件规范（严格限定）
+每个 BRN-NNN/ 目录**仅允许 4 个文件**：
+1. **prompt.md** - 用户指令记录（SSOT）
+2. **context.md** - 技术现状与背景
+3. **todowrite.md** - 任务清单（动态更新）
+4. **README.md** - 迭代总览（Phase 列表、验收标准）
+
+**不允许**：phrase_N/ 子目录（详细技术文档放 specs/）
 
 ## 迭代列表
 

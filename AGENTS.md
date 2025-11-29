@@ -40,11 +40,12 @@ docs/
 ├── arch.md        # 架构决策（5W1H），从现状出发
 ├── origin/        # BRN-NNN.md（用户决策录，AI只读）
 ├── specs/
-│   ├── product/   # PRD-NNN.md
-│   ├── tech/      # TRD-NNN.md
+│   ├── product/   # PRD-NNN.md（产品需求）
+│   ├── tech/      # TRD-NNN.md（技术规范，包含实施计划）
 │   ├── BI/        # DRD-NNN.md（数据运营、BI需求）
-│   └── infra/     # IRD-NNN.md
-└── project/BRN-NNN/ # 迭代执行（prompt/context/todowrite/phrase_N）
+│   └── infra/     # IRD-NNN.md（基础设施）
+└── project/
+    └── BRN-NNN/   # 迭代执行（仅限：prompt.md, context.md, todowrite.md, README.md）
 ```
 
 ## 文档类型职责

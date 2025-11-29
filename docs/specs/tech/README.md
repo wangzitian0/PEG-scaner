@@ -12,8 +12,9 @@ Technical Requirement Documents (TRD) for architecture, API design, and implemen
 | [TRD-003](./TRD-003.single_stock_tech.md) | BRN-003 | 个股页面技术设计 | ✅ 已完成 |
 
 ## 文档规范
-- **内容重点**：架构图、调用关系、技术选型对比、接口伪代码（5-10行）
+- **内容重点**：架构图、调用关系、技术选型对比、接口伪代码（5-10行）、实施计划（Phase 列表、工时估算）
 - **包含数据层**：数据库 Schema、ER 图、Neo4j 模型属于 TRD
+- **包含实施**：详细的 Phase 规划、文件变更清单、风险评估
 - **不写内容**：完整实现代码（>50行放代码仓库）
 
 ## 参考
