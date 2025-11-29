@@ -1,8 +1,35 @@
-# Project (Dynamic Execution)
+# Project - 迭代执行记录
 
-Iterations are organized under `BRN-*` folders. Each BRN contains:
-- `prompt.md` / `todowrite.md` / `context.md`
-- `phrase_i.xxxx/` (README/plan/iteration_flow/checklist/append_promot/BRN-xxx)
-- Phase-specific BRN 文档对齐对应 PRD/TRD。
+记录每个 BRN 迭代的实时进度、决策日志、问题追踪。
 
-Current iteration: `BRN-001/`
+## 目录结构
+
+```
+project/
+├── BRN-001/           # 核心基建迭代
+│   ├── prompt.md      # 用户指令（SSOT）
+│   ├── context.md     # 技术现状
+│   ├── todowrite.md   # 任务清单
+│   ├── phrase_0.infra/        # Phase 0 执行记录
+│   └── phrase_1.single_stock/ # Phase 1 执行记录
+├── BRN-002/           # 架构迁移迭代（规划中）
+└── BACKLOG.md         # 未来需求池
+```
+
+## 迭代列表
+
+| BRN | 名称 | 状态 | 详情 |
+|-----|------|------|------|
+| BRN-001 | 核心基建与个股页面 | 🚧 进行中 | [BRN-001/](./BRN-001/) |
+| BRN-002 | 架构迁移（Strawberry + FastAPI） | 📋 规划中 | [BRN-002/](./BRN-002/) |
+| BRN-003 | （占位） | 📋 未开始 | [BRN-003/](./BRN-003/) |
+
+## 使用规范
+- **prompt.md**：记录用户原始指令，每次收到新指令追加
+- **context.md**：记录技术栈现状、已有代码、当前问题
+- **todowrite.md**：动态任务清单，完成后打勾
+- **phrase_N.xxxx/**：每个 Phase 独立目录，包含 plan/checklist/iteration_flow 等
+
+## 参考
+- [index.md](../index.md) - 文档索引
+- [AGENTS.md](../../AGENTS.md) - 流程规范
