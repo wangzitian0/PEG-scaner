@@ -9,9 +9,10 @@
 | 文件 | 职责 | 更新时机 | 谁写 |
 |------|------|----------|------|
 | **本文件 (index.md)** | 索引 + 当前状态总览 | 每次迭代结束 | Agent |
-| **[PRD-001.stock_app_overview.md](./specs/product/PRD-001.stock_app_overview.md)** | 产品需求原文（界面/功能定义） | 用户修改需求时 | 用户 |
-| **[TRD-001.roadmap_phases.md](./specs/tech/TRD-001.roadmap_phases.md)** | 开发路线图（Phase 1-5 高层规划） | 规划调整时 | Agent |
-| **[TRD-002.graphql_contracts.md](./specs/tech/TRD-002.graphql_contracts.md)** | 协议与通信约束（对应 `origin/BRN-002.graphql_protocol_decision.md`） | 协议/Schema 变更时 | Agent |
+| **[PRD-000.stock_app_overview.md](./specs/product/PRD-000.stock_app_overview.md)** | 产品总览（整体目标/界面列表） | 用户修改需求时 | 用户 |
+| **[TRD-000.roadmap_phases.md](./specs/tech/TRD-000.roadmap_phases.md)** | 开发路线图（Phase 1-5 高层规划） | 规划调整时 | Agent |
+| **[TRD-001.infra_ping.md](./specs/tech/TRD-001.infra_ping.md)** | 核心基建技术实现（对应 BRN-001） | 基建变更时 | Agent |
+| **[TRD-002.strawberry_fastapi.md](./specs/tech/TRD-002.strawberry_fastapi.md)** | GraphQL 协议实现（对应 BRN-002） | 协议/Schema 变更时 | Agent |
 | **[todowrite.md](./project/BRN-001/todowrite.md)** | 需求完成状态跟踪（打勾用） | 每次完成任务后 | Agent |
 | **[IRD-001.md](./specs/infra/IRD-001.md)** | AI 评分机制详细说明 | 机制变更时 | Agent |
 | **[project/BRN-001/README.md](./project/BRN-001/README.md)** | 迭代管理规范 + 当前 Phase 状态 | Phase 状态变更时 | Agent |
@@ -39,8 +40,9 @@
 
 | 问题 | 去哪里 |
 |------|--------|
-| 项目要做什么功能？ | [PRD-001.stock_app_overview.md](./specs/product/PRD-001.stock_app_overview.md) |
-| 整体开发计划是什么？ | [TRD-001.roadmap_phases.md](./specs/tech/TRD-001.roadmap_phases.md) |
+| 项目要做什么功能？ | [PRD-000.stock_app_overview.md](./specs/product/PRD-000.stock_app_overview.md) |
+| 整体开发计划是什么？ | [TRD-000.roadmap_phases.md](./specs/tech/TRD-000.roadmap_phases.md) |
+| 数据源与质量规则？ | [specs/BI/](./specs/BI/) DRD 文档 |
 | 哪些需求已完成/待做？ | [todowrite.md](./project/BRN-001/todowrite.md) |
 | 当前在做哪个 Phase？ | 本文件的"当前状态"表格 |
 | 某个 Phase 的详细进展？ | [project/BRN-001/phrase_N/](./project/BRN-001/) |

@@ -32,27 +32,43 @@
 | **Efficiency**<br>(提升生产效率) | **Automation**<br>(杠杆与基建) | `tools/` | **Infra**<br>(基建) | **IRD**<br>(Infra Req Doc) |
 
 # docs 目录组织原则
-分三块
+**编号规则**：BRN 编号统领，XRD 继承同编号（如 BRN-002 → TRD-002/PRD-002/DRD-002）
+
 ```
 docs/
-├── index.md    # 价值索引表格，每行大概是|i.BRD|summary|i.TRD, i.DRD|status|
-├── arch.md    # 这部分非常基础，会很大程度上决定后续的方向。每一个技术点要求讲清楚5W1H(Who, What, Where, When, Why, How) **核心原则**：任何技术决定需要从现状出发，所以阅读docs/arch.md是必须的。
-├── origin/       (State: Immutable Input)
-│   └── BRN-001.md  # 原始决策录（!!AI只能读不可修改）
-│
-├── specs/        (State: Definitive Guide)
-│   ├── product/    # PRD -> apps, PRD-001.md
-│   ├── tech/       # TRD -> libs, TRD-001.md
-│   ├── data/       # DRD -> ops, DRD-003.md
-│   └── infra/      # IRD -> tools, IRD-012.md
-│
-└── project/       (State: Dynamic Execution)
-    ├── BRN-001/     # 当前正在发生的迭代
-    │   ├── prompt.md (记录提示词)
-    │   ├── todowrite.md (AI 任务队列)
-    │   └── context.md   (当前上下文)
-    └── BRN-002/    
+├── index.md       # 索引表格：|BRN|summary|XRD|status|
+├── arch.md        # 架构决策（5W1H），从现状出发
+├── origin/        # BRN-NNN.md（用户决策录，AI只读）
+├── specs/
+│   ├── product/   # PRD-NNN.md
+│   ├── tech/      # TRD-NNN.md
+│   ├── BI/        # DRD-NNN.md（数据运营、BI需求）
+│   └── infra/     # IRD-NNN.md
+└── project/BRN-NNN/ # 迭代执行（prompt/context/todowrite/phrase_N）
 ```
+
+## 文档类型职责
+
+### BRN (Business Request Note) - origin/
+- ✅ 写：Why（业务价值）、What（目标范围）、验收标准
+- ❌ 不写：技术方案、实现细节
+
+### PRD (Product Requirement Doc) - specs/product/
+- ✅ 写：用户画像、界面线框图、操作流程、交互反馈
+- ❌ 不写：GraphQL Query、API 定义、数据库 Schema
+
+### TRD (Tech Requirement Doc) - specs/tech/
+- ✅ 写：架构图（Mermaid）、层次调用关系、技术选型对比表、接口伪代码（5-10行）、Neo4j Schema/ER图
+- ❌ 不写：完整实现代码（>50行的放代码仓库）
+
+### DRD (Data Requirement Doc) - specs/data/
+- ✅ 写：数据覆盖范围（如SP500股票池）、数据源配置（yfinance/SEC）、多源校验规则（≥3来源）、质量监控（缺失率/延迟SLA）、BI Dashboard需求
+- ❌ 不写：数据库Schema（属于TRD）、查询代码（属于代码仓库）
+
+### IRD (Infra Requirement Doc) - specs/infra/
+- ✅ 写：部署架构图、CI/CD Pipeline、监控告警规则、成本估算
+- ❌ 不写：业务逻辑、数据模型
+
 ## 二、代码与目录规范
 
 ### 代码管理
