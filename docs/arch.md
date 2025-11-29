@@ -75,13 +75,13 @@
 - Why：快速找到“对的位置”，减少沟通成本。
 - What：`docs/index.md` 导航；`arch.md`（本文件）；`origin/` 不可变；`specs/`（PRD/TRD/DRD/IRD）；`project/BRN-*`（prompt/context/todowrite/phase_*）。
 - Where：`docs/` 根；当前迭代在 `project/BRN-001/`。
-- When：迭代前先读 `arch.md` + `specs/infra/IRD-001.md`；新增文档同步到各级 README。
+- When：迭代前先读 `arch.md` + `specs/infra/IRD-001.ai_evaluation.md`；新增文档同步到各级 README。
 - Who：全部 Agent/开发/产品。
 - How：遵循“每级 README 做索引”，提示词记 `project/BRN-*/prompt.md` 与对应 `phase/append_promot.md`，避免多处副本。
 
 ### 评价与流程
 - Why：AI-native 需要可量化的流程约束。
-- What：评分/奖励机制在 `docs/specs/infra/IRD-001.md`，并在 `AGENTS.md` 强制引用。
+- What：评分/奖励机制在 `docs/specs/infra/IRD-001.ai_evaluation.md`，并在 `AGENTS.md` 强制引用。
 - Where：`docs/specs/infra/`。
 - When：每次动手前确认已读；评分<0.8 补 `todowrite`。
 - Who：全部 Agent。

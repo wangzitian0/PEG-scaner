@@ -2,7 +2,7 @@
 
 > **职责**：跟踪需求完成状态（打勾用）
 > 
-> **与 PRD-001.md 的关系**：`PRD-001.md` 是需求原文（不变），本文件是进度跟踪（可变）
+> **与 PRD-001.stock_app_overview.md 的关系**：`PRD-001.stock_app_overview.md` 是需求原文（不变），本文件是进度跟踪（可变）
 
 This document tracks the requirements from `AGENTS.md` and their completion status.
 
