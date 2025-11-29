@@ -1,0 +1,30 @@
+# common/types.graphql - 通用类型定义
+# 命名约定：无前缀，基础类型
+
+"""
+Ping/health check for infra connectivity.
+"""
+type Ping {
+  message: String!
+  agent: String!
+  timestampMs: Float!
+}
+
+"""
+Standard pagination input.
+"""
+input PaginationInput {
+  limit: Int = 20
+  offset: Int = 0
+}
+
+"""
+Standard pagination info for responses.
+"""
+type PaginationInfo {
+  total: Int!
+  limit: Int!
+  offset: Int!
+  hasMore: Boolean!
+}
+

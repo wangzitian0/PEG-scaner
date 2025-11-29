@@ -1,0 +1,77 @@
+# market/market.graphql - 市场/股票域
+# 命名约定：Asset* 前缀（区分其他域）
+
+"""
+PEG watchlist candidate entry.
+"""
+type PegStock {
+  symbol: String!
+  name: String!
+  peRatio: Float
+  earningsGrowth: Float
+  pegRatio: Float
+}
+
+"""
+Company valuation metrics.
+"""
+type CompanyValuation {
+  psRatio: Float
+  peRatio: Float
+  pbRatio: Float
+}
+
+"""
+Financial performance indicators.
+"""
+type FinancialIndicators {
+  eps: Float
+  fcf: Float
+  currentRatio: Float
+  roe: Float
+}
+
+"""
+Detailed company information.
+"""
+type CompanyInfo {
+  symbol: String!
+  description: String
+  sector: String
+  industry: String
+  valuation: CompanyValuation
+  indicators: FinancialIndicators
+}
+
+"""
+Stock entity with metadata.
+"""
+type Stock {
+  symbol: String!
+  name: String!
+  exchange: String
+  currency: String
+  companyInfo: CompanyInfo
+}
+
+"""
+K-line (OHLCV) data point.
+"""
+type KLinePoint {
+  timestamp: Float!
+  open: Float
+  high: Float
+  low: Float
+  close: Float
+  volume: Float
+}
+
+"""
+Single stock page aggregated data.
+"""
+type SingleStockPage {
+  stock: Stock!
+  dailyKline: [KLinePoint!]!
+  news: [NewsItem!]!
+}
+

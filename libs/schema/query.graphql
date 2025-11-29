@@ -1,0 +1,20 @@
+# query.graphql - Root Query 定义
+# 聚合所有域的查询入口
+
+type Query {
+  """
+  Health check / infrastructure ping.
+  """
+  ping: Ping!
+
+  """
+  List PEG watchlist candidates.
+  """
+  pegStocks: [PegStock!]!
+
+  """
+  Fetch single stock page data by symbol.
+  """
+  singleStock(symbol: String!): SingleStockPage
+}
+
