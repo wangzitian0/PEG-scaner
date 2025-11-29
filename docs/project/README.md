@@ -20,13 +20,14 @@ project/
 ```
 
 ## 文件规范（严格限定）
-每个 BRN-NNN/ 目录**仅允许 4 个文件**：
+每个 BRN-NNN/ 目录**仅允许以下文件**：
 1. **prompt.md** - 用户指令记录（SSOT）
 2. **context.md** - 技术现状与背景
 3. **todowrite.md** - 任务清单（动态更新）
 4. **README.md** - 迭代总览（Phase 列表、验收标准）
+5. **_archive_*.md**（可选）- 历史内容归档（如 phrase_N 迁移前的详细记录）
 
-**不允许**：phrase_N/ 子目录（详细技术文档放 specs/）
+**不允许子目录**：（详细技术文档放 specs/，执行细节放 context.md）
 
 ## 迭代列表
 

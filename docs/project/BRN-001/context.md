@@ -1,44 +1,78 @@
-# PEG Scanner - Project Management
+# BRN-001: 技术现状与执行历史
 
-> **职责**：迭代管理规范 + 当前 Phase 执行状态
-> 
-> **与 specs/tech/TRD-001.md 的关系**：`TRD-001.md` 是高层规划，本目录是执行记录
+## 当前状态
+**迭代目标**：核心基建（GraphQL + Nx + Ping）+ 个股页面骨架  
+**状态**：Phase 0 ✅ 完成，Phase 1 🚧 进行中
 
-This directory contains files related to project management and tracking. Each major development phase or iteration will have its own subdirectory.
+## 技术栈（当前）
+- **前端**：React Native (Expo) + Vite Web
+- **后端**：Flask + Ariadne GraphQL（**待迁移到 FastAPI + Strawberry，见 BRN-002**）
+- **数据库**：Neo4j + SQLite
+- **Monorepo**：Nx
+- **容器**：Podman/Docker Compose
 
-## Structure
+## Phase 0: GraphQL & Nx 基础设施 ✅
 
-- `phrase_i.xxxx/`: Each folder represents a distinct development phase and **must** contain at least:
-  - `README.md`: objectives, deliverables, status, and next steps.
-  - `plan.md`: goals, scope table, milestones, risks.
-  - `iteration_flow.md`: daily/loop procedure (including reminders to read `AGENTS.md` + `../../../specs/infra/IRD-001.ai_evaluation.md` and update `./prompt.md`).
-  - `checklist.md`: trackable commitments tied to AGENTS/todowrite.
-  - `append_promot.md`: local snapshot of prompts pulled from `./prompt.md`.
-  - BRN 对齐：业务请求存放于 `docs/origin/BRN-xxx.md`，执行产物放各自 BRN 目录（如 `../BRN-002/`, `../BRN-003/`）。
-  - Any additional files (plans, tickets, appendices) relevant to that iteration.
-- `../apps/`: Runtime apps live there; refer back when phases touch specific code.
+### 目标
+建立 GraphQL SDL 作为 SSOT，配置 Nx monorepo，实现 ping-pong 通路。
 
-## Project Progress
+### 已完成工作
+1. **Schema 管理**：`libs/schema/schema.graphql` 作为唯一源
+2. **Backend Ping**：Flask `/graphql` 端点，返回 `{ ping { message, agent, timestampMs } }`
+3. **Frontend 状态指示器**：Mobile app 显示 backend 连接状态
+4. **Nx Targets**：
+   - `backend:test` - 运行 GraphQL 测试
+   - `mobile:typecheck` - TypeScript 检查
+   - `regression:ping` - E2E ping 测试
+   - `regression:infra-flow` - 基建流程测试
+5. **回归测试**：Playwright 覆盖 ping 指示器
+6. **Neo4j 集成**：neomodel + Crawler admin 后台
 
-### Phase 0: Proto & Nx Infrastructure
-- **Phase Directory:** [`phrase_0.infra/`](./phrase_0.infra/README.md)
-- **Scope:** SSOT schema管理（GraphQL SDL），Nx workspace/tooling upkeep。
-- **Status:** Active (tracking infra items such as ping-pong verification).
-- **Key Activities:**
-    - Added backend `/graphql` ping; default `backend:test` now runs the GraphQL ping suite.
-    - Surfaced backend status in the mobile app so Nx/Vite builds can confirm connectivity.
-    - Introduced Nx targets (`backend:test`, `mobile:typecheck`) and regression scripts (`ping_pong.py`, `check_infra.js`, `run_web_e2e.js`) for shared automation, including Playwright coverage of the ping indicator.
-    - Recorded infra prompts and plan/checklist under `phrase_0.infra/`，关联 BRN-002（协议与通信依赖，对应 `docs/specs/tech/TRD-002.graphql_contracts.md`，原文在 `docs/origin/BRN-002.graphql_protocol_decision.md`）。
-    - Authored `phrase_0.infra/deploy.md` as the Cloudflare+VPS TODOwrite with stepwise checks.
+### 关键里程碑
+- ✅ Backend `/graphql` ping 端点
+- ✅ Mobile app 状态指示器
+- ✅ Nx targets 配置完成
+- ✅ 回归测试框架搭建
+- ✅ Neo4j + Crawler 集成
 
-### Phase 1: Single Stock Page
-- **Phase Directory:** [`phrase_1.single_stock_page/`](./phrase_1.single_stock_page/README.md)
-- **Phase Description:** Implementing the single-stock experience (UI + data flow) per `AGENTS.md`, building on top of the initial infra.
-- **Status:** In Progress
-- **Key Activities:**
-    - Created `project/BRN-001/todowrite.md`
-    - Updated `project/BRN-001/README.md`
-    - Logged new prompts and set up iteration management files under `phrase_1.single_stock_page/`，关联 BRN-003（对应 `docs/specs/product/PRD-001.stock_app_overview.md`，原文在 `docs/origin/BRN-003.single_stock_page.md`）。
-    - Captured baseline directory trees (root/apps/backend + apps/mobile) for structure audit
-    - Ran `apps/backend/manage.py test` (currently reports 0 tests) to gauge automation gaps
-    - Added `specs/infra/IRD-001.ai_evaluation.md` and updated references (including latest `AGENTS.md` edits) so every agent follows the reward mechanism
+### 风险与缓解
+- **风险**：Schema drift（SDL 与实现不一致）
+- **缓解**：SDL 变更后运行 regression ping
+
+## Phase 1: 个股页面 🚧
+
+### 目标
+实现个股信息展示（K 线、新闻、F10），建立数据源验证流程。
+
+### 当前进度
+1. ✅ 创建 `project/BRN-001/todowrite.md`
+2. ✅ 更新迭代管理文件
+3. ✅ 创建 GraphQL 端点 `singleStock(symbol: String!)`
+4. ✅ UI 骨架（watchlist + detail view）
+5. ✅ Crawler + Neo4j 数据管道
+6. 🚧 数据源蓝图（K 线/新闻/F10 供应商选择）
+7. 🚧 3 源校验流程
+
+### 待完成工作
+- [ ] 数据源配置（yfinance/SEC/Alpha Vantage）
+- [ ] 多源校验实现（≥3 来源）
+- [ ] K 线图渲染
+- [ ] 新闻列表展示
+- [ ] F10 模块实现
+
+### 关键决策
+- 协议：GraphQL（对应 BRN-002/TRD-002）
+- 产品需求：对应 BRN-003/PRD-003
+- 数据质量：宁缺勿滥，≥3 来源校验
+
+## 依赖关系
+- **上游**：无（BRN-001 是起点）
+- **下游**：
+  - BRN-002（架构迁移，Flask → FastAPI）
+  - BRN-003（个股页面完整实现）
+
+## 参考文档
+- [BRN-001: 核心基建决策](../../origin/BRN-001.core_infra_ping.md)
+- [TRD-001: 技术规范](../../specs/tech/TRD-001.infra_ping.md)
+- [BRN-002: GraphQL 协议](../../origin/BRN-002.graphql_protocol_decision.md)
+- [BRN-003: 个股页面](../../origin/BRN-003.single_stock_page.md)
