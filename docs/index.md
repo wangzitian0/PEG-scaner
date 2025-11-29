@@ -13,6 +13,8 @@
 | **[TRD-000.roadmap_phases.md](./specs/tech/TRD-000.roadmap_phases.md)** | 开发路线图（Phase 1-5 高层规划） | 规划调整时 | Agent |
 | **[TRD-001.infra_ping.md](./specs/tech/TRD-001.infra_ping.md)** | 核心基建技术实现（对应 BRN-001） | 基建变更时 | Agent |
 | **[TRD-002.strawberry_fastapi.md](./specs/tech/TRD-002.strawberry_fastapi.md)** | GraphQL 协议实现（对应 BRN-002） | 协议/Schema 变更时 | Agent |
+| **[TRD-003.single_stock_tech.md](./specs/tech/TRD-003.single_stock_tech.md)** | 个股页面技术设计（对应 BRN-003） | 个股页技术变更时 | Agent |
+| **[PRD-003.single_stock_page.md](./specs/product/PRD-003.single_stock_page.md)** | 个股页面产品需求（对应 BRN-003） | 产品需求变更时 | Agent |
 | **[todowrite.md](./project/BRN-001/todowrite.md)** | 需求完成状态跟踪（打勾用） | 每次完成任务后 | Agent |
 | **[IRD-001.md](./specs/infra/IRD-001.md)** | AI 评分机制详细说明 | 机制变更时 | Agent |
 | **[project/BRN-001/README.md](./project/BRN-001/README.md)** | 迭代管理规范 + 当前 Phase 状态 | Phase 状态变更时 | Agent |
@@ -23,14 +25,17 @@
 
 ## 当前状态
 
-| Phase | 名称 | 状态 | 详情 |
-|-------|------|------|------|
-| 0 | GraphQL & Nx 基础设施 | ✅ Active | [phrase_0.infra/](./project/BRN-001/phrase_0.infra/README.md) |
-| 1 | 个股页面 | 🚧 In Progress | [phrase_1.single_stock_page/](./project/BRN-001/phrase_1.single_stock_page/README.md) |
-| 2 | 因子计算 | 📋 Planned | 见 [TRD-001.md](./specs/tech/TRD-001.md) |
-| 3 | AI 对话 | 📋 Planned | 见 [TRD-001.md](./specs/tech/TRD-001.md) |
-| 4 | 策略回测 | 📋 Planned | 见 [TRD-001.md](./specs/tech/TRD-001.md) |
-| 5 | 策略推送 | 📋 Planned | 见 [TRD-001.md](./specs/tech/TRD-001.md) |
+| 迭代 | 名称 | 状态 | 详情 |
+|------|------|------|------|
+| BRN-001 | 核心基建 & 个股页面 | 🚧 进行中 | [project/BRN-001/](./project/BRN-001/README.md) |
+| BRN-002 | 架构迁移（Strawberry + FastAPI） | 📋 规划中 | [project/BRN-002/](./project/BRN-002/README.md) |
+| BRN-003 | 个股页面完整实现 | 📋 未开始 | [project/BRN-003/](./project/BRN-003/README.md) |
+
+### BRN-001 Phase 进度
+| Phase | 名称 | 状态 |
+|-------|------|------|
+| 0 | GraphQL & Nx 基础设施 | ✅ 已完成 |
+| 1 | 个股页面骨架 | 🚧 进行中 |
 
 ---
 
@@ -42,6 +47,7 @@
 |------|--------|
 | 项目要做什么功能？ | [PRD-000.stock_app_overview.md](./specs/product/PRD-000.stock_app_overview.md) |
 | 整体开发计划是什么？ | [TRD-000.roadmap_phases.md](./specs/tech/TRD-000.roadmap_phases.md) |
+| 个股页面怎么做？ | [PRD-003](./specs/product/PRD-003.single_stock_page.md) + [TRD-003](./specs/tech/TRD-003.single_stock_tech.md) |
 | 数据源与质量规则？ | [specs/BI/](./specs/BI/) DRD 文档 |
 | 哪些需求已完成/待做？ | [todowrite.md](./project/BRN-001/todowrite.md) |
 | 当前在做哪个 Phase？ | 本文件的"当前状态"表格 |
@@ -68,6 +74,7 @@
 - ✅ `npm run dev` 一键启动
 - ✅ Neo4j + Crawler 集成
 - ✅ 单股页面 GraphQL 端点 + UI 骨架
+- ✅ 文档体系治理（BRN/PRD/TRD 编号统一，specs/BI 目录调整）
 
 ---
 
