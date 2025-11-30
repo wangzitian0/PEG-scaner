@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       PYTHONUNBUFFERED: "1"
       NX_NO_CLOUD: "true"
@@ -17,26 +18,33 @@ jobs:
       NEO4J_AUTH: "neo4j/pegscanner"
       NEO4J_CONTAINER: "pegscanner_ci_neo4j"
       NEO4J_DATA_DIR: "${{ github.workspace }}/x-data/neo4j"
+      SKIP_NEO4J_CONTAINER: "1"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Start Neo4j
+        timeout-minutes: 3
         run: |
+          mkdir -p $NEO4J_DATA_DIR
           docker run -d --name $NEO4J_CONTAINER \
             -p 7687:7687 -p 7474:7474 \
-            -v $NEO4J_DATA_DIR:/data \
             -e NEO4J_AUTH=$NEO4J_AUTH \
             neo4j:5
-          # Wait for Neo4j to be ready
+          
+          # Wait for Neo4j with proper failure
+          echo "Waiting for Neo4j to be ready..."
           for i in {1..30}; do
             if docker exec $NEO4J_CONTAINER cypher-shell -u neo4j -p pegscanner "RETURN 1" 2>/dev/null; then
-              echo "Neo4j is ready!"
-              break
+              echo "✓ Neo4j is ready!"
+              exit 0
             fi
-            echo "Waiting for Neo4j... ($i/30)"
+            echo "  Attempt $i/30..."
             sleep 2
           done
+          echo "✗ Neo4j failed to start!"
+          docker logs $NEO4J_CONTAINER
+          exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -58,20 +66,19 @@ jobs:
         run: npx nx run backend:install
 
       - name: Backend unit tests
+        timeout-minutes: 3
         run: npx nx run backend:test
 
       - name: Install Playwright system dependencies
         run: sudo npx playwright install-deps chromium
 
-      - name: Regression infra flow (backend + Vite + Neo4j)
+      - name: Regression infra flow
+        timeout-minutes: 3
         run: npx nx run regression:infra-flow
-        env:
-          SKIP_NEO4J_CONTAINER: "1"
 
-      - name: Regression web E2E (Playwright + Neo4j)
+      - name: Regression web E2E
+        timeout-minutes: 5
         run: npx nx run regression:web-e2e
-        env:
-          SKIP_NEO4J_CONTAINER: "1"
 
       - name: Mobile typecheck
         run: npx nx run mobile:typecheck
