@@ -10,6 +10,7 @@ Includes:
 from django.contrib import admin
 from django.urls import path
 from django.http import JsonResponse
+from django.views.generic import RedirectView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -23,6 +24,9 @@ def health_check(request):
 
 
 urlpatterns = [
+    # Root redirect to admin
+    path('', RedirectView.as_view(url='/admin/', permanent=False)),
+    
     # Admin
     path('admin/', admin.site.urls),
     

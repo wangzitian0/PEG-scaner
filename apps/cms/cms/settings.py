@@ -149,16 +149,12 @@ USE_TZ = True
 # =============================================================================
 # Static files (WhiteNoise for production)
 # =============================================================================
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-}
+
+# WhiteNoise settings
+WHITENOISE_USE_FINDERS = True  # Serve from app static dirs too
+WHITENOISE_AUTOREFRESH = DEBUG  # Auto-refresh in debug mode
 
 # =============================================================================
 # Default primary key field type
