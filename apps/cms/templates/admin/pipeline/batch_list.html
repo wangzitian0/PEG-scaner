@@ -1,0 +1,86 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-6">Data Batches</h1>
+    
+    <!-- Status Filter -->
+    <div class="mb-4 flex gap-2">
+        <a href="?" class="px-3 py-1 rounded {% if not status_filter %}bg-primary-600 text-white{% else %}bg-gray-100 dark:bg-gray-700{% endif %}">
+            All
+        </a>
+        {% for status, count in status_counts.items %}
+        <a href="?status={{ status }}" class="px-3 py-1 rounded {% if status_filter == status %}bg-primary-600 text-white{% else %}bg-gray-100 dark:bg-gray-700{% endif %}">
+            {{ status }} ({{ count }})
+        </a>
+        {% endfor %}
+    </div>
+    
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                    <th class="px-4 py-3 text-left text-sm font-medium">Batch ID</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium">Source</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium">Type</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium">Records</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium">Errors</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium">Status</th>
+                    <th class="px-4 py-3 text-right text-sm font-medium">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-600">
+                {% for batch in batches %}
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td class="px-4 py-3 font-mono text-sm">{{ batch.batch_id }}</td>
+                    <td class="px-4 py-3">{{ batch.source }}</td>
+                    <td class="px-4 py-3">{{ batch.data_type }}</td>
+                    <td class="px-4 py-3">{{ batch.record_count }}</td>
+                    <td class="px-4 py-3">
+                        {% if batch.error_count > 0 %}
+                        <span class="text-red-600">{{ batch.error_count }}</span>
+                        {% else %}
+                        <span class="text-green-600">0</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="px-2 py-1 rounded text-xs
+                            {% if batch.status == 'committed' %}bg-green-100 text-green-800
+                            {% elif batch.status == 'approved' %}bg-blue-100 text-blue-800
+                            {% elif batch.status == 'reviewing' %}bg-yellow-100 text-yellow-800
+                            {% elif batch.status == 'rejected' %}bg-red-100 text-red-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ batch.status }}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-right text-sm space-x-1">
+                        {% if batch.status == 'raw' or batch.status == 'rejected' %}
+                        <a href="{% url 'admin:pipeline_databatch_clean' batch.batch_id %}" 
+                           class="text-blue-600 hover:underline">Clean</a>
+                        {% endif %}
+                        {% if batch.status == 'clean' %}
+                        <a href="{% url 'admin:pipeline_databatch_review' batch.batch_id %}" 
+                           class="text-blue-600 hover:underline">Submit</a>
+                        {% endif %}
+                        {% if batch.status == 'reviewing' %}
+                        <a href="{% url 'admin:pipeline_databatch_approve' batch.batch_id %}" 
+                           class="text-green-600 hover:underline">Approve</a>
+                        <a href="{% url 'admin:pipeline_databatch_reject' batch.batch_id %}" 
+                           class="text-red-600 hover:underline">Reject</a>
+                        {% endif %}
+                        {% if batch.status == 'approved' %}
+                        <a href="{% url 'admin:pipeline_databatch_commit' batch.batch_id %}" 
+                           class="text-green-600 hover:underline">Commit</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">No batches</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

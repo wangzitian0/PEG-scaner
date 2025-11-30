@@ -1,0 +1,78 @@
+{
+  "name": "cms",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cms",
+  "projectType": "application",
+  "tags": ["type:app", "scope:backend", "lang:python"],
+  "targets": {
+    "install": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "commands": [
+          "python3 -m venv .venv || true",
+          ".venv/bin/pip install --upgrade pip",
+          ".venv/bin/pip install -r requirements.txt"
+        ],
+        "parallel": false
+      }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "command": ".venv/bin/python manage.py migrate"
+      },
+      "dependsOn": ["install"]
+    },
+    "createsuperuser": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "command": ".venv/bin/python manage.py createsuperuser"
+      },
+      "dependsOn": ["migrate"]
+    },
+    "install-schema": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "command": ".venv/bin/python manage.py install_graph_schema"
+      },
+      "dependsOn": ["install"]
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "command": ".venv/bin/python manage.py seed_graph_data"
+      },
+      "dependsOn": ["install-schema"]
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "command": ".venv/bin/python manage.py runserver 0.0.0.0:8001"
+      },
+      "dependsOn": ["migrate"]
+    },
+    "collectstatic": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "command": ".venv/bin/python manage.py collectstatic --noinput"
+      },
+      "dependsOn": ["install"]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/cms",
+        "command": ".venv/bin/python manage.py test"
+      },
+      "dependsOn": ["install"]
+    }
+  }
+}
+
