@@ -61,6 +61,9 @@ jobs:
           NEO4J_USER: neo4j
           NEO4J_PASSWORD: pegscanner
 
+      - name: Stop test Neo4j
+        run: docker stop neo4j-test && docker rm neo4j-test || true
+
       - name: Install Playwright system dependencies
         run: sudo npx playwright install-deps chromium
 
