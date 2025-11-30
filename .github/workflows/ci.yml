@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONUNBUFFERED: "1"
+      NX_NO_CLOUD: "true"
       NEO4J_AUTH: "neo4j/pegscanner"
       NEO4J_CONTAINER: "pegscanner_ci_neo4j"
       NEO4J_DATA_DIR: "${{ github.workspace }}/x-data/neo4j"
