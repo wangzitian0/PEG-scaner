@@ -65,9 +65,13 @@ jobs:
 
       - name: Regression infra flow (backend + Vite + Neo4j)
         run: npx nx run regression:infra-flow
+        env:
+          SKIP_NEO4J_CONTAINER: "1"
 
       - name: Regression web E2E (Playwright + Neo4j)
         run: npx nx run regression:web-e2e
+        env:
+          SKIP_NEO4J_CONTAINER: "1"
 
       - name: Mobile typecheck
         run: npx nx run mobile:typecheck
