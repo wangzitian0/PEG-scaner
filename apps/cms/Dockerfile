@@ -9,11 +9,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY apps/cms/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application
-COPY . .
+# Copy shared libs (SSOT for config)
+COPY libs/ ./libs/
+
+# Copy CMS application
+COPY apps/cms/ ./apps/cms/
+
+# Set PYTHONPATH
+ENV PYTHONPATH=/app:/app/apps/cms:/app/libs
+
+WORKDIR /app/apps/cms
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
@@ -27,4 +35,3 @@ EXPOSE 8001
 
 # Run with gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8001", "--workers", "2", "cms.wsgi:application"]
-
