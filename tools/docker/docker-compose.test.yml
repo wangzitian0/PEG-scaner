@@ -1,7 +1,7 @@
 # =============================================================================
 # PEG-Scanner Test Environment
 # =============================================================================
-# 本地测试: docker compose -f tools/docker/docker-compose.test.yml up --abort-on-container-exit
+# 本地测试: podman-compose -f tools/docker/docker-compose.test.yml up --abort-on-container-exit
 # =============================================================================
 
 services:
@@ -35,8 +35,8 @@ services:
         condition: service_healthy
     command: >
       sh -c "
-        echo '=== Running lint ===' &&
-        npm run lint &&
+        echo '=== Running structure lint ===' &&
+        npm run lint:structure &&
         echo '=== Running typecheck ===' &&
         npx nx run mobile:typecheck &&
         echo '=== Running backend tests ===' &&

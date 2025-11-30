@@ -11,41 +11,28 @@ FROM mcr.microsoft.com/playwright:v1.52.0-noble
 # Avoid prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install Python 3.11
+# Python 3.12 is pre-installed in Ubuntu Noble, just ensure venv support
 RUN apt-get update && apt-get install -y \
-    python3.11 \
-    python3.11-venv \
+    python3-venv \
     python3-pip \
-    curl \
-    git \
     && rm -rf /var/lib/apt/lists/*
-
-# Make python3.11 the default
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
 
 # Set working directory
 WORKDIR /app
 
-# Copy dependency files first for better caching
-COPY package.json package-lock.json ./
-COPY apps/backend/requirements.txt ./apps/backend/
-COPY apps/mobile/package.json ./apps/mobile/
-COPY apps/regression/package.json ./apps/regression/
+# Copy all source code (dependencies will be installed fresh)
+COPY . .
 
-# Install Node.js dependencies
-RUN npm ci
+# Install Node.js dependencies (use install for flexibility)
+RUN npm install --legacy-peer-deps
 
 # Install Python dependencies
 RUN python3 -m venv /app/apps/backend/.venv \
     && /app/apps/backend/.venv/bin/pip install --upgrade pip \
     && /app/apps/backend/.venv/bin/pip install -r apps/backend/requirements.txt
 
-# Install Playwright browsers (already included in base image, but ensure chromium)
+# Install Playwright browsers
 RUN npx playwright install chromium
-
-# Copy the rest of the source code
-COPY . .
 
 # Default command
 CMD ["npm", "test"]
