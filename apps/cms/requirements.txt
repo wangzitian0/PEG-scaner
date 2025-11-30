@@ -1,0 +1,28 @@
+# Django CMS + Neo4j Graph Management
+
+# Core
+Django>=5.0,<6.0
+django-neomodel>=0.1.0
+
+# Neo4j
+neomodel>=5.3.0
+
+# PostgreSQL
+psycopg2-binary>=2.9.0
+dj-database-url>=2.1.0
+
+# Admin enhancements
+django-unfold>=0.20.0
+
+# JWT Authentication (instead of custom implementation)
+djangorestframework>=3.14.0
+djangorestframework-simplejwt>=5.3.0
+
+# State Machine (instead of custom implementation)
+django-fsm>=2.8.0
+
+# Environment
+python-dotenv>=1.0.0
+
+# Production server
+gunicorn>=21.0.0
