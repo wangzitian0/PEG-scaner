@@ -11,10 +11,17 @@ services:
       context: .
       dockerfile: apps/backend/Dockerfile
     environment:
+      # Core
+      - PEG_ENV=${PEG_ENV:-prod}
+      - DEBUG=${DEBUG:-False}
+      # Neo4j
       - NEO4J_URI=${NEO4J_URI}
       - NEO4J_USER=${NEO4J_USER:-neo4j}
       - NEO4J_PASSWORD=${NEO4J_PASSWORD}
-      - PEG_ENV=prod
+      - NEO4J_DATABASE=${NEO4J_DATABASE:-}
+      - DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-prod_}
+      # CORS
+      - API_CORS_ORIGINS=${API_CORS_ORIGINS:-}
     ports:
       - "2082:8000"
 
@@ -23,15 +30,25 @@ services:
       context: .
       dockerfile: apps/cms/Dockerfile
     environment:
+      # Core
+      - PEG_ENV=${PEG_ENV:-prod}
+      - DEBUG=${DEBUG:-False}
+      # PostgreSQL
       - DATABASE_URL=${DATABASE_URL}
+      # Neo4j
       - NEO4J_URI=${NEO4J_URI}
       - NEO4J_USER=${NEO4J_USER:-neo4j}
       - NEO4J_PASSWORD=${NEO4J_PASSWORD}
-      - PEG_ENV=prod
-      - DEBUG=False
+      - NEO4J_DATABASE=${NEO4J_DATABASE:-}
+      - DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-prod_}
+      # Django
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-localhost}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      # Django Superuser (首次部署)
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME:-admin}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD:-}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-admin@example.com}
     ports:
       - "8001:8001"
 
