@@ -56,7 +56,6 @@ npx nx run backend:test
 | `NEO4J_USER` | `neo4j` | Username |
 | `NEO4J_PASSWORD` | `pegscanner` | Password |
 | `NEO4J_DATABASE` | (default) | Database name |
-| `NEO4J_FAKE` | `0` | Set to `1` for in-memory fake |
 | `DB_TABLE_PREFIX` | `dev_` | Node label prefix |
 | `API_CORS_ORIGINS` | localhost:5173,5174 | CORS origins |
 | `PEG_AGENT_NAME` | `pegscanner-backend` | Agent identifier |

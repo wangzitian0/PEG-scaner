@@ -64,7 +64,6 @@ class Settings:
     neo4j_user: str
     neo4j_password: str
     neo4j_database: str
-    neo4j_fake: bool
     db_table_prefix: str
     
     # PostgreSQL
@@ -104,12 +103,6 @@ class Settings:
     def is_production(self) -> bool:
         return self.env == "prod"
     
-    @property
-    def use_fake_graph(self) -> bool:
-        """Alias for neo4j_fake (backward compat)."""
-        return self.neo4j_fake
-
-
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
     """Load settings from environment (cached).
@@ -125,7 +118,6 @@ def get_settings() -> Settings:
     neo4j_user = os.getenv("NEO4J_USER", "neo4j")
     neo4j_password = os.getenv("NEO4J_PASSWORD", "pegscanner")
     neo4j_database = os.getenv("NEO4J_DATABASE", "").strip()
-    neo4j_fake = _parse_bool(os.getenv("NEO4J_FAKE"))
     
     prefix = os.getenv("DB_TABLE_PREFIX")
     if not prefix:
@@ -161,7 +153,6 @@ def get_settings() -> Settings:
         neo4j_user=neo4j_user,
         neo4j_password=neo4j_password,
         neo4j_database=neo4j_database,
-        neo4j_fake=neo4j_fake,
         db_table_prefix=prefix,
         database_url=database_url,
         jwt_secret_key=jwt_secret_key,

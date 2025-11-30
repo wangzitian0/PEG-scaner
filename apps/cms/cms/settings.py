@@ -103,7 +103,6 @@ NEOMODEL_SIGNALS = True
 NEOMODEL_FORCE_TIMEZONE = False
 
 # Expose to other modules
-NEO4J_FAKE = app_settings.neo4j_fake
 DB_TABLE_PREFIX = app_settings.db_table_prefix
 
 # =============================================================================
