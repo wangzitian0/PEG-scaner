@@ -102,6 +102,11 @@ class Settings:
     @property
     def is_production(self) -> bool:
         return self.env == "prod"
+    
+    @property
+    def use_fake_graph(self) -> bool:
+        """Alias for neo4j_fake (backward compat)."""
+        return self.neo4j_fake
 
 
 @lru_cache(maxsize=1)
