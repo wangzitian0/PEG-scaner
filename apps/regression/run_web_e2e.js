@@ -25,9 +25,16 @@ const clearViteCache = () => {
 
 const cleanUp = () => {
   shuttingDown = true;
-  if (backend && !backend.killed) backend.kill('SIGINT');
-  if (previewServer && !previewServer.killed) {
-    previewServer.kill('SIGINT');
+  // Kill process groups with SIGTERM
+  if (backend && backend.pid && !backend.killed) {
+    try {
+      process.kill(-backend.pid, 'SIGTERM');
+    } catch (e) {}
+  }
+  if (previewServer && previewServer.pid && !previewServer.killed) {
+    try {
+      process.kill(-previewServer.pid, 'SIGTERM');
+    } catch (e) {}
   }
   stopNeo4j(neo4jState);
 };
@@ -42,6 +49,7 @@ const run = async () => {
     backend = spawn('npx', ['nx', 'run', 'backend:start'], {
       cwd: ROOT,
       stdio: 'inherit',
+      detached: true,  // Create process group
     });
     backend.on('exit', (code, signal) => {
       if (shuttingDown) return;
@@ -54,13 +62,14 @@ const run = async () => {
       cwd: MOBILE_DIR,
       stdio: 'inherit',
     });
-    await waitForUrl(`http://127.0.0.1:8000/graphql`);
+    await waitForUrl(`http://127.0.0.1:8000/`);  // Use root path instead of /graphql
     previewServer = spawn(
       'npx',
       ['vite', 'preview', '--host', WEB_HOST, '--port', WEB_PORT],
       {
         cwd: MOBILE_DIR,
         stdio: 'inherit',
+        detached: true,  // Create process group
       },
     );
     await waitForUrl(BASE_URL);
@@ -75,8 +84,15 @@ const run = async () => {
     });
   } finally {
     cleanUp();
+    // Give processes time to exit, then force exit
+    await sleep(1000);
+    process.exit(process.exitCode || 0);
   }
 };
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function exec(cmd, args, options) {
   return new Promise((resolve, reject) => {

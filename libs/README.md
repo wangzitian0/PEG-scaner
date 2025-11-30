@@ -1,49 +1,89 @@
-# Libraries
+# Libs - Shared Libraries (SSOT)
 
-Shared libraries and Single Source of Truth assets live under `libs/`. 
+Shared code between `apps/backend` (FastAPI) and `apps/cms` (Django).
 
-## Directory Index
-
-| Library | Description |
-|---------|-------------|
-| [`schema/`](./schema/README.md) | GraphQL SDL - cross-application contracts (SSOT) |
-| [`neo4j_repo/`](./neo4j_repo/README.md) | Neo4j data access layer - repositories & models |
-| [`neo4j_db/`](./neo4j_db/README.md) | Legacy Neo4j client (deprecated, use neo4j_repo) |
-
-## Architecture
+## Structure
 
 ```
 libs/
-├── schema/           # GraphQL SDL (SSOT for data contracts)
-│   ├── common/       # 通用类型 (Ping, Pagination)
-│   ├── market/       # 市场域 (Stock, KLine)
-│   ├── news/         # 新闻域 (NewsItem)
-│   └── schema.graphql  # 聚合产物
-│
-└── neo4j_repo/       # 共享数据访问层
-    ├── connection.py # 连接管理
-    ├── repositories/ # Repository 类
-    └── models/       # neomodel 节点定义
+├── config/              # ⭐ Unified settings (SSOT for all env vars)
+├── schema/
+│   ├── graphql/         # GraphQL SDL
+│   └── whitelist/       # Field validation rules
+├── neo4j_models/        # Neo4j node definitions (neomodel)
+├── neo4j_repo/          # Repository layer
+└── auth/                # JWT token verification
 ```
 
-## Usage
+## Configuration SSOT (`libs/config/`)
 
-### Schema
-
-```bash
-# Modify domain files, then regenerate
-python libs/schema/merge_schema.py
-```
-
-### Neo4j Repository
+Single source of truth for all environment variables:
 
 ```python
-from neo4j_repo import StockRepository
+from libs.config import settings
 
-repo = StockRepository()
-payload = repo.fetch_stock_payload("AAPL")
+# Neo4j
+settings.neo4j_bolt_url
+settings.db_table_prefix
+
+# PostgreSQL  
+settings.database_url
+
+# JWT (for simplejwt compatibility)
+settings.jwt_secret_key
+
+# Django
+settings.django_secret_key
+settings.django_allowed_hosts
 ```
 
-## Adding New Libraries
+**Environment contract**: `tools/envs/env.ci` (SSOT for all env vars)
 
-Add new shared libs here (e.g., reusable TypeScript/Python packages) so every app consumes the same artifacts.
+## Third-Party Libraries Used
+
+| Library | Purpose | Used By |
+|---------|---------|---------|
+| `djangorestframework-simplejwt` | JWT auth | Django |
+| `django-fsm` | State machine | Django |
+| `dj-database-url` | PostgreSQL URL parsing | Django |
+| `neomodel` | Neo4j ORM | Both |
+
+## Auth (`libs/auth/`)
+
+Verifies JWT tokens issued by Django simplejwt:
+
+```python
+# FastAPI - verify token from request
+from libs.auth import verify_token, get_user_id_from_token
+
+payload = verify_token(token)
+user_id = get_user_id_from_token(token)
+```
+
+**Note**: Token creation is handled by `djangorestframework-simplejwt` in Django.
+
+## Schema Whitelist (`libs/schema/whitelist/`)
+
+Field validation rules:
+
+```python
+from libs.schema.whitelist import validate_company
+
+is_valid, errors = validate_company({'ticker': 'AAPL', 'name': 'Apple'})
+```
+
+## Neo4j Models (`libs/neo4j_models/`)
+
+```python
+from libs.neo4j_models import Company, DailyQuote, DataBatch
+```
+
+| Model | Description |
+|-------|-------------|
+| Company | Stock entity |
+| DailyQuote | OHLCV data |
+| EarningsReport | Quarterly financials |
+| NewsArticle | News with embeddings |
+| DataSource | Provenance |
+| DataBatch | Pipeline batch |
+| CrawlerTask | Crawler job |

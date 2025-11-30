@@ -51,13 +51,6 @@ from neo4j_repo import lifespan
 app = FastAPI(lifespan=lifespan)
 ```
 
-### Testing (Fake Mode)
-
-```bash
-# Environment variable enables in-memory fake
-NEO4J_FAKE=1 pytest
-```
-
 ## Environment Variables
 
 | Variable | Default | Description |
@@ -66,20 +59,14 @@ NEO4J_FAKE=1 pytest
 | `NEO4J_USER` | `neo4j` | Username |
 | `NEO4J_PASSWORD` | `pegscanner` | Password |
 | `NEO4J_DATABASE` | (default) | Database name |
-| `NEO4J_FAKE` | `0` | Set to `1` for in-memory fake |
 | `DB_TABLE_PREFIX` | `dev_` or `prod_` | Node label prefix |
 
 ## Architecture
 
 ```
-StockRepository (facade)
-    ↓
-Neo4jStockRepository / FakeStockRepository
+StockRepository
     ↓
 StockDocumentNode (neomodel)
     ↓
 Neo4j Database
 ```
-
-The `StockRepository` facade auto-selects the real or fake implementation based on `NEO4J_FAKE` environment variable.
-

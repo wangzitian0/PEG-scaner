@@ -21,14 +21,13 @@ from neomodel import (
     UniqueIdProperty,
 )
 
-from ..connection import get_settings
-
-_SETTINGS = get_settings()
+# SSOT: Use settings from libs.config
+from libs.config import settings
 
 
 def _label(base: str) -> str:
     """Get prefixed label for Neo4j node."""
-    return _SETTINGS.prefixed_label(base)
+    return settings.prefixed_label(base)
 
 
 class _TimestampedNode(StructuredNode):

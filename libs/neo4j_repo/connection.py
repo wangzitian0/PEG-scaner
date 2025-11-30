@@ -1,139 +1,36 @@
 """
 Neo4j Connection Management
 
-Provides:
-- Settings dataclass for configuration
-- Driver lifecycle management
-- FastAPI lifespan context manager
+Re-exports from libs.config for backward compatibility.
+All settings are defined in libs/config/settings.py (SSOT).
 """
 
 from __future__ import annotations
 
-import os
 from contextlib import asynccontextmanager
-from dataclasses import dataclass
-from functools import lru_cache
-from typing import TYPE_CHECKING, List, Optional
-from urllib.parse import urlparse, urlunparse
+from typing import TYPE_CHECKING
 
 from neomodel import config as neo_config
+
+# SSOT: Import settings from libs.config
+from libs.config.settings import Settings, get_settings, reset_settings_cache
 
 if TYPE_CHECKING:
     from fastapi import FastAPI
 
-_DEFAULT_CORS = {
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
-}
-
-
-def _split_csv(value: Optional[str]) -> List[str]:
-    if not value:
-        return []
-    return [item.strip() for item in value.split(",") if item.strip()]
-
-
-def _sanitize_prefix(prefix: str) -> str:
-    sanitized = "".join(ch if ch.isalnum() or ch == "_" else "_" for ch in prefix.strip())
-    if sanitized and not sanitized.endswith("_"):
-        sanitized = f"{sanitized}_"
-    return sanitized
-
-
-@dataclass(frozen=True)
-class Settings:
-    """Application settings loaded from environment."""
-
-    env: str
-    debug: bool
-    agent_name: str
-    cors_allowed_origins: list[str]
-    neo4j_uri: str
-    neo4j_user: str
-    neo4j_password: str
-    neo4j_database: str
-    db_table_prefix: str
-    use_fake_graph: bool
-
-    def prefixed_label(self, base: str) -> str:
-        """Get prefixed Neo4j label."""
-        prefix = self.db_table_prefix or ""
-        return f"{prefix}{base}" if prefix else base
-
-    @property
-    def neo4j_bolt_url(self) -> str:
-        """Build complete Neo4j bolt URL with credentials."""
-        parsed = urlparse(self.neo4j_uri)
-        netloc = parsed.netloc or ""
-        if "@" in netloc:
-            netloc = netloc.split("@", 1)[-1]
-        if self.neo4j_user:
-            netloc = f"{self.neo4j_user}:{self.neo4j_password}@{netloc or 'localhost'}"
-        path = parsed.path or ""
-        if self.neo4j_database:
-            path = f"/{self.neo4j_database.strip('/')}"
-        return urlunparse(parsed._replace(netloc=netloc, path=path))
-
-
-def _derive_env() -> str:
-    return os.getenv("PEG_ENV") or os.getenv("FLASK_ENV") or "development"
-
-
-@lru_cache(maxsize=1)
-def get_settings() -> Settings:
-    """Load settings from environment (cached)."""
-    env = _derive_env().lower()
-    debug = env != "production" or os.getenv("FLASK_DEBUG") == "1"
-    agent_name = os.getenv("PEG_AGENT_NAME", "pegscanner-backend")
-
-    cors = _split_csv(os.getenv("API_CORS_ORIGINS")) or sorted(_DEFAULT_CORS)
-
-    neo4j_uri = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-    neo4j_user = os.getenv("NEO4J_USER", "neo4j")
-    neo4j_password = os.getenv("NEO4J_PASSWORD", "pegscanner")
-    neo4j_database = os.getenv("NEO4J_DATABASE", "").strip()
-
-    prefix = os.getenv("DB_TABLE_PREFIX")
-    if not prefix:
-        prefix = "prod_" if env == "production" else "dev_"
-    prefix = _sanitize_prefix(prefix)
-
-    use_fake_graph = os.getenv("NEO4J_FAKE", "0") == "1"
-
-    return Settings(
-        env=env,
-        debug=debug,
-        agent_name=agent_name,
-        cors_allowed_origins=cors,
-        neo4j_uri=neo4j_uri,
-        neo4j_user=neo4j_user,
-        neo4j_password=neo4j_password,
-        neo4j_database=neo4j_database,
-        db_table_prefix=prefix,
-        use_fake_graph=use_fake_graph,
-    )
-
-
-def reset_settings_cache() -> None:
-    """Clear settings cache (for testing)."""
-    get_settings.cache_clear()
+__all__ = ['Settings', 'get_settings', 'reset_settings_cache', 'get_driver', 'lifespan']
 
 
 def get_driver() -> None:
     """Initialize neomodel connection."""
     settings = get_settings()
-    if not settings.use_fake_graph:
-        neo_config.DATABASE_URL = settings.neo4j_bolt_url
+    neo_config.DATABASE_URL = settings.neo4j_bolt_url
 
 
 @asynccontextmanager
 async def lifespan(app: "FastAPI"):
     """FastAPI lifespan hook for Neo4j connection management."""
     settings = get_settings()
-    if not settings.use_fake_graph:
-        neo_config.DATABASE_URL = settings.neo4j_bolt_url
+    neo_config.DATABASE_URL = settings.neo4j_bolt_url
     yield
     # neomodel doesn't require explicit close
-

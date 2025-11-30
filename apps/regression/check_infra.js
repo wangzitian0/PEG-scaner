@@ -5,7 +5,7 @@ const { startNeo4j, waitForNeo4j, stopNeo4j } = require('./neo4j');
 
 const ROOT = path.resolve(__dirname, '../../');
 const WEB_PORT = Number(process.env.MOBILE_WEB_PORT || 5173);
-const BACKEND_URL = process.env.PEGSCANNER_GRAPHQL_URL || 'http://127.0.0.1:8000/graphql';
+const BACKEND_URL = process.env.PEGSCANNER_BACKEND_URL || 'http://127.0.0.1:8000/';
 const WEB_URL = `http://127.0.0.1:${WEB_PORT}/`;
 
 const children = [];
@@ -17,6 +17,7 @@ function startTarget(target) {
     cwd: ROOT,
     stdio: 'inherit',
     shell: false,
+    detached: true,  // Create new process group
   });
   children.push(child);
   return child;
@@ -25,8 +26,13 @@ function startTarget(target) {
 function stopAll() {
   shuttingDown = true;
   for (const child of children) {
-    if (child && !child.killed) {
-      child.kill('SIGINT');
+    if (child && child.pid && !child.killed) {
+      try {
+        // Kill entire process group (negative pid)
+        process.kill(-child.pid, 'SIGTERM');
+      } catch (e) {
+        // Process might already be dead
+      }
     }
   }
 }
@@ -92,7 +98,10 @@ async function waitForUrl(url, timeoutMs = 45000) {
     console.error('[infra] regression failed:', err.message);
     process.exitCode = 1;
   })
-  .finally(() => {
+  .finally(async () => {
     stopAll();
     stopNeo4j(neo4jState);
+    // Give processes time to exit gracefully
+    await sleep(1000);
+    process.exit(process.exitCode || 0);
   });
