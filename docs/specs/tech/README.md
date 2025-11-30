@@ -15,7 +15,7 @@ Technical Requirement Documents (TRD) for architecture, API design, and implemen
 - **内容重点**：架构图、调用关系、技术选型对比、接口伪代码（5-10行）、实施计划（Phase 列表、工时估算）
 - **包含数据层**：数据库 Schema、ER 图、Neo4j 模型属于 TRD
 - **包含实施**：详细的 Phase 规划、文件变更清单、风险评估
-- **不写内容**：完整实现代码（>50行放代码仓库）
+- **避免超大段的代码**：重点是给我审阅设计和架构，而不是代码
 
 ## 参考
 - [AGENTS.md](../../../AGENTS.md) - 文档组织原则
