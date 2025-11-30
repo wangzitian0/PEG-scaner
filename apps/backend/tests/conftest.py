@@ -2,22 +2,17 @@
 Test configuration for FastAPI + Strawberry backend.
 
 Uses Starlette TestClient for synchronous testing.
+Requires a running Neo4j instance.
 """
 
-import os
-
 import pytest
-
-# Set fake mode before importing app
-os.environ["NEO4J_FAKE"] = "1"
 
 from neo4j_repo.connection import reset_settings_cache
 
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_env():
-    """Ensure fake mode is set for all tests."""
-    os.environ["NEO4J_FAKE"] = "1"
+    """Reset settings cache at start of test session."""
     reset_settings_cache()
 
 

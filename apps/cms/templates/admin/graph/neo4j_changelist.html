@@ -1,0 +1,100 @@
+{% extends "admin/base_site.html" %}
+{% load i18n graph_tags %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb" class="text-sm">
+    <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="{% url 'admin:index' %}" class="text-primary-600 dark:text-primary-400">Home</a></li>
+        <li class="text-gray-400">/</li>
+        <li class="text-gray-600 dark:text-gray-300">{{ title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ title }}</h1>
+        <a href="{% url 'admin:graph_'|add:model_name|add:'_add' %}" 
+           class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+            Add {{ model_name|title }}
+        </a>
+    </div>
+    
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                    {% for field in fields %}
+                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-200">
+                        {{ field|title }}
+                    </th>
+                    {% endfor %}
+                    <th class="px-4 py-3 text-right text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-600">
+                {% for node in nodes %}
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    {% for field in fields %}
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                        {% with value=node|getattr:field %}
+                            {% if value == True %}
+                                <span class="text-green-600">✓</span>
+                            {% elif value == False %}
+                                <span class="text-red-600">✗</span>
+                            {% elif value is None %}
+                                <span class="text-gray-400">—</span>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    {% endfor %}
+                    <td class="px-4 py-3 text-sm text-right space-x-2">
+                        <a href="{% url 'admin:graph_'|add:model_name|add:'_change' node.uid %}" 
+                           class="text-primary-600 hover:text-primary-800 dark:text-primary-400">
+                            Edit
+                        </a>
+                        <a href="{% url 'admin:graph_'|add:model_name|add:'_delete' node.uid %}" 
+                           class="text-red-600 hover:text-red-800">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="{{ fields|length|add:1 }}" class="px-4 py-8 text-center text-gray-500">
+                        No records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="mt-4 flex justify-between items-center">
+        <span class="text-sm text-gray-600 dark:text-gray-400">
+            Total: {{ total_count }} records
+        </span>
+        <div class="flex gap-2">
+            {% if has_prev %}
+            <a href="?p={{ page|add:-1 }}" 
+               class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200">
+                Previous
+            </a>
+            {% endif %}
+            {% if has_next %}
+            <a href="?p={{ page|add:1 }}" 
+               class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200">
+                Next
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

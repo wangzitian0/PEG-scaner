@@ -6,47 +6,74 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     env:
-      PYTHONUNBUFFERED: "1"
-      NEO4J_AUTH: "neo4j/pegscanner"
-      NEO4J_CONTAINER: "pegscanner_ci_neo4j"
-      NEO4J_DATA_DIR: "${{ github.workspace }}/x-data/neo4j"
+      NEO4J_URI: "bolt://localhost:7687"
+      NEO4J_USER: "neo4j"
+      NEO4J_PASSWORD: "pegscanner"
+      SKIP_NEO4J_CONTAINER: "1"
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/pegscanner"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Start infrastructure (Neo4j + PostgreSQL)
+        run: |
+          docker compose -f tools/docker/docker-compose.infra.yml up -d
+          echo "Waiting for Neo4j..."
+          for i in {1..30}; do
+            if curl -s http://localhost:7474 > /dev/null; then
+              echo "✓ Neo4j ready"
+              break
+            fi
+            sleep 2
+          done
+          echo "Waiting for PostgreSQL..."
+          for i in {1..15}; do
+            if docker exec pegscanner-postgres pg_isready -U postgres > /dev/null 2>&1; then
+              echo "✓ PostgreSQL ready"
+              break
+            fi
+            sleep 2
+          done
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-
-      - name: Install npm dependencies
-        run: npm install
-
-      - name: Lint repository structure
-        run: npm run lint:structure
+          cache: "npm"
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Backend install (venv + deps)
-        run: npx nx run backend:install
+      - name: Install dependencies
+        run: |
+          npm install --legacy-peer-deps
+          npx nx run backend:install
 
-      - name: Backend unit tests (protobuf ping)
-        run: npx nx run backend:test
-
-      - name: Install Playwright system dependencies
-        run: sudo npx playwright install-deps chromium
-
-      - name: Regression infra flow (backend + Vite + Neo4j)
-        run: npx nx run regression:infra-flow
-
-      - name: Regression web E2E (Playwright + Neo4j)
-        run: npx nx run regression:web-e2e
+      - name: Lint structure
+        run: npm run lint:structure
 
       - name: Mobile typecheck
         run: npx nx run mobile:typecheck
+
+      - name: Backend tests
+        run: npx nx run backend:test
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Regression infra-flow
+        run: npx nx run regression:infra-flow
+
+      - name: Regression web-e2e
+        run: npx nx run regression:web-e2e
+
+      - name: Stop infrastructure
+        if: always()
+        run: docker compose -f tools/docker/docker-compose.infra.yml down -v

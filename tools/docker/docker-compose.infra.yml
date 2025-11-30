@@ -1,0 +1,49 @@
+# =============================================================================
+# PEG-Scanner Infrastructure Dependencies
+# =============================================================================
+# 只包含数据库依赖，测试代码在宿主机运行
+#
+# 启动: docker compose -f tools/docker/docker-compose.infra.yml up -d
+# 停止: docker compose -f tools/docker/docker-compose.infra.yml down
+# =============================================================================
+
+services:
+  neo4j:
+    image: neo4j:5-community
+    container_name: pegscanner-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/pegscanner
+      NEO4J_PLUGINS: '[]'
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+    ports:
+      - "7687:7687"
+      - "7474:7474"
+    volumes:
+      - neo4j_data:/data
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: pegscanner-postgres
+    environment:
+      POSTGRES_DB: pegscanner
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  neo4j_data:
+  postgres_data:
+

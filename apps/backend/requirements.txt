@@ -12,6 +12,9 @@ pydantic-settings>=2.1.0
 neo4j>=5.15.0
 neomodel>=5.2.0
 
+# Auth
+PyJWT>=2.8.0
+
 # Data fetching
 yfinance>=0.2.36
 
