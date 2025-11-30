@@ -24,15 +24,13 @@ __all__ = ['Settings', 'get_settings', 'reset_settings_cache', 'get_driver', 'li
 def get_driver() -> None:
     """Initialize neomodel connection."""
     settings = get_settings()
-    if not settings.use_fake_graph:
-        neo_config.DATABASE_URL = settings.neo4j_bolt_url
+    neo_config.DATABASE_URL = settings.neo4j_bolt_url
 
 
 @asynccontextmanager
 async def lifespan(app: "FastAPI"):
     """FastAPI lifespan hook for Neo4j connection management."""
     settings = get_settings()
-    if not settings.use_fake_graph:
-        neo_config.DATABASE_URL = settings.neo4j_bolt_url
+    neo_config.DATABASE_URL = settings.neo4j_bolt_url
     yield
     # neomodel doesn't require explicit close
