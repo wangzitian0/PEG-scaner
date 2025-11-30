@@ -53,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm ci --legacy-peer-deps
+          npm install --legacy-peer-deps
           npx nx run backend:install
 
       - name: Lint structure
