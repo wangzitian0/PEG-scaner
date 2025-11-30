@@ -57,6 +57,7 @@ class Settings:
     # Core
     env: str
     debug: bool
+    agent_name: str
     
     # Neo4j
     neo4j_uri: str
@@ -117,6 +118,7 @@ def get_settings() -> Settings:
     """
     env = os.getenv("PEG_ENV", "dev").lower()
     debug = _parse_bool(os.getenv("DEBUG"), default=env != "prod")
+    agent_name = os.getenv("PEG_AGENT_NAME", "pegscanner-backend")
     
     # Neo4j
     neo4j_uri = os.getenv("NEO4J_URI", "bolt://localhost:7687")
@@ -154,6 +156,7 @@ def get_settings() -> Settings:
     return Settings(
         env=env,
         debug=debug,
+        agent_name=agent_name,
         neo4j_uri=neo4j_uri,
         neo4j_user=neo4j_user,
         neo4j_password=neo4j_password,
