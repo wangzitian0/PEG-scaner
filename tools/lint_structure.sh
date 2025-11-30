@@ -28,6 +28,7 @@ allowed_files=(
   "PRD.md"
   "README.md"
   "docker-compose.yml"
+  "docker-compose.dev.yml"
   "nx"
   "nx.bat"
   "nx.json"
