@@ -26,9 +26,18 @@ function stopAll() {
   shuttingDown = true;
   for (const child of children) {
     if (child && !child.killed) {
-      child.kill('SIGINT');
+      child.kill('SIGTERM');
     }
   }
+  // Force exit after 2 seconds if processes don't terminate
+  setTimeout(() => {
+    for (const child of children) {
+      if (child && !child.killed) {
+        child.kill('SIGKILL');
+      }
+    }
+    process.exit(process.exitCode || 0);
+  }, 2000);
 }
 
 function sleep(ms) {
