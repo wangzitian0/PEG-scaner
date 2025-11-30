@@ -62,9 +62,17 @@ for entry in "$ROOT_DIR"/.* "$ROOT_DIR"/*; do
   fi
 done
 
-required_readme_dirs=("apps" "docs" "libs" "tools" "x-data" "x-log")
+required_readme_dirs=("apps" "docs" "libs" "tools")
+optional_readme_dirs=("x-data" "x-log")  # Optional in CI (excluded from Docker)
+
 for dir in "${required_readme_dirs[@]}"; do
   if [[ ! -f "$ROOT_DIR/$dir/README.md" ]]; then
+    violations+=("Missing README.md in $dir/")
+  fi
+done
+
+for dir in "${optional_readme_dirs[@]}"; do
+  if [[ -d "$ROOT_DIR/$dir" && ! -f "$ROOT_DIR/$dir/README.md" ]]; then
     violations+=("Missing README.md in $dir/")
   fi
 done
