@@ -1,0 +1,29 @@
+# Node modules (will be installed in container)
+node_modules/
+**/node_modules/
+
+# Python venvs (will be created in container)
+.venv/
+**/.venv/
+
+# Build outputs
+dist/
+**/dist/
+
+# Data and logs
+x-data/
+x-log/
+
+# Git
+.git/
+
+# IDE
+.idea/
+.vscode/
+
+# Cache
+.nx/
+.pytest_cache/
+**/__pycache__/
+*.pyc
+
