@@ -20,6 +20,7 @@ allowed_dirs=(
 )
 
 allowed_files=(
+  ".dockerignore"
   ".gitignore"
   ".prettierignore"
   ".prettierrc"

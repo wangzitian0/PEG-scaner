@@ -1,0 +1,49 @@
+# =============================================================================
+# PEG-Scanner Test Environment
+# =============================================================================
+# 本地测试: docker compose -f tools/docker/docker-compose.test.yml up --abort-on-container-exit
+# =============================================================================
+
+services:
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      NEO4J_AUTH: neo4j/pegscanner
+      NEO4J_PLUGINS: '[]'
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+    ports:
+      - "7687:7687"
+      - "7474:7474"
+
+  test-runner:
+    build:
+      context: ../..
+      dockerfile: tools/docker/Dockerfile.ci
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=pegscanner
+      - SKIP_NEO4J_CONTAINER=1
+      - CI=true
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    command: >
+      sh -c "
+        echo '=== Running lint ===' &&
+        npm run lint &&
+        echo '=== Running typecheck ===' &&
+        npx nx run mobile:typecheck &&
+        echo '=== Running backend tests ===' &&
+        npx nx run backend:test &&
+        echo '=== Running infra-flow ===' &&
+        npx nx run regression:infra-flow &&
+        echo '=== Running web-e2e ===' &&
+        npx nx run regression:web-e2e &&
+        echo '=== All tests passed! ==='
+      "
