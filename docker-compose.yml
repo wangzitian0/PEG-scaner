@@ -22,8 +22,10 @@ services:
       - DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-prod_}
       # CORS
       - API_CORS_ORIGINS=${API_CORS_ORIGINS:-}
-    ports:
-      - "2082:8000"
+    # ports:
+    #   - "2082:8000"
+    expose:
+      - 8000
 
   cms:
     build:
@@ -49,8 +51,9 @@ services:
       - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME:-admin}
       - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD:-}
       - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-admin@example.com}
-    ports:
-      - "8001:8001"
+    # ports:
+    #   - 8001:8001
+    expose:
 
   frontend:
     build:
@@ -58,5 +61,7 @@ services:
       dockerfile: apps/mobile/Dockerfile
     depends_on:
       - backend
-    ports:
-      - "8080:80"
+    # ports:
+    #   - 8080:80
+    expose:
+      - 80
