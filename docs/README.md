@@ -8,6 +8,7 @@
 docs/
 ├── index.md           # 索引总表 + 当前状态总览
 ├── arch.md            # 架构决策记录（5W1H）
+├── workflows/         # 变更流程（按变更类型正交划分）
 ├── origin/            # BRN-NNN.md（用户决策录，AI 只读）
 ├── specs/             # 各类规范文档（PRD/TRD/DRD/IRD）
 │   ├── product/       # PRD - 产品需求
@@ -23,6 +24,7 @@ docs/
 | 我想... | 去哪里 |
 |--------|--------|
 | 了解当前做什么 | [index.md](./index.md) - 当前状态 |
+| 查变更流程 | [workflows/](./workflows/README.md) |
 | 查看技术架构 | [arch.md](./arch.md) |
 | 了解产品需求 | [specs/product/](./specs/product/) |
 | 查看技术实现 | [specs/tech/](./specs/tech/) |
