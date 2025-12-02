@@ -10,6 +10,8 @@ Technical Requirement Documents (TRD) for architecture, API design, and implemen
 | [TRD-001](./TRD-001.infra_ping.md) | BRN-001 | 核心基建与 Ping 实现 | ✅ 已完成 |
 | [TRD-002](./TRD-002.strawberry_fastapi.md) | BRN-002 | Strawberry + FastAPI 实现 | ✅ 已完成 |
 | [TRD-003](./TRD-003.single_stock_tech.md) | BRN-003 | 个股页面技术设计 | ✅ 已完成 |
+| [TRD-005](./TRD-005.cms_graph_admin.md) | BRN-005 | CMS 知识图谱管理 | 🚧 进行中 |
+| [TRD-004](./TRD-004.dev_test_prod_implementation.md) | BRN-004 | 开发/测试/生产环境 + tools/ 规范 | 🚧 进行中 |
 
 ## 文档规范
 - **内容重点**：架构图、调用关系、技术选型对比、接口伪代码（5-10行）、实施计划（Phase 列表、工时估算）

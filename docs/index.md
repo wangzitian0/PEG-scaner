@@ -14,11 +14,13 @@
 | **[TRD-001.infra_ping.md](./specs/tech/TRD-001.infra_ping.md)** | 核心基建技术实现（对应 BRN-001） | 基建变更时 | Agent |
 | **[TRD-002.strawberry_fastapi.md](./specs/tech/TRD-002.strawberry_fastapi.md)** | GraphQL 协议实现（对应 BRN-002） | 协议/Schema 变更时 | Agent |
 | **[TRD-003.single_stock_tech.md](./specs/tech/TRD-003.single_stock_tech.md)** | 个股页面技术设计（对应 BRN-003） | 个股页技术变更时 | Agent |
+| **[TRD-004.dev_test_prod_implementation.md](./specs/tech/TRD-004.dev_test_prod_implementation.md)** | 开发/测试/生产环境（对应 BRN-004） | 环境变更时 | Agent |
 | **[TRD-005.cms_graph_admin.md](./specs/tech/TRD-005.cms_graph_admin.md)** | Django CMS + Neo4j Admin（对应 BRN-005） | CMS/Admin 变更时 | Agent |
 || **[DRD-005.data_pipeline_ops.md](./specs/BI/DRD-005.data_pipeline_ops.md)** | 数据流水线运营规范（对应 BRN-005） | 数据运营规则变更时 | Agent |
 | **[PRD-003.single_stock_page.md](./specs/product/PRD-003.single_stock_page.md)** | 个股页面产品需求（对应 BRN-003） | 产品需求变更时 | Agent |
 | **[todowrite.md](./project/BRN-001/todowrite.md)** | 需求完成状态跟踪（打勾用） | 每次完成任务后 | Agent |
 | **[IRD-001.md](./specs/infra/IRD-001.md)** | AI 评分机制详细说明 | 机制变更时 | Agent |
+| **[IRD-004.md](./specs/infra/IRD-004.dev_test_prod_infra.md)** | 开发/测试/生产环境基础设施 | 环境变更时 | Agent |
 | **[project/BRN-001/README.md](./project/BRN-001/README.md)** | 迭代管理规范 + 当前 Phase 状态 | Phase 状态变更时 | Agent |
 | **[project/BRN-001/prompt.md](./project/BRN-001/prompt.md)** | 用户指令日志（SSOT） | 每次收到指令后 | Agent |
 | **project/BRN-001/phrase_N.xxx/** | 单个迭代的详细记录 | 迭代进行中 | Agent |
@@ -32,6 +34,7 @@
 | BRN-001 | 核心基建 & 个股页面 | 🚧 进行中 | [project/BRN-001/](./project/BRN-001/README.md) |
 | BRN-002 | 架构迁移（Strawberry + FastAPI） | ✅ 已完成 | [project/BRN-002/](./project/BRN-002/README.md) |
 | BRN-003 | 个股页面完整实现 | 📋 未开始 | [project/BRN-003/](./project/BRN-003/README.md) |
+| BRN-004 | 开发/测试/生产环境 | 🚧 进行中 | [project/BRN-004/](./project/BRN-004/README.md) |
 | BRN-005 | 股票知识图谱 Schema + CMS | 📋 待确认 | [TRD-005](./specs/tech/TRD-005.cms_graph_admin.md) |
 
 ### BRN-001 Phase 进度
