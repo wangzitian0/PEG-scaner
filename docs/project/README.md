@@ -29,6 +29,11 @@ project/
 
 **不允许子目录**：（详细技术文档放 specs/，执行细节放 context.md）
 
+## 同步要求（BRN ↔ specs ↔ project）
+- 同编号材料必须同步：`docs/origin/BRN-NNN.*`（Why/What）、`docs/specs/*/*-NNN.*`（设计/数据/架构）、`docs/project/BRN-NNN/*`（执行与指令）。
+- 状态或口径变更时同步更新各层，并在 `todowrite.md` 标记缺口/后续动作；避免留空或放错位置。
+- 决策写 BRN，方案写 XRD（PRD/TRD/DRD/IRD），执行/检查单写 project/BRN-NNN；保持单一来源、避免漂移。
+
 ## 迭代列表
 
 | BRN | 名称 | 状态 | 详情 |

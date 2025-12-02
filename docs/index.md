@@ -9,6 +9,7 @@
 | 文件 | 职责 | 更新时机 | 谁写 |
 |------|------|----------|------|
 | **本文件 (index.md)** | 索引 + 当前状态总览 | 每次迭代结束 | Agent |
+| **[workflows/\*.md](./workflows/README.md)** | 变更流程定义（按类型正交） | 新增/调整流程时 | Agent |
 | **[PRD-000.stock_app_overview.md](./specs/product/PRD-000.stock_app_overview.md)** | 产品总览（整体目标/界面列表） | 用户修改需求时 | 用户 |
 | **[TRD-000.roadmap_phases.md](./specs/tech/TRD-000.roadmap_phases.md)** | 开发路线图（Phase 1-5 高层规划） | 规划调整时 | Agent |
 | **[TRD-001.infra_ping.md](./specs/tech/TRD-001.infra_ping.md)** | 核心基建技术实现（对应 BRN-001） | 基建变更时 | Agent |
@@ -52,6 +53,7 @@
 | 问题 | 去哪里 |
 |------|--------|
 | 项目要做什么功能？ | [PRD-000.stock_app_overview.md](./specs/product/PRD-000.stock_app_overview.md) |
+| 按类型执行变更流程？ | [workflows/](./workflows/README.md) |
 | 整体开发计划是什么？ | [TRD-000.roadmap_phases.md](./specs/tech/TRD-000.roadmap_phases.md) |
 | 个股页面怎么做？ | [PRD-003](./specs/product/PRD-003.single_stock_page.md) + [TRD-003](./specs/tech/TRD-003.single_stock_tech.md) |
 | 数据源与质量规则？ | [DRD-005](./specs/BI/DRD-005.data_pipeline_ops.md) |

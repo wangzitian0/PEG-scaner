@@ -164,8 +164,21 @@ BRN-002 是定义好协议，通信方式，依赖关系。15 行以内表述。
 按照这个调整目录啊？
 ```
 
-## Prompt 11
+## 历史提示片段回填（来自已归档的 append_promot.md）
 
-```
-你在 @docs/phrase_0.infra/ 里面加一个 deploy.md，把这个当做 TODOwrite 吧。一步步来，每一步要有测试标准，我来遵照你的指令
-```
+- Phase 0 infra：
+  1. “和 proto，nx 相关的基础设施放在 phrase_0.infra 里面哦”
+  2. “有毒吧你。新建一个目录叫做 regression_tests/吧，这种端到端测试放里面，单元测试和局部测试，各个文件夹自己管理就好”
+  3. “交付标准是，流程跑通。”
+  4. “交付标准是，流程跑通。- ping-pong 也应该基于 protobuf …”
+  5. “你在 @docs/phrase_0.infra/ 里面加一个 deploy.md，把这个当做 TODOwrite 吧。一步步来，每一步要有测试标准，我来遵照你的指令”
+  6. “BRN-002 是定义好协议，通信方式，依赖关系。15 行以内表述。建好 TRD-002”
+
+- Phase 1 single_stock_page：
+  1. “请你阅读 AGENTS.md , 现在傻逼 gemini 卡住了调不通，你能比他厉害么？”
+  2. “你不知道接下来要干啥？”
+  3. “先做 1 吧”
+  4. “先做 1 吧，等一下，你怎么保证不同的模型都来读这个文件？在 agents.md 里面说明？”
+  5. “我修改了下 agents.md，请你再调整下路径”
+  6. “和 proto，nx 相关的基础设施放在 phrase_0.infra 里面哦”
+  7. “docs/project/BRN-001/phrase_1.single_stock_page 帮我写一个 10 行的 BRN-003，对应 PRD-001。然后把整个目录按照 agents.md 的标准组织。”

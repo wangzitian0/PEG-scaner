@@ -4,14 +4,15 @@
 
 | 规则 | 检查问题 |
 |------|----------|
-| 先读后写 | 修改任何目录/文件前必须先阅读该层 README |
+| 强制关联 | 如果分支号，让你修改的文档都看不出来是 BRN-xxx，那么必须询问当前是哪个 BRN。 |
+| 先读后写 | 修改任何目录/文件前必须先阅读该层 README.md。 |
 | 跑测试 | 每次改代码都要跑测试（代码 + 数据产物校验） |
-| 检查遗漏 | 完成后检查 agent.md，未满足的追加到 `docs/project/BRN-001/todowrite.md` |
+| 检查遗漏 | 完成后检查 agent.md，未满足的追加到 `docs/project/BRN-xxx/todowrite.md` |
 | 宁空勿错 | 数据不确定就留空，不要用错的 |
 | 利用存量 | 先读存量文档和代码，不要上来就重写 |
-| Anti: Over-engineering | 是否引入了用户没要求的抽象层/框架？ |
-| Anti: Scope creep | 是否只做了用户明确要求的事？ |
-| Anti: Verbose output | 核心问题是否真的解决了？ |
+| 不要过度设计 | 是否引入了用户没要求的抽象层/框架？ |
+| 不要范围蔓延 | 是否只做了用户明确要求的事？ |
+| 不要冗余输出 | 核心问题是否真的解决了？ |
 
 ---
 
@@ -99,6 +100,15 @@ docs/
 - 请你在`docs/index.md`仔细定义对的位置。
 
 ## 三、流程与项目管理
+
+### Workflow 激活
+- 每次动手前，先在 `docs/workflows/` 选择一个匹配的 workflow（若涉及多种变更，拆分任务分别执行）。
+- 在当次回复或 `project/BRN-*/prompt.md`/phrase 记录中注明所用 workflow，确保可追溯。
+
+### 同编号文档强同步
+- 同一 BRN 编号的材料必须同步：`docs/origin/BRN-XXX`（Why/What）、`docs/specs/*/*-XXX.*`（设计方案）、`docs/project/BRN-XXX/*`（执行/指令），变更状态或口径时同步更新对应层级。
+- 任何新增/修改决策必须落在“对的位置”：决策在 BRN，方案在 XRD，执行/检查单在 project/BRN-XXX，避免漂移或悬空文件。
+- 若某层暂缺信息，保持空但在 `docs/project/BRN-XXX/todowrite.md` 记录缺口与后续动作，禁止放错层级或留无归档的零散信息。
 
 ### 项目进度
 - 项目类宏观层面的进度请放在 docs/index.md，能够 onepage 知道现在做到哪里了。
