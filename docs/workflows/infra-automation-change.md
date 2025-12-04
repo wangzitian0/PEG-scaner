@@ -10,7 +10,7 @@
 
 ## 必须阅读的文档
 - `AGENTS.md`、`docs/README.md`、相关目录 README
-- 相关 IRD（如 `docs/specs/infra/IRD-004.dev_test_prod_infra.md`）
+- 相关 IRD（如 `docs/specs/infra/IRD-004.env_eaas_infra.md`）
 - 受影响脚本/配置（`tools/`, `docker-compose*.yml`, CI workflows）
 - 目标环境契约：`.env.ci`、环境变量约定
 
