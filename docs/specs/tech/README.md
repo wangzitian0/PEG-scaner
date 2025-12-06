@@ -12,6 +12,7 @@ Technical Requirement Documents (TRD) for architecture, API design, and implemen
 | [TRD-003](./TRD-003.single_stock_tech.md) | BRN-003 | 个股页面技术设计 | ✅ 已完成 |
 | [TRD-005](./TRD-005.cms_graph_admin.md) | BRN-005 | CMS 知识图谱管理 | 🚧 进行中 |
 | [TRD-004](./TRD-004.env_eaas_implementation.md) | BRN-004 | 开发/测试/生产环境 + tools/ 规范 | 🚧 进行中 |
+| [TRD-007](./TRD-007.app_env_implementation.md) | BRN-007 | 应用环境实施细节（Compose + Infisical 规范） | 🚧 进行中 |
 
 ## 文档规范
 - **内容重点**：架构图、调用关系、技术选型对比、接口伪代码（5-10行）、实施计划（Phase 列表、工时估算）

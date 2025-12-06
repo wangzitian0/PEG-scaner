@@ -17,13 +17,16 @@
 | **[TRD-003.single_stock_tech.md](./specs/tech/TRD-003.single_stock_tech.md)** | 个股页面技术设计（对应 BRN-003） | 个股页技术变更时 | Agent |
 | **[TRD-004.env_eaas_implementation.md](./specs/tech/TRD-004.env_eaas_implementation.md)** | 开发/测试/生产环境（对应 BRN-004） | 环境变更时 | Agent |
 | **[TRD-005.cms_graph_admin.md](./specs/tech/TRD-005.cms_graph_admin.md)** | Django CMS + Neo4j Admin（对应 BRN-005） | CMS/Admin 变更时 | Agent |
-|| **[DRD-005.data_pipeline_ops.md](./specs/BI/DRD-005.data_pipeline_ops.md)** | 数据流水线运营规范（对应 BRN-005） | 数据运营规则变更时 | Agent |
+| **[TRD-007.app_env_implementation.md](./specs/tech/TRD-007.app_env_implementation.md)** | 应用环境实施细节（对应 BRN-007） | 环境变更时 | Agent |
+| **[DRD-005.data_pipeline_ops.md](./specs/BI/DRD-005.data_pipeline_ops.md)** | 数据流水线运营规范（对应 BRN-005） | 数据运营规则变更时 | Agent |
 | **[PRD-003.single_stock_page.md](./specs/product/PRD-003.single_stock_page.md)** | 个股页面产品需求（对应 BRN-003） | 产品需求变更时 | Agent |
 | **[todowrite.md](./project/BRN-001/todowrite.md)** | 需求完成状态跟踪（打勾用） | 每次完成任务后 | Agent |
 | **[IRD-001.md](./specs/infra/IRD-001.md)** | AI 评分机制详细说明 | 机制变更时 | Agent |
 | **[IRD-004.md](./specs/infra/IRD-004.env_eaas_infra.md)** | 开发/测试/生产环境基础设施 | 环境变更时 | Agent |
+| **[IRD-007.app_env_infra.md](./specs/infra/IRD-007.app_env_infra.md)** | 应用环境基础设施设计（对应 BRN-007） | 环境变更时 | Agent |
 | **[project/BRN-001/README.md](./project/BRN-001/README.md)** | 迭代管理规范 + 当前 Phase 状态 | Phase 状态变更时 | Agent |
 | **[project/BRN-001/prompt.md](./project/BRN-001/prompt.md)** | 用户指令日志（SSOT） | 每次收到指令后 | Agent |
+| **[project/BRN-007/README.md](./project/BRN-007/README.md)** | 应用环境迭代执行记录 | 状态更新或指令记录时 | Agent |
 | **project/BRN-001/phrase_N.xxx/** | 单个迭代的详细记录 | 迭代进行中 | Agent |
 
 ---
@@ -37,6 +40,7 @@
 | BRN-003 | 个股页面完整实现 | 📋 未开始 | [project/BRN-003/](./project/BRN-003/README.md) |
 | BRN-004 | 开发/测试/生产环境 | 🚧 进行中 | [project/BRN-004/](./project/BRN-004/README.md) |
 | BRN-005 | 股票知识图谱 Schema + CMS | 📋 待确认 | [TRD-005](./specs/tech/TRD-005.cms_graph_admin.md) |
+| BRN-007 | 应用环境开发/测试/生产机制 | 🚧 进行中 | [project/BRN-007/](./project/BRN-007/README.md) |
 
 ### BRN-001 Phase 进度
 | Phase | 名称 | 状态 |
@@ -57,7 +61,8 @@
 | 整体开发计划是什么？ | [TRD-000.roadmap_phases.md](./specs/tech/TRD-000.roadmap_phases.md) |
 | 个股页面怎么做？ | [PRD-003](./specs/product/PRD-003.single_stock_page.md) + [TRD-003](./specs/tech/TRD-003.single_stock_tech.md) |
 | 数据源与质量规则？ | [DRD-005](./specs/BI/DRD-005.data_pipeline_ops.md) |
-|| 流水线如何设计？ | [TRD-005](./specs/tech/TRD-005.cms_graph_admin.md) |
+| 流水线如何设计？ | [TRD-005](./specs/tech/TRD-005.cms_graph_admin.md) |
+| 多环境怎么设计/实施？ | [BRN-007](./project/BRN-007/README.md) + [TRD-007](./specs/tech/TRD-007.app_env_implementation.md) + [IRD-007](./specs/infra/IRD-007.app_env_infra.md) |
 | 哪些需求已完成/待做？ | [todowrite.md](./project/BRN-001/todowrite.md) |
 | 当前在做哪个 Phase？ | 本文件的"当前状态"表格 |
 | 某个 Phase 的详细进展？ | [project/BRN-001/phrase_N/](./project/BRN-001/) |
