@@ -6,7 +6,7 @@
 - 方案参考：`TRD-004.env_eaas_implementation.md`、`IRD-004.env_eaas_infra.md`、infra 仓库 <https://github.com/wangzitian0/infra/blob/main/docs/BRN-004.env_eaas_design.md>。
 
 ## 当前状态
-- 运行时改为 k3s + Kubero + Kubero UI；Traefik/Infisical 集成仍在规划中。
+- 运行时改为 k3s + Kubero + Kubero UI；Traefik/Vault 集成仍在规划中。
 - 一键启动入口：`npm run dev` / `tools/dev.sh`（需验证环境注入与依赖启动）。
 
 ## 待补充

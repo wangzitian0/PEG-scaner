@@ -22,7 +22,7 @@
 |------|------|------|
 | docker-compose.yml 基础配置 | ✅ | 生产环境 |
 | docker-compose.dev.yml 开发配置 | ✅ | 含本地数据库 |
-| Infisical 集成 | 📋 | 待配置 |
+| Vault 集成 | 📋 | 待配置 |
 | Dokploy 部署 | 🚧 | 调试中 |
 | Traefik 路由 | 📋 | 待配置 |
 | CI/CD 流程 | ✅ | GitHub Actions |
@@ -30,4 +30,4 @@
 ## 已知问题
 
 - [ ] docker-compose.yml 语法需验证（cms.expose 格式）
-- [ ] Infisical 环境变量待导入
+- [ ] Vault 环境变量/密钥路径待确认

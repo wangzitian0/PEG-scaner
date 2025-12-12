@@ -6,7 +6,7 @@
 
 ## 对齐与盘点
 - [ ] 盘点 compose 结构是否符合 BRN-007（base + per-env overrides）。
-- [ ] 盘点 Infisical 集成与环境变量契约（与 `.env.ci` 对齐）。
+- [ ] 盘点 Vault 集成与环境变量契约（与 `.env.ci` 对齐）。
 - [ ] 对比 TRD-007/IRD-007 与现状，列出缺口。
 
 ## 执行与验证（待规划）
