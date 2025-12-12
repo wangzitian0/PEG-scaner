@@ -14,14 +14,13 @@
 
 - [ ] `npm run dev` 或 `./tools/dev.sh` 一键启动本地全栈
 - [ ] CI 一键跑测试（当前 `.github/workflows/ci.yml` 已有）
-- [ ] 本地无需配置 Infisical 也能跑（用默认值）
+- [ ] 本地无需配置 Vault 也能跑（用默认值）
 
-## Infisical 集成
+## Vault 集成
 
-- [ ] 创建 Infisical 项目
-- [ ] 配置 5 套环境变量 (dev/ci/test/staging/prod)
-- [ ] `infisical export` 脚本集成到 `tools/dev.sh`
-- [ ] GitHub Actions 集成 Infisical
+- [ ] 设计 Vault KV 路径与命名（dev/ci/test/staging/prod）
+- [ ] `tools/dev.sh` 支持从 Vault 拉取/注入（可选）
+- [ ] GitHub Actions/CI 与 Vault 的认证方式（如需要）
 
 ## 部署
 
